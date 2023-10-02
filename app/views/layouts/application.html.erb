@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Saguru</title>
+    <title>Saguru - サグル -</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,7 +10,16 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="body">
+    <header class="header body__header">
+      <h1 class="logo header__logo">
+        <p class="logo__ruby">-サグル-</p>
+        <p class="logo__ttl">Saguru</p>
+      </h1>
+    </header>
+
+    <main class="main body__main">
+      <%= yield %>
+    </main>
   </body>
 </html>

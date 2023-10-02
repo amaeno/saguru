@@ -1,1 +1,21 @@
 @charset "utf-8";
+
+$headerHeight: 120px;
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    background-color: white;
+}
+
+.body__header {
+    height: $headerHeight;
+}
+
+.body__main {
+    // 固定ヘッダーと重ならないための余白
+    padding-top:  $headerHeight;
+}
