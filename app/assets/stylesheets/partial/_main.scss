@@ -4,10 +4,10 @@
 // variable 
 // ============================================
 $maxWidth: 1440px;
-$gridBgColor: #999999;
+$gridBgColor: #777777;
 $gridBorderColor: #aaaaaa;
 
-$episodeTableTempCol: 1fr 6fr 6fr 2fr 6fr;
+$episodeTableTempCol: 1fr 4fr 4fr 1.5fr 4fr;
 $analysisTableTempCol: 1fr 1fr;
 $summaryTableTempCol: 1fr;
 
@@ -25,7 +25,7 @@ $summaryTableTempCol: 1fr;
 @mixin makeGridTable($tableName, $girdTempCol){
     .#{$tableName}Table {
         width: $maxWidth;
-        border: 1px solid $gridBgColor;
+        border: 1px solid $gridBorderColor;
 
         &:not(:first-of-type) {
             margin-top: 10px; 
@@ -37,7 +37,7 @@ $summaryTableTempCol: 1fr;
         grid-template-columns: $girdTempCol;
         color: white;
         font-weight: bold;
-        background-color: $gridBorderColor;
+        background-color: $gridBgColor;
     }
     
     .#{$tableName}Table__row {
@@ -46,9 +46,28 @@ $summaryTableTempCol: 1fr;
     }
     
     .#{$tableName}Table__item {
-        font-size: 16px;
+        font-size: 1.4rem;
         padding: 5px 10px;
-        border: 1px solid $gridBgColor;
+        border: 1px solid $gridBorderColor;
+    }
+
+    .#{$tableName}Table__input,
+    .#{$tableName}Table__textarea {
+        width: 100%;
+        height: 100%;
+
+        &::placeholder {
+            color: lightgrey;
+        }
+
+        &:focus::placeholder {
+            color: transparent;
+        }
+    }
+
+    .#{$tableName}Table__input::-webkit-outer-spin-button,
+    .#{$tableName}Table__input::-webkit-inner-spin-button {
+        margin-left: 5px;
     }
 }
 
