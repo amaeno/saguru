@@ -1,22 +1,143 @@
 @charset "utf-8";
 
+// ============================================
+// variable 
+// ============================================
 $maxWidth: 1440px;
+$gridBgColor: #999999;
+$gridBorderColor: #aaaaaa;
+
+$episodeTableTempCol: 1fr 6fr 6fr 2fr 6fr;
+$analysisTableTempCol: 1fr 1fr;
+$summaryTableTempCol: 1fr;
 
 
+
+// ============================================
+// mixin 
+// ============================================
+
+/************************************************
+    @breief:  クラス名・行数・幅を指定してgridテーブルを作成
+    @param[1]:  テーブルのクラス名(xxxTableというクラスにスタイリング)
+    @param[2]:  grid-template-columns
+    @return: -
+************************************************/
+@mixin makeGridTable($tableName, $girdTempCol){
+    .#{$tableName}Table {
+        width: $maxWidth;
+        border: 1px solid $gridBgColor;
+    }
+    
+    .#{$tableName}Table__header {
+        display: grid;
+        grid-template-columns: $girdTempCol;
+        color: white;
+        font-weight: bold;
+        background-color: $gridBorderColor;
+    }
+    
+    .#{$tableName}Table__row {
+        display: grid;
+        grid-template-columns: $girdTempCol;
+    }
+    
+    .#{$tableName}Table__item {
+        font-size: 16px;
+        padding: 5px 10px;
+        border: 1px solid $gridBgColor;
+    }
+}
+
+
+
+// ============================================
+// style
+// ============================================
 .main {
     display: block;
     margin: 0 auto;
+    padding: auto 20px;
     max-width: $maxWidth;
 }
 
-.main__secTtl {
-    font-size: 2.4rem;
-    font-weight: bold;
-    padding: 20px;
+.main__section {
+    padding-top: 30px;
 }
 
-.main__secSubTtl {
+.main__sectionTtl {
+    font-size: 2.4rem;
+    font-weight: bold;
+    padding: 20px 20px 20px 0px;
+}
+
+.main__sectionSubTtl {
     font-size: 1.8rem;
     font-weight: bold;
-    padding: 10px 20px;
+    padding: 10px 20px 10px 0px;
 }
+
+.main__section > .main__sectionContent:not(:first-of-type) {
+    padding-top: 30px;
+}
+
+// episode ============================================
+@include makeGridTable("episode", $episodeTableTempCol);
+
+.-numItemAge,
+.-numItemMotivation {
+    position: relative;
+    text-align: right;
+    font-weight: bold;
+    padding-right: 25px;
+    padding-left: 0;
+
+    &::after {
+        position: absolute;
+        content: ""; // 数値の単位は以下で個別に更新
+        top: 50%;
+        right: 10px;
+        transform: translate(0, -50%);
+        font-size: 1.2rem;
+        font-weight: normal;
+    }
+}
+
+// 数値の単位を個別に更新
+.-numItemAge::after {
+    content: "歳";
+}
+.-numItemMotivation::after {
+    content: "点";
+}
+
+
+
+// chart ============================================
+
+
+
+
+// analysis ============================================
+@include makeGridTable("analysis", $analysisTableTempCol);
+
+
+// summary ============================================
+@include makeGridTable("summary", $summaryTableTempCol);
+
+
+// utility ============================================
+.-mergeCellTop {
+    border-bottom: none;
+}
+
+.-mergeCellMiddle {
+    border-top: none;
+    border-bottom: none;
+}
+
+.-mergeCellBottom {
+    border-top: none;
+}
+
+
