@@ -16,7 +16,6 @@ $summaryTableTempCol: 1fr;
 // ============================================
 // mixin 
 // ============================================
-
 /************************************************
     @breief:  クラス名・行数・幅を指定してgridテーブルを作成
     @param[1]:  テーブルのクラス名(xxxTableというクラスにスタイリング)
@@ -27,6 +26,10 @@ $summaryTableTempCol: 1fr;
     .#{$tableName}Table {
         width: $maxWidth;
         border: 1px solid $gridBgColor;
+
+        &:not(:first-of-type) {
+            margin-top: 10px; 
+        }
     }
     
     .#{$tableName}Table__header {
@@ -120,6 +123,7 @@ $summaryTableTempCol: 1fr;
 
 // analysis ============================================
 @include makeGridTable("analysis", $analysisTableTempCol);
+
 
 
 // summary ============================================
