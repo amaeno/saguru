@@ -16,6 +16,7 @@ html {
 }
 
 .body__main {
-    // 固定ヘッダーと重ならないための余白
+    // 固定ヘッダーと重ならないためのpadding
     padding-top:  $headerHeight;
+    padding-bottom: 30px;
 }
