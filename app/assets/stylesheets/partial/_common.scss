@@ -1,12 +1,13 @@
 @charset "utf-8";
 
-$headerHeight: 120px;
+$headerHeight: 90px;
 
 * {
     box-sizing: border-box;
 }
 
 html {
+    font-family: YuGothic,'Yu Gothic',sans-serif;
     font-size: 62.5%;
     background-color: white;
 }
