@@ -11,6 +11,10 @@ $episodeTableTempCol: 1fr 4fr 4fr 1.5fr 4fr;
 $analysisTableTempCol: 1fr 1fr;
 $summaryTableTempCol: 1fr;
 
+$chartWidth: $maxWidth;
+$chartHeight: 410px;
+$chartTextWidth: 71px;
+$chartTextHeight: 360px;
 
 
 // ============================================
@@ -103,6 +107,7 @@ $summaryTableTempCol: 1fr;
     padding-top: 30px;
 }
 
+
 // episode ============================================
 @include makeGridTable("episode", $episodeTableTempCol);
 
@@ -135,9 +140,65 @@ $summaryTableTempCol: 1fr;
 
 
 
-// chart ============================================
+// chronology ============================================
+.chronology {
+    width: $chartWidth;
+}
 
+.chronology__chart {
+    position: relative;
+    width: 100%;
+    height: $chartHeight;
+}
 
+.chronologyEpisodeList {
+    display: flex;
+    margin-left: 60px;
+}
+
+.chronologyEpisodeList__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: $chartTextWidth;
+    max-width: $chartTextWidth;
+    margin-top: 5px;
+}
+
+.chronologyEpisodeList__itemAge {
+    position: relative;
+    font-size: 1.6rem;
+    font-weight: bold;
+    padding-bottom: 15px;
+
+    &::after {
+        position: absolute;
+        content: "歳";
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        font-size: 1.2rem;
+        font-weight: normal;
+    }
+}
+
+.chronologyEpisodeList__itemText {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    width: 100%;
+    height: $chartTextHeight;
+    padding: 10px;
+
+    // はみ出した文字は表示しない
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    // 縦書き設定
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    line-height: 1;
+}
 
 
 // analysis ============================================
