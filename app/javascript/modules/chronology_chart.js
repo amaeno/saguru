@@ -3,17 +3,55 @@ const canvas_mergin_x = 50;
 const axis_mergin_x = 10;
 
 window.onload = () => {
-    draw_chronology_chart();
+
+    const motivation_array = [50, 90, 70, 40, 60];
+    const text_array = [[6, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
+                        [7, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
+                        [8, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
+                        [9, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
+                        [10, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'],
+                        [6, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
+                        [7, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
+                        [8, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
+                        [9, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
+                        [10, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'],
+                        [6, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
+                        [7, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
+                        [8, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
+                        [9, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
+                        [10, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'],
+                        [6, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
+                        [7, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
+                        [8, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
+                        [9, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
+                        [10, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'],
+                        [6, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
+                        [7, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
+                        [8, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
+                        [9, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
+                        [10, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'],
+                        [6, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
+                        [7, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
+                        [8, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
+                        [9, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
+                        [10, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ']];
+
+
+    draw_chronology_chart(motivation_array);
+
+    for(let i=0; i < text_array.length; i++){
+        draw_chronology_text(text_array[i][0], text_array[i][1]);
+    }
 };
 
 
 // ************************************************
 //     @breief:  モチベーションチャートをcanvasに描画する
-//     @param[1]:  -
+//     @param[1]:  モチベーション値
 //     @return: -
 // ************************************************
-const draw_chronology_chart = () => {
-    const canvas = document.getElementById('chronology');
+const draw_chronology_chart = (motivation_array) => {
+    const canvas = document.getElementById('chronologyChart');
 
     const canvas_width = canvas.clientWidth;
     const canvas_height = canvas.clientHeight;
@@ -28,8 +66,8 @@ const draw_chronology_chart = () => {
     // ドット1セルに当たるピクセル数
     const cell_height = Math.ceil(chart_height / 100);
 
-    const motivation_array = [50, 90, 70, 40, 60, 20];
     let motivation_dot_array = [];
+
 
     // CSSで設定した要素サイズに描画サイズ合わせる
     canvas.setAttribute( "width" , canvas_width );
@@ -70,7 +108,7 @@ const draw_dash_line = (context, x1, y1, x2, y2) => {
     context.beginPath();
         context.lineWidth = 1;
         context.setLineDash([3, 3])
-        context.strokeStyle = "rgba(0,0,0,1)";
+        context.strokeStyle = "#cccccc";
         context.moveTo(x1, y1);
         context.lineTo(x2, y2);
     context.closePath();
@@ -128,8 +166,7 @@ const draw_chart = (context, dot_array) => {
 //     @param[1]:  canvasのcontext
 //     @param[2]:  横軸軸の長さ
 //     @param[3]:  縦軸の長さ
-//     @param[4]:  1セル相当の長鎖
-//     @param[5]:  canvasのマージン
+//     @param[4]:  1セル相当の長さ
 //     @return: -
 // ************************************************
 const draw_axis = (context, width, height, cell_height) => {
@@ -141,7 +178,7 @@ const draw_axis = (context, width, height, cell_height) => {
     context.beginPath();
         context.lineWidth = 2;
         context.setLineDash([]) // 実線に戻す 
-        context.strokeStyle = "#cccccc";
+        context.strokeStyle = "#aaaaaa";
         context.moveTo(canvas_mergin_x, canvas_mergin_y);
         context.lineTo(canvas_mergin_x, height);
     context.closePath();
@@ -153,7 +190,7 @@ const draw_axis = (context, width, height, cell_height) => {
         context.beginPath();
             context.lineWidth = 2;
             context.setLineDash([]) // 実線に戻す 
-            context.strokeStyle = "#cccccc";
+            context.strokeStyle = "#aaaaaa";
             // 10刻み
             context.moveTo(canvas_mergin_x, (i * cell_height * 10) + canvas_mergin_y );
             if ((i === 0) || (i === 5) || (i === 10)) {
@@ -185,4 +222,38 @@ const draw_axis = (context, width, height, cell_height) => {
     context.closePath();
 
     context.stroke();
+}
+
+
+
+// ************************************************
+//     @breief:  エピソードのテキストを生成する
+//     @param[1]:  年齢
+//     @param[2]:  エピソードテキスト
+//     @return: -
+// ************************************************
+const draw_chronology_text = (input_age, input_text) => {
+    let item_class = "chronologyEpisodeList__item";
+    let item_age_class = "chronologyEpisodeList__itemAge";
+    let item_text_class = "chronologyEpisodeList__itemText";
+
+    const chronology_text_list = document.getElementById('chronologyText');
+
+    // リスト内アイテムを生成
+    const elem_li = document.createElement("li");
+    const elem_p_age = document.createElement("p");
+    const elem_p_text = document.createElement("p");
+
+    const chronology_text_item = chronology_text_list.appendChild(elem_li);
+    chronology_text_item.className = item_class;
+
+    // 年齢
+    const chronology_text_item_age = chronology_text_item.appendChild(elem_p_age);
+    chronology_text_item_age.className = item_age_class;
+    chronology_text_item_age.textContent = String(input_age);
+
+    // エピソードテキスト
+    const chronology_text_item_text = chronology_text_item.appendChild(elem_p_text);
+    chronology_text_item_text.className = item_text_class;
+    chronology_text_item_text.textContent = input_text;
 }

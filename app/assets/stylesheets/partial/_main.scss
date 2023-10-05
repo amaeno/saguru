@@ -153,6 +153,9 @@ $chartTextHeight: 360px;
 
 .chronologyEpisodeList {
     display: flex;
+    
+    // jsで設定しているcanvas内merginと同じ値になるように計算すること！
+    // canvas_mergin_x + axis_mergin_x
     margin-left: 60px;
 }
 
