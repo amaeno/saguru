@@ -49,7 +49,7 @@ $chartTextHeight: 360px;
         grid-template-columns: $girdTempCol;
     }
     
-    .#{$tableName}Table__item {
+    .#{$tableName}Table__column {
         font-size: 1.4rem;
         padding: 5px 10px;
         border: 1px solid $gridBorderColor;
@@ -153,6 +153,9 @@ $chartTextHeight: 360px;
 
 .chronologyEpisodeList {
     display: flex;
+
+    // jsで設定しているcanvas内merginと同じ値になるように計算すること！
+    // canvas_mergin_x + axis_mergin_x
     margin-left: 60px;
 }
 

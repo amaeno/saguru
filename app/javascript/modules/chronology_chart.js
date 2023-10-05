@@ -1,19 +1,26 @@
+import {add_child_object} from "./common";
+
+
+const id_canvas = "chronologyChart";
+const id_chronology_text = "chronologyText";
+
+const class_item = "chronologyEpisodeList__item";
+const class_item_age = "chronologyEpisodeList__itemAge";
+const class_item_text = "chronologyEpisodeList__itemText";
+
+
 const canvas_mergin_y = 5;
 const canvas_mergin_x = 50;
 const axis_mergin_x = 10;
 
-window.onload = () => {
-    draw_chronology_chart();
-};
-
 
 // ************************************************
 //     @breief:  モチベーションチャートをcanvasに描画する
-//     @param[1]:  -
+//     @param[1]:  モチベーション値
 //     @return: -
 // ************************************************
-const draw_chronology_chart = () => {
-    const canvas = document.getElementById('chronology');
+export const draw_chronology_chart = (motivation_array) => {
+    const canvas = document.getElementById(id_canvas);
 
     const canvas_width = canvas.clientWidth;
     const canvas_height = canvas.clientHeight;
@@ -28,8 +35,8 @@ const draw_chronology_chart = () => {
     // ドット1セルに当たるピクセル数
     const cell_height = Math.ceil(chart_height / 100);
 
-    const motivation_array = [50, 90, 70, 40, 60, 20];
     let motivation_dot_array = [];
+
 
     // CSSで設定した要素サイズに描画サイズ合わせる
     canvas.setAttribute( "width" , canvas_width );
@@ -70,7 +77,7 @@ const draw_dash_line = (context, x1, y1, x2, y2) => {
     context.beginPath();
         context.lineWidth = 1;
         context.setLineDash([3, 3])
-        context.strokeStyle = "rgba(0,0,0,1)";
+        context.strokeStyle = "#cccccc";
         context.moveTo(x1, y1);
         context.lineTo(x2, y2);
     context.closePath();
@@ -128,8 +135,7 @@ const draw_chart = (context, dot_array) => {
 //     @param[1]:  canvasのcontext
 //     @param[2]:  横軸軸の長さ
 //     @param[3]:  縦軸の長さ
-//     @param[4]:  1セル相当の長鎖
-//     @param[5]:  canvasのマージン
+//     @param[4]:  1セル相当の長さ
 //     @return: -
 // ************************************************
 const draw_axis = (context, width, height, cell_height) => {
@@ -141,7 +147,7 @@ const draw_axis = (context, width, height, cell_height) => {
     context.beginPath();
         context.lineWidth = 2;
         context.setLineDash([]) // 実線に戻す 
-        context.strokeStyle = "#cccccc";
+        context.strokeStyle = "#aaaaaa";
         context.moveTo(canvas_mergin_x, canvas_mergin_y);
         context.lineTo(canvas_mergin_x, height);
     context.closePath();
@@ -153,7 +159,7 @@ const draw_axis = (context, width, height, cell_height) => {
         context.beginPath();
             context.lineWidth = 2;
             context.setLineDash([]) // 実線に戻す 
-            context.strokeStyle = "#cccccc";
+            context.strokeStyle = "#aaaaaa";
             // 10刻み
             context.moveTo(canvas_mergin_x, (i * cell_height * 10) + canvas_mergin_y );
             if ((i === 0) || (i === 5) || (i === 10)) {
@@ -185,4 +191,30 @@ const draw_axis = (context, width, height, cell_height) => {
     context.closePath();
 
     context.stroke();
+}
+
+
+
+// ************************************************
+//     @breief:  エピソードのテキストを生成する
+//     @param[1]:  年齢
+//     @param[2]:  エピソードテキスト
+//     @return: -
+// ************************************************
+export const draw_chronology_text = (age, text) => {
+    const chronology_text_list = document.getElementById(id_chronology_text);
+
+    // リストコンテナ
+    const chronology_text_item = add_child_object(chronology_text_list, "li");
+    chronology_text_item.className = class_item;
+
+    // 年齢
+    const chronology_text_item_age = add_child_object(chronology_text_item, "p");
+    chronology_text_item_age.className = class_item_age;
+    chronology_text_item_age.textContent = String(age);
+
+    // エピソードテキスト
+    const chronology_text_item_text = add_child_object(chronology_text_item, "p");
+    chronology_text_item_text.className = class_item_text;
+    chronology_text_item_text.textContent = text;
 }
