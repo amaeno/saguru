@@ -1,97 +1,33 @@
 <%# ===== episode ===== %>
 <section class="main__section">
     <h2 class="main__sectionTtl">エピソード洗い出し</h2>
-    <div class="episodeTable">
+    <div id = "episodeTable" class="episodeTable">
         <div class="episodeTable__header">
-            <div class="episodeTable__item">年齢</div>
-            <div class="episodeTable__item">エピソード</div>
-            <div class="episodeTable__item">当時の感情・思考</div>
-            <div class="episodeTable__item">モチベーション</div>
-            <div class="episodeTable__item">エピソードを選んだ理由</div>
+            <div class="episodeTable__column">年齢</div>
+            <div class="episodeTable__column">エピソード</div>
+            <div class="episodeTable__column">当時の感情・思考</div>
+            <div class="episodeTable__column">モチベーション</div>
+            <div class="episodeTable__column">エピソードを選んだ理由</div>
         </div>
-        <div class="episodeTable__row">
-            <div class="episodeTable__item  -numItemAge -mergeCellTop">
-                <input class="episodeTable__input" name="" placeholder="6" type="number" min="0" max="150">
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-            <div class="episodeTable__item  -numItemMotivation">
-                <input class="episodeTable__input" name="" placeholder="100" type="number" min="0" max="100">
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-        </div>
-        <div class="episodeTable__row">
-            <div class="episodeTable__item -mergeCellMiddle">
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-            <div class="episodeTable__item  -numItemMotivation">
-                <input class="episodeTable__input" name="" placeholder="100" type="number" min="0" max="100">
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-        </div>
-        <div class="episodeTable__row">
-            <div class="episodeTable__item -mergeCellBottom">
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-            <div class="episodeTable__item  -numItemMotivation">
-                <input class="episodeTable__input" name="" placeholder="100" type="number" min="0" max="100">
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-        </div>
-        <div class="episodeTable__row">
-            <div class="episodeTable__item  -numItemAge">
-                <input class="episodeTable__input" name="" placeholder="7" type="number" min="0" max="150">
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-            <div class="episodeTable__item  -numItemMotivation">
-                <input class="episodeTable__input" name="" placeholder="100" type="number" min="0" max="100">
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-        </div>
-        <div class="episodeTable__row">
-            <div class="episodeTable__item  -numItemAge">
-                <input class="episodeTable__input" name="" placeholder="8" type="number" min="0" max="150">
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-            <div class="episodeTable__item  -numItemMotivation">
-                <input class="episodeTable__input" name="" placeholder="100" type="number" min="0" max="100">
-            </div>
-            <div class="episodeTable__item">
-                <textarea class="episodeTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-            </div>
-        </div>
+        <%# 以下繰り返し
+            <div class="episodeTable__row">
+                <div class="episodeTable__column  -numItemAge -mergeCellTop">
+                    <input class="episodeTable__input" name="" placeholder="6" type="number" min="0" max="150">
+                </div>
+                <div class="episodeTable__column">
+                    <textarea class="episodeTable__textarea" name="" rows="2" placeholder="ここに入力"></textarea>
+                </div>
+                <div class="episodeTable__column">
+                    <textarea class="episodeTable__textarea" name="" rows="2" placeholder="ここに入力"></textarea>
+                </div>
+                <div class="episodeTable__column  -numItemMotivation">
+                    <input class="episodeTable__input" name="" placeholder="100" type="number" min="0" max="100">
+                </div>
+                <div class="episodeTable__column">
+                    <textarea class="episodeTable__textarea" name="" rows="2" placeholder="ここに入力"></textarea>
+                </div>
+            </div> 
+        %>
     </div>
 </section>
 
@@ -103,11 +39,11 @@
     <div class="chronology main__sectionContent">
         <canvas id="chronologyChart" class="chronology__chart"></canvas>
         <ul  id="chronologyText" class="chronologyEpisodeList chronology__episode">
-            <%# 
-            <li class="chronologyEpisodeList__item">
-                <p class="chronologyEpisodeList__itemAge">年齢</p>
-                <p class="chronologyEpisodeList__itemText">エピソードテキスト</p>
-            </li>
+            <%# 以下繰り返し
+                <li class="chronologyEpisodeList__item">
+                    <p class="chronologyEpisodeList__itemAge">年齢</p>
+                    <p class="chronologyEpisodeList__itemText">エピソードテキスト</p>
+                </li>
             %>
         </ul>
         
@@ -122,44 +58,44 @@
         <h3 class="main__sectionSubTtl">モチベーションが逆転したエピソード</h3>
         <div class="analysisTable">
             <div class="analysisTable__header">
-                <div class="analysisTable__item">マイナスからプラスへの逆転</div>
-                <div class="analysisTable__item">理由</div>
+                <div class="analysisTable__column">マイナスからプラスへの逆転</div>
+                <div class="analysisTable__column">理由</div>
             </div>
             <div class="analysisTable__row">
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
             </div>
             <div class="analysisTable__row">
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
             </div>
         </div>
         <div class="analysisTable">
             <div class="analysisTable__header">
-                <div class="analysisTable__item">プラスからマイナスへの逆転</div>
-                <div class="analysisTable__item">理由</div>
+                <div class="analysisTable__column">プラスからマイナスへの逆転</div>
+                <div class="analysisTable__column">理由</div>
             </div>
             <div class="analysisTable__row">
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
             </div>
             <div class="analysisTable__row">
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
             </div>
@@ -169,66 +105,66 @@
         <h3 class="main__sectionSubTtl">共通する傾向</h3>
         <div class="analysisTable">
             <div class="analysisTable__header">
-                <div class="analysisTable__item">興味のあること</div>
-                <div class="analysisTable__item">理由</div>
+                <div class="analysisTable__column">興味のあること</div>
+                <div class="analysisTable__column">理由</div>
             </div>
             <div class="analysisTable__row">
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
             </div>
             <div class="analysisTable__row">
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
             </div>
         </div>
         <div class="analysisTable">
             <div class="analysisTable__header">
-                <div class="analysisTable__item">長所・得意なこと</div>
-                <div class="analysisTable__item">理由</div>
+                <div class="analysisTable__column">長所・得意なこと</div>
+                <div class="analysisTable__column">理由</div>
             </div>
             <div class="analysisTable__row">
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
             </div>
             <div class="analysisTable__row">
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
             </div>
         </div>
         <div class="analysisTable">
             <div class="analysisTable__header">
-                <div class="analysisTable__item">短所・苦手なこと</div>
-                <div class="analysisTable__item">理由</div>
+                <div class="analysisTable__column">短所・苦手なこと</div>
+                <div class="analysisTable__column">理由</div>
             </div>
             <div class="analysisTable__row">
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
             </div>
             <div class="analysisTable__row">
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
-                <div class="analysisTable__item">
+                <div class="analysisTable__column">
                     <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
                 </div>
             </div>
@@ -242,40 +178,40 @@
     <h2 class="main__sectionTtl">まとめ</h2>
     <div class="summaryTable">
         <div class="summaryTable__header">
-            <div class="summaryTable__item">価値観・大切にしている考え</div>
+            <div class="summaryTable__column">価値観・大切にしている考え</div>
         </div>
         <div class="summaryTable__row">
-            <div class="summaryTable__item">
+            <div class="summaryTable__column">
                 <textarea class="analysisTable__textarea" name="" id="" rows="1" placeholder="ここに入力"></textarea>
             </div>
         </div>
     </div>
     <div class="summaryTable">
         <div class="summaryTable__header">
-            <div class="summaryTable__item">やりたいこと</div>
+            <div class="summaryTable__column">やりたいこと</div>
         </div>
         <div class="summaryTable__row">
-            <div class="summaryTable__item">
+            <div class="summaryTable__column">
                 <textarea class="analysisTable__textarea" name="" id="" rows="1" placeholder="ここに入力"></textarea>
             </div>
         </div>
     </div>
     <div class="summaryTable">
         <div class="summaryTable__header">
-            <div class="summaryTable__item">活躍できる環境</div>
+            <div class="summaryTable__column">活躍できる環境</div>
         </div>
         <div class="summaryTable__row">
-            <div class="summaryTable__item">
+            <div class="summaryTable__column">
                 <textarea class="analysisTable__textarea" name="" id="" rows="1" placeholder="ここに入力"></textarea>
             </div>
         </div>
     </div>
     <div class="summaryTable">
         <div class="summaryTable__header">
-            <div class="summaryTable__item">目指す姿</div>
+            <div class="summaryTable__column">目指す姿</div>
         </div>
         <div class="summaryTable__row">
-            <div class="summaryTable__item">
+            <div class="summaryTable__column">
                 <textarea class="analysisTable__textarea" name="" id="" rows="1" placeholder="ここに入力"></textarea>
             </div>
         </div>

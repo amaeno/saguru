@@ -1,48 +1,17 @@
+import {add_child_object} from "./common";
+
+
+const id_canvas = "chronologyChart";
+const id_chronology_text = "chronologyText";
+
+const class_item = "chronologyEpisodeList__item";
+const class_item_age = "chronologyEpisodeList__itemAge";
+const class_item_text = "chronologyEpisodeList__itemText";
+
+
 const canvas_mergin_y = 5;
 const canvas_mergin_x = 50;
 const axis_mergin_x = 10;
-
-window.onload = () => {
-
-    const motivation_array = [50, 90, 70, 40, 60];
-    const text_array = [[6, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
-                        [7, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
-                        [8, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
-                        [9, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
-                        [10, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'],
-                        [6, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
-                        [7, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
-                        [8, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
-                        [9, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
-                        [10, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'],
-                        [6, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
-                        [7, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
-                        [8, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
-                        [9, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
-                        [10, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'],
-                        [6, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
-                        [7, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
-                        [8, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
-                        [9, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
-                        [10, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'],
-                        [6, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
-                        [7, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
-                        [8, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
-                        [9, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
-                        [10, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'],
-                        [6, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
-                        [7, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
-                        [8, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ'], 
-                        [9, 'ふがふがふがふがふがふがふがふがふがふがふがふがふがふがふがふが'], 
-                        [10, 'ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ']];
-
-
-    draw_chronology_chart(motivation_array);
-
-    for(let i=0; i < text_array.length; i++){
-        draw_chronology_text(text_array[i][0], text_array[i][1]);
-    }
-};
 
 
 // ************************************************
@@ -50,8 +19,8 @@ window.onload = () => {
 //     @param[1]:  モチベーション値
 //     @return: -
 // ************************************************
-const draw_chronology_chart = (motivation_array) => {
-    const canvas = document.getElementById('chronologyChart');
+export const draw_chronology_chart = (motivation_array) => {
+    const canvas = document.getElementById(id_canvas);
 
     const canvas_width = canvas.clientWidth;
     const canvas_height = canvas.clientHeight;
@@ -232,28 +201,20 @@ const draw_axis = (context, width, height, cell_height) => {
 //     @param[2]:  エピソードテキスト
 //     @return: -
 // ************************************************
-const draw_chronology_text = (input_age, input_text) => {
-    let item_class = "chronologyEpisodeList__item";
-    let item_age_class = "chronologyEpisodeList__itemAge";
-    let item_text_class = "chronologyEpisodeList__itemText";
+export const draw_chronology_text = (age, text) => {
+    const chronology_text_list = document.getElementById(id_chronology_text);
 
-    const chronology_text_list = document.getElementById('chronologyText');
-
-    // リスト内アイテムを生成
-    const elem_li = document.createElement("li");
-    const elem_p_age = document.createElement("p");
-    const elem_p_text = document.createElement("p");
-
-    const chronology_text_item = chronology_text_list.appendChild(elem_li);
-    chronology_text_item.className = item_class;
+    // リストコンテナ
+    const chronology_text_item = add_child_object(chronology_text_list, "li");
+    chronology_text_item.className = class_item;
 
     // 年齢
-    const chronology_text_item_age = chronology_text_item.appendChild(elem_p_age);
-    chronology_text_item_age.className = item_age_class;
-    chronology_text_item_age.textContent = String(input_age);
+    const chronology_text_item_age = add_child_object(chronology_text_item, "p");
+    chronology_text_item_age.className = class_item_age;
+    chronology_text_item_age.textContent = String(age);
 
     // エピソードテキスト
-    const chronology_text_item_text = chronology_text_item.appendChild(elem_p_text);
-    chronology_text_item_text.className = item_text_class;
-    chronology_text_item_text.textContent = input_text;
+    const chronology_text_item_text = add_child_object(chronology_text_item, "p");
+    chronology_text_item_text.className = class_item_text;
+    chronology_text_item_text.textContent = text;
 }
