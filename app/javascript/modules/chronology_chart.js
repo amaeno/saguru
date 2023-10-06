@@ -1,4 +1,5 @@
-import {add_child_object} from "./common";
+import {header_episode, add_child_object} from "./common";
+import {get_episode_column_data_array} from "./episode_table";
 
 
 const id_canvas = "chronologyChart";
@@ -9,14 +10,43 @@ const class_item_age = "chronologyEpisodeList__itemAge";
 const class_item_text = "chronologyEpisodeList__itemText";
 
 
-const canvas_mergin_y = 5;
-const canvas_mergin_x = 50;
-const axis_mergin_x = 10;
+const canvas_mergin_y = 10;
+const canvas_mergin_x = 30;
+const axis_mergin_x = 20;
+
+
+
+// ************************************************
+//     @breief:  モチベーションチャートの初期設定をする
+//     @param[1]: -
+//     @return: -
+// ************************************************
+export const draw_chronology_chart_and_text = () => {
+
+    let episode_column_data_array = get_episode_column_data_array();
+
+    draw_chronology_chart(episode_column_data_array[header_episode.motivation]);
+    make_chronology_text_template(episode_column_data_array[header_episode.age], episode_column_data_array[header_episode.episode]);
+}
+
+
+// ************************************************
+//     @breief:  モチベーションチャートの描画更新をする
+//     @param[1]: エピソード記入欄で入力したデータの配列
+//     @return: -
+// ************************************************
+export const update_chronology_chart_and_text = () => {
+
+    let episode_column_data_array = get_episode_column_data_array();
+
+    draw_chronology_chart(episode_column_data_array[header_episode.motivation]);
+    update_chronology_text(episode_column_data_array[header_episode.age], episode_column_data_array[header_episode.episode]);
+}
 
 
 // ************************************************
 //     @breief:  モチベーションチャートをcanvasに描画する
-//     @param[1]:  モチベーション値
+//     @param[1]:  モチベーション値配列
 //     @return: -
 // ************************************************
 export const draw_chronology_chart = (motivation_array) => {
@@ -197,24 +227,64 @@ const draw_axis = (context, width, height, cell_height) => {
 
 // ************************************************
 //     @breief:  エピソードのテキストを生成する
-//     @param[1]:  年齢
-//     @param[2]:  エピソードテキスト
+//     @param[1]:  年齢配列
+//     @param[2]:  エピソードテキスト配列
 //     @return: -
 // ************************************************
-export const draw_chronology_text = (age, text) => {
-    const chronology_text_list = document.getElementById(id_chronology_text);
+const make_chronology_text_template = (age_array, episode_array) => {
+    const len_data_array = age_array.length;
 
-    // リストコンテナ
-    const chronology_text_item = add_child_object(chronology_text_list, "li");
-    chronology_text_item.className = class_item;
+    // HTML生成
+    for(let row_num=0; row_num < len_data_array; row_num++){
+        const chronology_text_list = document.getElementById(id_chronology_text);
 
-    // 年齢
-    const chronology_text_item_age = add_child_object(chronology_text_item, "p");
-    chronology_text_item_age.className = class_item_age;
-    chronology_text_item_age.textContent = String(age);
+        // リストコンテナ
+        const chronology_text_item = add_child_object(chronology_text_list, "li");
+        chronology_text_item.className = class_item;
+    
+        // 年齢
+        const chronology_text_item_age = add_child_object(chronology_text_item, "p");
+        chronology_text_item_age.className = class_item_age;
 
-    // エピソードテキスト
-    const chronology_text_item_text = add_child_object(chronology_text_item, "p");
-    chronology_text_item_text.className = class_item_text;
-    chronology_text_item_text.textContent = text;
+        // 行番号とヘッダー番号からセルを取得
+        chronology_text_item_age.id = `episode_row${row_num}col${header_episode.age}`;
+
+        chronology_text_item_age.textContent = String(age_array[row_num]);
+    
+        // エピソードテキスト
+        const chronology_text_item_episode = add_child_object(chronology_text_item, "p");
+        chronology_text_item_episode.className = class_item_text;
+        // 行番号とヘッダー番号からセルを取得
+        chronology_text_item_episode.id = `episode_row${row_num}col${header_episode.episode}`;
+
+        chronology_text_item_episode.textContent = episode_array[row_num];
+    }
+
+    update_chronology_text(age_array, episode_array);
+}
+
+
+// ************************************************
+//     @breief:  エピソードのテキストを更新する
+//     @param[1]:  年齢配列
+//     @param[2]:  エピソードテキスト配列
+//     @return: -
+// ************************************************
+export const update_chronology_text = (age_array, episode_array) => {
+    const len_data_array = age_array.length;
+
+    for(let row_num=0; row_num < len_data_array; row_num++){
+
+        // 行番号とヘッダー番号からセルを取得
+        let cell_id_age = `episode_row${row_num}col${header_episode.age}`;
+        let cell_id_episode = `episode_row${row_num}col${header_episode.episode}`;
+
+        const chronology_text_item_age = document.getElementById(cell_id_age);
+        const chronology_text_item_episode = document.getElementById(cell_id_episode);
+
+        // セルのテキストを更新
+        chronology_text_item_age.textContent = String(age_array[row_num]);
+        chronology_text_item_episode.textContent = episode_array[row_num];
+        console.log(episode_array[row_num]);
+    }
 }

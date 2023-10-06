@@ -12,9 +12,9 @@ $analysisTableTempCol: 1fr 1fr;
 $summaryTableTempCol: 1fr;
 
 $chartWidth: $maxWidth;
-$chartHeight: 410px;
+$chartHeight: 420px;
 $chartTextWidth: 71px;
-$chartTextHeight: 360px;
+$chartTextHeight: 370px;
 
 
 // ============================================
@@ -153,10 +153,34 @@ $chartTextHeight: 360px;
 
 .chronologyEpisodeList {
     display: flex;
+}
 
+.chronology__episode {
+    position: relative;
     // jsで設定しているcanvas内merginと同じ値になるように計算すること！
     // canvas_mergin_x + axis_mergin_x
-    margin-left: 60px;
+    padding-left: 50px;
+    margin-top: 10px; 
+
+    &::before {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #222222;
+        content: "エピソード";
+        color: #ffffff;
+        font-size: 1.4rem;
+        font-weight: bold;
+        width: 3.5rem;
+        height: 100%;
+        top: 0;
+        left: 10px;
+
+        // 縦書き設定
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+    }
 }
 
 .chronologyEpisodeList__item {
@@ -170,7 +194,8 @@ $chartTextHeight: 360px;
 
 .chronologyEpisodeList__itemAge {
     position: relative;
-    font-size: 1.6rem;
+    height: 35px;
+    font-size: 1.4rem;
     font-weight: bold;
     padding-bottom: 15px;
 
@@ -201,6 +226,8 @@ $chartTextHeight: 360px;
     writing-mode: vertical-rl;
     text-orientation: upright;
     line-height: 1;
+    // 改行文字で改行できるようにする
+    white-space: pre-wrap;
 }
 
 
