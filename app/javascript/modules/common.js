@@ -18,6 +18,13 @@ export const header_analysis = {
 };
 
 
+//  セル位置判別用辞書
+export const cell_position = {
+    row: 0,
+    col: 1
+};
+
+
 // ************************************************
 //     @breief:  指定したタグの子要素を追加生成する
 //     @param[1]:  親要素のオブジェクト

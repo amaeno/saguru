@@ -83,6 +83,7 @@ $chartTextHeight: 370px;
     display: block;
     margin: 0 auto;
     padding: auto 20px;
+    width: $maxWidth;
     max-width: $maxWidth;
 }
 
@@ -189,8 +190,8 @@ $chartTextHeight: 370px;
 
 .chronologyEpisodeList__itemAge {
     position: relative;
-    height: 35px;
-    font-size: 1.4rem;
+    height: 40px;
+    font-size: 1.6rem;
     font-weight: bold;
     padding-bottom: 15px;
 
@@ -208,7 +209,7 @@ $chartTextHeight: 370px;
 .chronologyEpisodeList__itemText {
     display: flex;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     width: 100%;
     height: $chartTextHeight;
     padding: 10px;
@@ -232,7 +233,7 @@ $chartTextHeight: 370px;
 
 .analysisQuestionList {
     display: grid;
-    grid-template-columns: 4fr 1fr 2fr;
+    grid-template-columns: 8fr 1fr 4fr;
 
     &:not(:first-of-type) {
         padding-top: 30px;
@@ -258,7 +259,7 @@ $chartTextHeight: 370px;
         border-color: transparent transparent transparent #dddddd;
         transform: translate(-50%, 50%) ;
         bottom: 50%;
-        left: calc(-25% + (0.5*$analysis2ndTableArrowWidth));
+        left: calc(-12.5% + (0.5*$analysis2ndTableArrowWidth));
     }
 }
 
