@@ -1,4 +1,4 @@
-import {header_episode, add_child_object} from "./common";
+import {header_episode, cell_position, add_child_object} from "./common";
 import {update_chronology_chart_and_text} from "./chronology_chart";
 
 
@@ -12,6 +12,8 @@ const class_item_motivataion = "-numItemMotivation";
 
 const dammy_text = "ここに入力";
 
+// エピソードの最小年齢
+let min_age = 6;
 // エピソード欄の初期行数
 let table_rows = 19;
 
@@ -42,7 +44,7 @@ export const init_episode_table = () => {
         episode_cells[num].addEventListener('change', () => {
             // セルのテキストが変更された場合、対応する配列のデータを更新
             let evented_cell_row_col = get_episode_cell_position(episode_cells[num].name);
-            g_episode_data_array[evented_cell_row_col[0]][evented_cell_row_col[1]] = episode_cells[num].value;
+            g_episode_data_array[evented_cell_row_col[cell_position.row]][evented_cell_row_col[cell_position.col]] = episode_cells[num].value;
 
             // モチベーションチャート更新
             update_chronology_chart_and_text(g_episode_data_array);
@@ -83,7 +85,8 @@ const make_episode_table = (element_episode_table, table_rows) => {
                 // 年齢の属性設定
                 if(col_num === header_episode.age) {
                     elem_table_input.className = class_episodeTable_input;
-                    elem_table_input.placeholder = row_num;
+                    elem_table_input.placeholder = row_num + min_age;
+                    elem_table_input.value = row_num + min_age;
 
                     // "歳"の表示のためのクラス付与
                     elem_table_column.className = class_episodeTable_column + " " + class_item_age;
@@ -91,7 +94,8 @@ const make_episode_table = (element_episode_table, table_rows) => {
                 // モチベーション値の属性設定
                 else {
                     elem_table_input.className = class_episodeTable_input;
-                    elem_table_input.placeholder = "100";  
+                    elem_table_input.placeholder = "50";
+                    elem_table_input.value = 50;
 
                     // "点"の表示のためのクラス付与
                     elem_table_column.className = class_episodeTable_column + " " + class_item_motivataion;
@@ -124,14 +128,23 @@ const init_episode_data_array= (element_episode_cells, len_episode_cells) => {
     // 最終要素のnameから行数と列数を取得し、対応した２次元配列を作成する
     let last_cell = element_episode_cells[len_episode_cells-1].name;
     let row_col = get_episode_cell_position(last_cell);
-
+    
     // 2次元配列として空文字で初期化
-    for(let row=0; row<=row_col[0]; row++){
+    for(let row=0; row<=row_col[cell_position.row]; row++){
         g_episode_data_array[row] = [];
-        for(let col=0; col<=row_col[1]; col++) {
+        for(let col=0; col<=row_col[cell_position.col]; col++) {
             g_episode_data_array[row][col] = "";
         }
     }
+
+    // テーブルに初期値を反映
+    for(let row=0; row<=row_col[cell_position.row]; row++){
+        // テーブル作成時の年齢を適用
+        g_episode_data_array[row][header_episode.age] = element_episode_cells[header_episode.length*row].value;
+        // テーブル作成時のモチベーション値を適用
+        g_episode_data_array[row][header_episode.motivation] = element_episode_cells[(header_episode.length * row) + header_episode.motivation].value;
+    }
+    // console.log(g_episode_data_array);
 }
 
 

@@ -285,6 +285,5 @@ export const update_chronology_text = (age_array, episode_array) => {
         // セルのテキストを更新
         chronology_text_item_age.textContent = String(age_array[row_num]);
         chronology_text_item_episode.textContent = episode_array[row_num];
-        console.log(episode_array[row_num]);
     }
 }
