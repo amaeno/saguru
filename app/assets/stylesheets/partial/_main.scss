@@ -12,6 +12,8 @@ $analysis1stTableTempCol: 1fr 1fr;
 $analysis2ndTableTempCol: 1fr;
 $summaryTableTempCol: 1fr;
 
+$analysis2ndTableArrowWidth: 40px;
+
 $chartWidth: $maxWidth;
 $chartHeight: 420px;
 $chartTextWidth: 71px;
@@ -252,11 +254,11 @@ $chartTextHeight: 370px;
     &::before {
         position: absolute;
         content: "";
-        border: 40px solid;
+        border: $analysis2ndTableArrowWidth solid;
         border-color: transparent transparent transparent #dddddd;
         transform: translate(-50%, 50%) ;
         bottom: 50%;
-        left: -25%;
+        left: calc(-25% + (0.5*$analysis2ndTableArrowWidth));
     }
 }
 
