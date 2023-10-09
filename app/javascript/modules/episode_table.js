@@ -1,4 +1,5 @@
-import {add_child_object} from "./common";
+import {header_episode, add_child_object} from "./common";
+import {update_chronology_chart_and_text} from "./chronology_chart";
 
 
 const id_episode_table = "episodeTable";
@@ -11,20 +12,11 @@ const class_item_motivataion = "-numItemMotivation";
 
 const dammy_text = "ここに入力";
 
-// header列識別用辞書
-const header = {
-    age: 0,
-    episode: 1,
-    emotion: 2,
-    motivation: 3,
-    reason: 4,
-    length: 5
-};
-
-let table_rows = 10;
+// エピソード欄の初期行数
+let table_rows = 19;
 
 // 　テーブルに記述したデータを配列に保持する
-let episode_data_array = [];
+export let g_episode_data_array = [];
 
 
 
@@ -50,11 +42,14 @@ export const init_episode_table = () => {
         episode_cells[num].addEventListener('change', () => {
             // セルのテキストが変更された場合、対応する配列のデータを更新
             let evented_cell_row_col = get_episode_cell_position(episode_cells[num].name);
-            episode_data_array[evented_cell_row_col[0]][evented_cell_row_col[1]] = episode_cells[num].value;
+            g_episode_data_array[evented_cell_row_col[0]][evented_cell_row_col[1]] = episode_cells[num].value;
 
-            console.log(episode_cells[num].name);
-            console.log(episode_cells[num].value);
-            console.log(episode_data_array);
+            // モチベーションチャート更新
+            update_chronology_chart_and_text(g_episode_data_array);
+
+            // console.log(episode_cells[num].name);
+            // console.log(episode_cells[num].value);
+            // console.log(g_episode_data_array);
         });
     }
 }
@@ -73,11 +68,11 @@ const make_episode_table = (element_episode_table, table_rows) => {
         episode_table_row.className = class_episodeTable_row;
 
         // 各行に列要素を生成
-        for(let col_num=0; col_num < header.length; col_num++){
+        for(let col_num=0; col_num < header_episode.length; col_num++){
             const elem_table_column = add_child_object(episode_table_row, "div");
 
             // 年齢とモチベーション値の欄はinputタグ
-            if((col_num ===header.age) || (col_num === header.motivation)) {
+            if((col_num ===header_episode.age) || (col_num === header_episode.motivation)) {
                 const elem_table_input = add_child_object(elem_table_column, "input");
                 elem_table_input.type = "number";
                 elem_table_input.min = "0";
@@ -86,7 +81,7 @@ const make_episode_table = (element_episode_table, table_rows) => {
                 elem_table_input.name = `episode_row${row_num}col${col_num}`;
 
                 // 年齢の属性設定
-                if(col_num === header.age) {
+                if(col_num === header_episode.age) {
                     elem_table_input.className = class_episodeTable_input;
                     elem_table_input.placeholder = row_num;
 
@@ -130,11 +125,11 @@ const init_episode_data_array= (element_episode_cells, len_episode_cells) => {
     let last_cell = element_episode_cells[len_episode_cells-1].name;
     let row_col = get_episode_cell_position(last_cell);
 
-    // 2次元配列として初期化
+    // 2次元配列として空文字で初期化
     for(let row=0; row<=row_col[0]; row++){
-        episode_data_array[row] = [];
+        g_episode_data_array[row] = [];
         for(let col=0; col<=row_col[1]; col++) {
-            episode_data_array[row][col] = "";
+            g_episode_data_array[row][col] = "";
         }
     }
 }
@@ -150,4 +145,30 @@ const get_episode_cell_position= (element_episode_cells_name) => {
     let row_col = element_episode_cells_name.match(/\d+/g);
 
     return row_col;
+}
+
+
+// ************************************************
+//     @breief:  エピソード記入欄で入力したデータ列ごとの配列に分解する
+//     @param[1]: エピソード記入欄で入力したデータの配列
+//     @return: 各列のデータが格納された配列
+// ************************************************
+export const get_episode_column_data_array = () => {
+    let len_episode_data_array = g_episode_data_array.length;
+    let age_array = [];
+    let episode_array = [];
+    let emotion_array = [];
+    let motivation_array = [];
+    let reason_array = [];
+
+    // チャート作成に必要なデータを各配列へ抜き出し
+    for(let row_num=0; row_num<len_episode_data_array; row_num++){
+        age_array.push(g_episode_data_array[row_num][header_episode.age]);
+        episode_array.push(g_episode_data_array[row_num][header_episode.episode]);
+        emotion_array.push(g_episode_data_array[row_num][header_episode.emotion]);
+        motivation_array.push(g_episode_data_array[row_num][header_episode.motivation]);
+        reason_array.push(g_episode_data_array[row_num][header_episode.reason]);
+    }
+
+    return [age_array, episode_array, emotion_array, motivation_array, reason_array];
 }

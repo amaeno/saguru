@@ -1,13 +1,13 @@
 <%# ===== episode ===== %>
 <section class="main__section">
-    <h2 class="main__sectionTtl">エピソード洗い出し</h2>
+    <h2 class="main__sectionTtl">経験の振り返り</h2>
     <div id = "episodeTable" class="episodeTable">
         <div class="episodeTable__header">
             <div class="episodeTable__column">年齢</div>
             <div class="episodeTable__column">エピソード</div>
             <div class="episodeTable__column">当時の感情・思考</div>
             <div class="episodeTable__column">モチベーション</div>
-            <div class="episodeTable__column">エピソードを選んだ理由</div>
+            <div class="episodeTable__column">振り返って気づいたこと</div>
         </div>
         <%# 以下繰り返し
             <div class="episodeTable__row">
@@ -46,7 +46,6 @@
                 </li>
             %>
         </ul>
-        
     </div>
 </section>
 
@@ -55,122 +54,385 @@
 <section class="main__section">
     <h2 class="main__sectionTtl">分析</h2>
     <div class="main__sectionContent">
-        <h3 class="main__sectionSubTtl">モチベーションが逆転したエピソード</h3>
-        <div class="analysisTable">
-            <div class="analysisTable__header">
-                <div class="analysisTable__column">マイナスからプラスへの逆転</div>
-                <div class="analysisTable__column">理由</div>
-            </div>
-            <div class="analysisTable__row">
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+        <ul class="analysisQuestionList">
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">モチベーションが上がったのはどんな時？</h3>
+                <div class="analysis1stTable">
+                    <div class="analysis1stTable__header">
+                        <div class="analysis1stTable__column">エピソード</div>
+                        <div class="analysis1stTable__column">理由</div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
                 </div>
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+            </li>
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">モチベーションが上がる時の共通要素は？</h3>
+                <div class="analysis2ndTable">
+                    
+                    <div class="analysis2ndTable__header">
+                        <div class="analysis2ndTable__column">共通要素</div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="analysisTable__row">
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+            </li>
+        </ul>
+        <ul class="analysisQuestionList">
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">モチベーションが下がったのはどんな時？</h3>
+                <div class="analysis1stTable">
+                    
+                    <div class="analysis1stTable__header">
+                        <div class="analysis1stTable__column">エピソード</div>
+                        <div class="analysis1stTable__column">理由</div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
                 </div>
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+            </li>
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">モチベーションが下がる時の共通要素は</h3>
+                <div class="analysis2ndTable">
+                    
+                    <div class="analysis2ndTable__header">
+                        <div class="analysis2ndTable__column">共通要素</div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="analysisTable">
-            <div class="analysisTable__header">
-                <div class="analysisTable__column">プラスからマイナスへの逆転</div>
-                <div class="analysisTable__column">理由</div>
-            </div>
-            <div class="analysisTable__row">
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+            </li>
+        </ul>
+        <ul class="analysisQuestionList">
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">成功体験は？</h3>
+                <div class="analysis1stTable">
+                    
+                    <div class="analysis1stTable__header">
+                        <div class="analysis1stTable__column">エピソード</div>
+                        <div class="analysis1stTable__column">要因</div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
                 </div>
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+            </li>
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">どんな学びや成長があった？</h3>
+                <div class="analysis2ndTable">
+                    
+                    <div class="analysis2ndTable__header">
+                        <div class="analysis2ndTable__column">学び・成長</div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="analysisTable__row">
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+            </li>
+        </ul>
+        <ul class="analysisQuestionList">
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">失敗体験は？</h3>
+                <div class="analysis1stTable">
+                    
+                    <div class="analysis1stTable__header">
+                        <div class="analysis1stTable__column">エピソード</div>
+                        <div class="analysis1stTable__column">要因</div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
                 </div>
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+            </li>
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">どんな学びや成長があった？</h3>
+                <div class="analysis2ndTable">
+                    
+                    <div class="analysis2ndTable__header">
+                        <div class="analysis2ndTable__column">学び・成長</div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </li>
+        </ul>
+        <ul class="analysisQuestionList">
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">活躍できた・居心地の良かったチームでの活動は？</h3>
+                <div class="analysis1stTable">
+                    
+                    <div class="analysis1stTable__header">
+                        <div class="analysis1stTable__column">エピソード</div>
+                        <div class="analysis1stTable__column">理由</div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">活躍できる・居心地の良い環境の共通要素は？</h3>
+                <div class="analysis2ndTable">
+                    
+                    <div class="analysis2ndTable__header">
+                        <div class="analysis2ndTable__column">共通要素</div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="analysisQuestionList">
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">活躍できなかった・居心地の悪かったチームでの活動は？</h3>
+                <div class="analysis1stTable">
+                    
+                    <div class="analysis1stTable__header">
+                        <div class="analysis1stTable__column">エピソード</div>
+                        <div class="analysis1stTable__column">理由</div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">活躍できない・居心地の悪い環境の共通要素は？</h3>
+                <div class="analysis2ndTable">
+                    
+                    <div class="analysis2ndTable__header">
+                        <div class="analysis2ndTable__column">共通要素</div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="analysisQuestionList">
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">年代を通して好きなこと・得意なことは？</h3>
+                <div class="analysis1stTable">
+                    
+                    <div class="analysis1stTable__header">
+                        <div class="analysis1stTable__column">好きなこと・得意なこと</div>
+                        <div class="analysis1stTable__column">理由</div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">好きなこと・得意なことの共通要素は？</h3>
+                <div class="analysis2ndTable">
+                    
+                    <div class="analysis2ndTable__header">
+                        <div class="analysis2ndTable__column">共通要素</div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="analysisQuestionList">
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">年代を通して嫌いなこと・苦手なことは？</h3>
+                <div class="analysis1stTable">
+                    
+                    <div class="analysis1stTable__header">
+                        <div class="analysis1stTable__column">嫌いなこと・苦手なこと</div>
+                        <div class="analysis1stTable__column">理由</div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis1stTable__row">
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                        <div class="analysis1stTable__column">
+                            <textarea class="analysis1stTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="analysisQuestionList__item">
+                <h3 class="main__sectionSubTtl">嫌いなこと・苦手なことの共通要素は？</h3>
+                <div class="analysis2ndTable">
+                    
+                    <div class="analysis2ndTable__header">
+                        <div class="analysis2ndTable__column">共通要素</div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                    <div class="analysis2ndTable__row">
+                        <div class="analysis2ndTable__column">
+                            <textarea class="analysis2ndTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
-    <div class="main__sectionContent">
-        <h3 class="main__sectionSubTtl">共通する傾向</h3>
-        <div class="analysisTable">
-            <div class="analysisTable__header">
-                <div class="analysisTable__column">興味のあること</div>
-                <div class="analysisTable__column">理由</div>
-            </div>
-            <div class="analysisTable__row">
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                </div>
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                </div>
-            </div>
-            <div class="analysisTable__row">
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                </div>
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                </div>
-            </div>
-        </div>
-        <div class="analysisTable">
-            <div class="analysisTable__header">
-                <div class="analysisTable__column">長所・得意なこと</div>
-                <div class="analysisTable__column">理由</div>
-            </div>
-            <div class="analysisTable__row">
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                </div>
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                </div>
-            </div>
-            <div class="analysisTable__row">
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                </div>
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                </div>
-            </div>
-        </div>
-        <div class="analysisTable">
-            <div class="analysisTable__header">
-                <div class="analysisTable__column">短所・苦手なこと</div>
-                <div class="analysisTable__column">理由</div>
-            </div>
-            <div class="analysisTable__row">
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                </div>
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                </div>
-            </div>
-            <div class="analysisTable__row">
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                </div>
-                <div class="analysisTable__column">
-                    <textarea class="analysisTable__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </section>
+
 
 
 <%# ===== summary ===== %>
@@ -198,7 +460,7 @@
     </div>
     <div class="summaryTable">
         <div class="summaryTable__header">
-            <div class="summaryTable__column">活躍できる環境</div>
+            <div class="summaryTable__column">求める環境</div>
         </div>
         <div class="summaryTable__row">
             <div class="summaryTable__column">

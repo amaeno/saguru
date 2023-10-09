@@ -1,3 +1,23 @@
+// header列識別用辞書
+export const header_episode = {
+    age: 0,
+    episode: 1,
+    emotion: 2,
+    motivation: 3,
+    reason: 4,
+    length: 5
+};
+
+export const header_analysis = {
+    age: 0,
+    episode: 1,
+    emotion: 2,
+    motivation: 3,
+    reason: 4,
+    length: 5
+};
+
+
 // ************************************************
 //     @breief:  指定したタグの子要素を追加生成する
 //     @param[1]:  親要素のオブジェクト
