@@ -12,7 +12,8 @@ const class_item_motivataion = "-numItemMotivation";
 
 const dammy_text = "ここに入力";
 
-let table_rows = 10;
+// エピソード欄の初期行数
+let table_rows = 19;
 
 // 　テーブルに記述したデータを配列に保持する
 export let g_episode_data_array = [];
