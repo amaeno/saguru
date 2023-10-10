@@ -43,13 +43,13 @@ export const init_episode_table = () => {
         // 各セルにイベント追加
         episode_cells[num].addEventListener('change', () => {
             // セルのテキストが変更された場合、対応する配列のデータを更新
-            let evented_cell_row_col = get_episode_cell_position(episode_cells[num].name);
+            let evented_cell_row_col = get_episode_cell_position(episode_cells[num].id);
             g_episode_data_array[evented_cell_row_col[cell_position.row]][evented_cell_row_col[cell_position.col]] = episode_cells[num].value;
 
             // モチベーションチャート更新
             update_chronology_chart_and_text(g_episode_data_array);
 
-            // console.log(episode_cells[num].name);
+            // console.log(episode_cells[num].id);
             // console.log(episode_cells[num].value);
             // console.log(g_episode_data_array);
         });
@@ -80,7 +80,7 @@ const make_episode_table = (element_episode_table, table_rows) => {
                 elem_table_input.min = "0";
                 elem_table_input.max = "100";
                 // セル位置記録
-                elem_table_input.name = `episode_row${row_num}col${col_num}`;
+                elem_table_input.id = `episode_row${row_num}col${col_num}`;
 
                 // 年齢の属性設定
                 if(col_num === header_episode.age) {
@@ -107,7 +107,7 @@ const make_episode_table = (element_episode_table, table_rows) => {
                 elem_table_textarea.rows = 2;
                 elem_table_textarea.placeholder = dammy_text;
                 // セル位置記録
-                elem_table_textarea.name = `episode_row${row_num}col${col_num}`;
+                elem_table_textarea.id = `episode_row${row_num}col${col_num}`;
 
                 elem_table_column.className = class_episodeTable_column;
             }
@@ -126,7 +126,7 @@ const make_episode_table = (element_episode_table, table_rows) => {
 const init_episode_data_array= (element_episode_cells, len_episode_cells) => {
     // テーブルの大きさを算出する
     // 最終要素のnameから行数と列数を取得し、対応した２次元配列を作成する
-    let last_cell = element_episode_cells[len_episode_cells-1].name;
+    let last_cell = element_episode_cells[len_episode_cells-1].id;
     let row_col = get_episode_cell_position(last_cell);
     
     // 2次元配列として空文字で初期化

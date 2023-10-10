@@ -247,7 +247,7 @@ const make_chronology_text_template = (age_array, episode_array) => {
         chronology_text_item_age.className = class_item_age;
 
         // 行番号とヘッダー番号からセルを取得
-        chronology_text_item_age.id = `episode_row${row_num}col${header_episode.age}`;
+        chronology_text_item_age.id = `chronology_row${row_num}col${header_episode.age}`;
 
         chronology_text_item_age.textContent = String(age_array[row_num]);
     
@@ -255,7 +255,7 @@ const make_chronology_text_template = (age_array, episode_array) => {
         const chronology_text_item_episode = add_child_object(chronology_text_item, "p");
         chronology_text_item_episode.className = class_item_text;
         // 行番号とヘッダー番号からセルを取得
-        chronology_text_item_episode.id = `episode_row${row_num}col${header_episode.episode}`;
+        chronology_text_item_episode.id = `chronology_row${row_num}col${header_episode.episode}`;
 
         chronology_text_item_episode.textContent = episode_array[row_num];
     }
@@ -276,8 +276,8 @@ export const update_chronology_text = (age_array, episode_array) => {
     for(let row_num=0; row_num < len_data_array; row_num++){
 
         // 行番号とヘッダー番号からセルを取得
-        let cell_id_age = `episode_row${row_num}col${header_episode.age}`;
-        let cell_id_episode = `episode_row${row_num}col${header_episode.episode}`;
+        let cell_id_age = `chronology_row${row_num}col${header_episode.age}`;
+        let cell_id_episode = `chronology_row${row_num}col${header_episode.episode}`;
 
         const chronology_text_item_age = document.getElementById(cell_id_age);
         const chronology_text_item_episode = document.getElementById(cell_id_episode);
