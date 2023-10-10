@@ -27,7 +27,7 @@ const analysis_table_theme1_header= [["マイナス→プラス", "理由"],   [
 const analysis_table_theme2_header= [["興味のあること", "理由"],    ["長所・得意なこと", "理由"],   ["短所・苦手なこと", "理由"]];
 
 // 分析欄のテーブル行数
-let table_rows = 2;
+let TABLE_ROWS = 2;
 
 
 // ************************************************
@@ -88,7 +88,7 @@ const make_analysis_table = (element_analysis_table_area, analysis_header_list) 
         }
 
         // 行を生成
-        for(let row_num=0; row_num < table_rows; row_num++){
+        for(let row_num=0; row_num < TABLE_ROWS; row_num++){
             const analysis_table_row = add_child_object(element_analysis_table_area, "div");
             analysis_table_row.className = class_analysisTable_row;
 
