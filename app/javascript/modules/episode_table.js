@@ -1,4 +1,4 @@
-import {header_episode, cell_position, add_child_object} from "./common";
+import {header_episode, cell_position, add_child_object, limit_textarea_lines} from "./common";
 import {update_chronology_chart_and_text} from "./chronology_chart";
 
 
@@ -16,9 +16,9 @@ const episodeTable_header_list =  ["年齢", "エピソード", "当時の感情
 const dammy_text = "ここに入力";
 
 // エピソードの最小年齢
-let min_age = 6;
+let MIN_AGE = 6;
 // エピソード欄の初期行数
-let table_rows = 19;
+let TABLE_ROWS = 19;
 
 // 　テーブルに記述したデータを配列に保持する
 export let g_episode_data_array = [];
@@ -33,7 +33,7 @@ export let g_episode_data_array = [];
 export const init_episode_table = () => {
     const episode_table = document.getElementById(id_episode_table);
 
-    make_episode_table(episode_table, table_rows);
+    make_episode_table(episode_table, TABLE_ROWS);
 
     // テーブルセルの要素(textarea or inputタグ)のリスト取得
     let episode_cells = episode_table.querySelectorAll(`.${class_episodeTable_input}, .${class_episodeTable_textarea}`);
@@ -44,17 +44,17 @@ export const init_episode_table = () => {
 
     // 各セルにイベント追加
     for(let num = 0; num < len_episode_cells; num++){
-        // セルのテキストが変更された場合、対応する配列のデータを更新
-        episode_cells[num].addEventListener('change', () => {
+        // セルのテキストが変更された場合
+        episode_cells[num].addEventListener('input', () => {
+            // テキストの入力可能行数を制限
+            limit_textarea_lines(episode_cells[num]);
+
+            // 対応する配列のデータを更新
             let evented_cell_row_col = get_episode_cell_position(episode_cells[num].id);
             g_episode_data_array[evented_cell_row_col[cell_position.row]][evented_cell_row_col[cell_position.col]] = episode_cells[num].value;
 
-            // モチベーションチャート更新
+            // モチベーションチャート描画更新
             update_chronology_chart_and_text(g_episode_data_array);
-
-            // console.log(episode_cells[num].id);
-            // console.log(episode_cells[num].value);
-            // console.log(g_episode_data_array);
         });
     }
 }
@@ -66,7 +66,7 @@ export const init_episode_table = () => {
 //     @param[2]: 生成するテーブルの行数
 //     @return: -
 // ************************************************
-const make_episode_table = (element_episode_table, table_rows) => {
+const make_episode_table = (element_episode_table, TABLE_ROWS) => {
     // テーブルのヘッダーを生成
     const episode_table_header = add_child_object(element_episode_table, "div");
     episode_table_header.className = class_episodeTable_header;
@@ -78,7 +78,7 @@ const make_episode_table = (element_episode_table, table_rows) => {
     }
 
     // テーブルの行を生成
-    for(let row_num=0; row_num < table_rows; row_num++){
+    for(let row_num=0; row_num < TABLE_ROWS; row_num++){
         const episode_table_row = add_child_object(element_episode_table, "div");
         episode_table_row.className = class_episodeTable_row;
 
@@ -98,8 +98,8 @@ const make_episode_table = (element_episode_table, table_rows) => {
                 // 年齢の属性設定
                 if(col_num === header_episode.age) {
                     elem_table_input.className = class_episodeTable_input;
-                    elem_table_input.placeholder = row_num + min_age;
-                    elem_table_input.value = row_num + min_age;
+                    elem_table_input.placeholder = row_num + MIN_AGE;
+                    elem_table_input.value = row_num + MIN_AGE;
 
                     // "歳"の表示のためのクラス付与
                     elem_table_column.className = class_episodeTable_column + " " + class_item_age;
