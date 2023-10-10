@@ -8,11 +8,11 @@ $gridBgColor: #777777;
 $gridBorderColor: #aaaaaa;
 
 $episodeTableTempCol: 1fr 4fr 4fr 1.5fr 4fr;
-$analysis1stTableTempCol: 1fr 1fr;
-$analysis2ndTableTempCol: 1fr;
+$analysisQuestion1TableTempCol: 1fr 1fr;
+$analysisQuestion2TableTempCol: 1fr;
 $summaryTableTempCol: 1fr;
 
-$analysis2ndTableArrowWidth: 40px;
+$analysisQuestion2TableArrowWidth: 40px;
 
 $chartWidth: $maxWidth;
 $chartHeight: 420px;
@@ -33,6 +33,7 @@ $chartTextHeight: 370px;
     .#{$tableName}Table {
         width: 100%;
         border: 1px solid $gridBorderColor;
+        margin-top: 15px;
     }
     
     .#{$tableName}Table__header {
@@ -87,20 +88,20 @@ $chartTextHeight: 370px;
     max-width: $maxWidth;
 }
 
-.main__section {
+.main__section:not(:first-of-type) {
     padding-top: 30px;
 }
 
 .main__sectionTtl {
     font-size: 2.4rem;
     font-weight: bold;
-    padding: 20px 20px 20px 0px;
+    margin: 20px 0 0 0;
 }
 
 .main__sectionSubTtl {
     font-size: 1.8rem;
     font-weight: bold;
-    padding: 10px 20px 10px 0px;
+    margin: 10px 0 0 0;
 }
 
 
@@ -145,6 +146,7 @@ $chartTextHeight: 370px;
     position: relative;
     width: 100%;
     height: $chartHeight;
+    margin-top: 15px; 
 }
 
 .chronologyEpisodeList {
@@ -193,7 +195,7 @@ $chartTextHeight: 370px;
     height: 40px;
     font-size: 1.6rem;
     font-weight: bold;
-    padding-bottom: 15px;
+    padding-bottom: 20px;
 
     &::after {
         position: absolute;
@@ -201,7 +203,7 @@ $chartTextHeight: 370px;
         bottom: 0;
         left: 50%;
         transform: translate(-50%, 0);
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         font-weight: normal;
     }
 }
@@ -228,8 +230,8 @@ $chartTextHeight: 370px;
 
 
 // analysis ============================================
-@include makeGridTable("analysis1st", $analysis1stTableTempCol);
-@include makeGridTable("analysis2nd", $analysis2ndTableTempCol);
+@include makeGridTable("analysisQuestion1", $analysisQuestion1TableTempCol);
+@include makeGridTable("analysisQuestion2", $analysisQuestion2TableTempCol);
 
 .analysisQuestionList {
     display: grid;
@@ -248,18 +250,18 @@ $chartTextHeight: 370px;
     grid-column: 3 / 4;
 }
 
-.analysis2ndTable {
+.analysisQuestion2Table {
     position: relative;
 
     // 三角矢印
     &::before {
         position: absolute;
         content: "";
-        border: $analysis2ndTableArrowWidth solid;
+        border: $analysisQuestion2TableArrowWidth solid;
         border-color: transparent transparent transparent #dddddd;
         transform: translate(-50%, 50%) ;
         bottom: 50%;
-        left: calc(-12.5% + (0.5*$analysis2ndTableArrowWidth));
+        left: calc(-12.5% + (0.5*$analysisQuestion2TableArrowWidth));
     }
 }
 
