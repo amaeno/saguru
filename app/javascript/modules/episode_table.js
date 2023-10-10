@@ -3,12 +3,15 @@ import {update_chronology_chart_and_text} from "./chronology_chart";
 
 
 const id_episode_table = "episodeTable";
+const class_episodeTable_header = "episodeTable__header";
 const class_episodeTable_row = "episodeTable__row";
 const class_episodeTable_column = "episodeTable__column";
 const class_episodeTable_input = "episodeTable__input";
 const class_episodeTable_textarea = "episodeTable__textarea";
 const class_item_age = "-numItemAge";
 const class_item_motivataion = "-numItemMotivation";
+
+const episodeTable_header_list =  ["年齢", "エピソード", "当時の感情・思考", "モチベーション", "振り返って気づいたこと"];
 
 const dammy_text = "ここに入力";
 
@@ -39,10 +42,10 @@ export const init_episode_table = () => {
     // 2次元配列を作成し初期化
     init_episode_data_array(episode_cells, len_episode_cells);
 
+    // 各セルにイベント追加
     for(let num = 0; num < len_episode_cells; num++){
-        // 各セルにイベント追加
+        // セルのテキストが変更された場合、対応する配列のデータを更新
         episode_cells[num].addEventListener('change', () => {
-            // セルのテキストが変更された場合、対応する配列のデータを更新
             let evented_cell_row_col = get_episode_cell_position(episode_cells[num].id);
             g_episode_data_array[evented_cell_row_col[cell_position.row]][evented_cell_row_col[cell_position.col]] = episode_cells[num].value;
 
@@ -64,6 +67,16 @@ export const init_episode_table = () => {
 //     @return: -
 // ************************************************
 const make_episode_table = (element_episode_table, table_rows) => {
+    // テーブルのヘッダーを生成
+    const episode_table_header = add_child_object(element_episode_table, "div");
+    episode_table_header.className = class_episodeTable_header;
+
+    for(let col_num=0; col_num < header_episode.length; col_num++){
+        const episode_table_header_colunm = add_child_object(episode_table_header, "div");
+        episode_table_header_colunm.className = class_episodeTable_column;
+        episode_table_header_colunm.textContent = episodeTable_header_list[col_num];
+    }
+
     // テーブルの行を生成
     for(let row_num=0; row_num < table_rows; row_num++){
         const episode_table_row = add_child_object(element_episode_table, "div");
