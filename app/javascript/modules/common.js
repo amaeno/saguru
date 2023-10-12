@@ -1,3 +1,9 @@
+// 判定確認用変数
+export const status = {
+    NG: false,
+    OK: true
+};
+
 // header列識別用辞書
 export const header_episode = {
     age: 0,
@@ -27,6 +33,9 @@ export const cell_position = {
 
 // textareaの最大行数
 const MAX_LINE_NUM = 2;
+
+// textareaのplaceholder
+export const dammy_text = "ここに入力";
 
 
 // ************************************************
@@ -67,11 +76,23 @@ export const limit_textarea_lines = (textarea_object) => {
                     else  {
                         output_text += lines[i] + "\n";
                     }
-                    
                 }
-    
                 textarea_object.value = output_text;
             }
         // });
     }
+}
+
+
+// ************************************************
+//     @breief:  記入欄のセルの位置を出力する
+//     @param[1]: テーブルセルの要素(textarea or inputタグ)のid属性
+//     @return:  [行数, 列数] or [グループ番号, Question番号, 行数, 列数]
+// ************************************************
+export const get_table_cell_position= (element_table_cells_id) => {
+    // id末尾 "_"以降からセル位置の数値のみ抽出([row, col] or [group, question, row, col]の順で格納されている)
+    let cell_info = element_table_cells_id.split("_");
+    let cell_position = cell_info.pop().match(/\d+/g);
+
+    return cell_position;
 }
