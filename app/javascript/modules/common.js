@@ -34,6 +34,12 @@ export const cell_position = {
 // textareaの最大行数
 const MAX_LINE_NUM = 2;
 
+// inputの上限値
+const MAX_INPUT_NUM = 100;
+
+// inputの下限値
+const MIN_INPUT_NUM = 0;
+
 // textareaのplaceholder
 export const dammy_text = "ここに入力";
 
@@ -62,7 +68,7 @@ export const limit_textarea_lines = (textarea_object) => {
     if(textarea_object.tagName === "TEXTAREA"){
         let output_text = "";
 
-        // textarea_object.addEventListener("input", () =>  {
+        // input_object.addEventListener("input", () =>  {
             // 入力テキストを列ごとに配列に格納
             let lines = textarea_object.value.split("\n");
     
@@ -79,6 +85,31 @@ export const limit_textarea_lines = (textarea_object) => {
                 }
                 textarea_object.value = output_text;
             }
+        // });
+    }
+}
+
+
+
+// ************************************************
+//     @breief:  inputの入力可能上限/下限を制限する
+//     @param[1]:  inputのオブジェクト
+//     @return: -
+// ************************************************
+export const limit_input_range = (input_object) => {
+    if(input_object.tagName === "INPUT"){
+
+        // textarea_object.addEventListener("input", () =>  {
+        let input_num = input_object.value;
+
+        // 上限を超えたら最大値を設定
+        if(input_num > MAX_INPUT_NUM ){
+            input_object.value = MAX_INPUT_NUM;
+        }
+        // 下限を超えたら最大値を設定
+        if(input_num < MIN_INPUT_NUM ){
+            input_object.value = MIN_INPUT_NUM;
+        }
         // });
     }
 }
