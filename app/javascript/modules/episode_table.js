@@ -1,4 +1,4 @@
-import {header_episode, cell_position, add_child_object, get_table_cell_position, limit_textarea_lines, dammy_text} from "./common";
+import {header_episode, cell_position, add_child_object, get_table_cell_position, limit_textarea_lines, dammy_text, limit_input_range} from "./common";
 import {update_chronology_chart_and_text} from "./chronology_chart";
 
 
@@ -47,6 +47,7 @@ export const init_episode_table = () => {
         episode_cells[num].addEventListener('input', () => {
             // テキストの入力可能行数を制限
             limit_textarea_lines(episode_cells[num]);
+            limit_input_range(episode_cells[num]);
 
             // 対応する配列のデータを更新
             let evented_cell_row_col = get_table_cell_position(episode_cells[num].id);
