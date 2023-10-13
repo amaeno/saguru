@@ -34,12 +34,6 @@ export const cell_position = {
 // textareaの最大行数
 const MAX_LINE_NUM = 2;
 
-// inputの上限値
-const MAX_INPUT_NUM = 100;
-
-// inputの下限値
-const MIN_INPUT_NUM = 0;
-
 // textareaのplaceholder
 export const dammy_text = "ここに入力";
 
@@ -98,6 +92,8 @@ export const limit_textarea_lines = (textarea_object) => {
 // ************************************************
 export const limit_input_range = (input_object) => {
     if(input_object.tagName === "INPUT"){
+        const MAX_INPUT_NUM = parseInt(input_object.max);
+        const MIN_INPUT_NUM = parseInt(input_object.min);
 
         // textarea_object.addEventListener("input", () =>  {
         let input_num = input_object.value;
