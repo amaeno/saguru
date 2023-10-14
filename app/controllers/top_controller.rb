@@ -30,15 +30,23 @@ class TopController < ApplicationController
     
     
         # episodeTable =======================================
+        @episode_header_index = {   age: 0,
+                                    episode: 1,
+                                    emotion: 2,
+                                    motivation: 3,
+                                    note: 4}
+
         @episode_header_list = ["年齢",
                                 "エピソード",
                                 "当時の感情・思考",
                                 "モチベーション",
                                 "振り返って気づいたこと"]
     
+        # エピソード欄に記入したデータを保持する列数*行数の1次元配列
         @episodeTable_cell_data = []
-        
-        @episodeTable_default_row_nums = 19
+
+        episodeTable_default_row_nums = 19
+        @episodeTable_row_nums = episodeTable_default_row_nums
 
         @option_colAge = "-numItemAge"
         @option_colMotivation = "-numItemMotivation"
@@ -80,8 +88,9 @@ class TopController < ApplicationController
                                         ["共通要素"],
                                         ["共通要素"]]
 
-        @analysisTable_default_row_nums = 2
-    
+        analysisTable_default_row_nums = 2
+        @analysisTable_row_nums = analysisTable_default_row_nums
+
     
         # summaryTable =======================================
         @summary_header_list = ["価値観・大切にしている考え",
