@@ -3,8 +3,8 @@ import {add_child_object, limit_textarea_lines, dammy_text, get_table_cell_posit
 
 const id_analysis_table_area = "analysisTableArea";
 
-const class_analysisQuestionGroup_list = "analysisQuestionGroupList";
-const class_analysisQuestionGroup_list_item = "analysisQuestionGroupList__item";
+const class_analysisQuestionGroup_list = "analysisQuestionTableList";
+const class_analysisQuestionGroup_list_item = "analysisQuestionTableList__item";
 
 const class_analysisQuestion1Table = "analysisQuestion1Table";
 const class_analysisQuestion2Table = "analysisQuestion2Table";
@@ -90,7 +90,7 @@ export const init_analysis_table = () => {
 
             // 対応する配列のデータを更新
             let analysis_cell_row_col = get_table_cell_position(analysis_cells[num].id);
-            console.log(analysis_cell_row_col);
+            // console.log(analysis_cell_row_col);
             // episode_data_array[analysis_cell_row_col[cell_position.row]][analysis_cell_row_col[cell_position.col]] = analysis_cells[num].value;
         });
     }
@@ -151,7 +151,7 @@ const make_analysis_table = (element_analysis_table_area) => {
 
 // ************************************************
 //     @breief:  分析記入欄Question1のHTMLを生成する
-//     @param[1]: .analysisQuestionGroupList が付与されたオブジェクト
+//     @param[1]: .analysisQuestionTableList が付与されたオブジェクト
 //     @param[2]: Question名(Q1 or Q2)
 //     @param[3]: QuestionのGroup番号
 //     @return: 実行結果

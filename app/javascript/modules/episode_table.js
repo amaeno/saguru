@@ -32,7 +32,7 @@ let episode_data_array = [];
 export const init_episode_table = () => {
     const episode_table = document.getElementById(id_episode_table);
 
-    make_episode_table(episode_table);
+    // make_episode_table(episode_table);
 
     // テーブルセルの要素(textarea or inputタグ)のリスト取得
     let episode_cells = episode_table.querySelectorAll(`.${class_episodeTable_input}, .${class_episodeTable_textarea}`);
