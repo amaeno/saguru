@@ -2,7 +2,6 @@ class TopController < ApplicationController
     def index
         # common =======================================
     
-        block_area = "Area"
         block_list = "List"
 
         element_item = "__item"
@@ -38,23 +37,50 @@ class TopController < ApplicationController
                                 "振り返って気づいたこと"]
     
         @episodeTable_cell_data = []
-    
+        
         @episodeTable_default_row_nums = 19
-    
-        @episodeTable = "episodeTable"
-        @episodeTable_header = @episodeTable + element_header
-        @episodeTable_column = @episodeTable + element_column
-        @episodeTable_row = @episodeTable + element_row
-        @episodeTable_input = @episodeTable + element_input
-        @episodeTable_textarea = @episodeTable + element_textarea
-    
+
         @option_colAge = "-numItemAge"
         @option_colMotivation = "-numItemMotivation"
+
+
+        # chronology =======================================
+
+
     
     
         # analysisTable =======================================
-    
-    
+        @analysisTableHeader = {Q1: 0, Q2: 1}
+
+                                        #Qustion1 Header                                  Qustion2 Header 
+        @analysisTableQ_theme_list = [  ["モチベーションが上がったのはどんな時？",              "モチベーションが上がる時の共通要素は？"],
+                                        ["モチベーションが下がったのはどんな時？",              "モチベーションが下がる時の共通要素は？"],
+                                        ["成功体験は？",                                    "どんな学びや成長があった？"],
+                                        ["失敗体験は？",                                    "どんな学びや成長があった？"],
+                                        ["活躍できた・居心地の良かったチームでの活動は？",        "活躍できる・居心地の良い環境の共通要素は？"],
+                                        ["活躍できなかった・居心地の悪かったチームでの活動は？",   "活躍できない・居心地の悪い環境の共通要素は？"],
+                                        ["年代を通して好きなこと・得意なことは？",               "得意なことの共通要素は？"],
+                                        ["年代を通して嫌いなこと・苦手なことは？",               "嫌いなこと・苦手なことの共通要素は？"]]
+
+        @analysisTableQ1_header_list = [["エピソード", "理由"],
+                                        ["エピソード", "理由"],
+                                        ["エピソード", "要因"],
+                                        ["エピソード", "要因"],
+                                        ["エピソード", "理由"],
+                                        ["エピソード", "理由"],
+                                        ["好きなこと・得意なこと", "理由"],
+                                        ["嫌いなこと・苦手なこと", "理由"]]
+
+        @analysisTableQ2_header_list = [["共通要素"],
+                                        ["共通要素"],
+                                        ["学び・成長"],
+                                        ["学び・成長"],
+                                        ["共通要素"],
+                                        ["共通要素"],
+                                        ["共通要素"],
+                                        ["共通要素"]]
+
+        @analysisTable_default_row_nums = 2
     
     
         # summaryTable =======================================
@@ -62,15 +88,6 @@ class TopController < ApplicationController
                                 "やりたいこと",
                                 "活躍できる環境",
                                 "目指す姿"] 
-    
-        @summaryTable = "summaryTable"
-        @summaryTableArea = @summaryTable + block_area
-        @summaryTableList = @summaryTable + block_list
-        @summaryTableList_item = @summaryTableList + element_item
-        @summaryTable_header = @summaryTable + element_header
-        @summaryTable_column = @summaryTable + element_column
-        @summaryTable_row = @summaryTable + element_row
-        @summaryTable_textarea = @summaryTable + element_textarea
-    
+
     end
 end

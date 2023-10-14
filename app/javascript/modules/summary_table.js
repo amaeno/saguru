@@ -1,10 +1,10 @@
 import {cell_position, add_child_object, get_table_cell_position, limit_textarea_lines, dammy_text} from "./common";
 
 
-const id_summary_table_area = "summaryTableArea";
+const id_summary_table_list = "summaryTableList";
 
-const class_summaryTable_list = "summayTabeleList";
-const class_summaryTable_list_item =  "summayTabeleList__item";
+const class_summaryTable_list = "summaryTableList";
+const class_summaryTable_list_item =  "summaryTableList__item";
 
 const class_summaryTable = "summaryTable";
 const class_summaryTable_header = "summaryTable__header";
@@ -28,7 +28,7 @@ let TABLE_ROWS = 1;
 //     @return: -
 // ************************************************
 export const init_summary_table = () => {
-    const summary_table = document.getElementById(id_summary_table_area);
+    const summary_table = document.getElementById(id_summary_table_list);
 
     // make_summary_table(summary_table);
 

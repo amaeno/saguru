@@ -8,11 +8,11 @@ $gridBgColor: #777777;
 $gridBorderColor: #aaaaaa;
 
 $episodeTableTempCol: 1fr 4fr 4fr 1.5fr 4fr;
-$analysisQuestion1TableTempCol: 1fr 1fr;
-$analysisQuestion2TableTempCol: 1fr;
+$analysisQ1TableTempCol: 1fr 1fr;
+$analysisQ2TableTempCol: 1fr;
 $summaryTableTempCol: 1fr;
 
-$analysisQuestion2TableArrowWidth: 40px;
+$analysisQ2TableArrowWidth: 40px;
 
 $chartWidth: $maxWidth;
 $chartHeight: 420px;
@@ -230,10 +230,10 @@ $chartTextHeight: 370px;
 
 
 // analysis ============================================
-@include makeGridTable("analysisQuestion1", $analysisQuestion1TableTempCol);
-@include makeGridTable("analysisQuestion2", $analysisQuestion2TableTempCol);
+@include makeGridTable("analysisQ1", $analysisQ1TableTempCol);
+@include makeGridTable("analysisQ2", $analysisQ2TableTempCol);
 
-.analysisQuestionTableList {
+.analysisTableList__item {
     display: grid;
     grid-template-columns: 8fr 1fr 4fr;
 
@@ -242,26 +242,26 @@ $chartTextHeight: 370px;
     }
 }
 
-.analysisQuestionTableList__item:nth-of-type(1) {
+.analysisTableWrapper:nth-of-type(1) {
     grid-column: 1 / 2;
 }
 
-.analysisQuestionTableList__item:nth-of-type(2) {
+.analysisTableWrapper:nth-of-type(2) {
     grid-column: 3 / 4;
 }
 
-.analysisQuestion2Table {
+.analysisQ2Table {
     position: relative;
 
     // 三角矢印
     &::before {
         position: absolute;
         content: "";
-        border: $analysisQuestion2TableArrowWidth solid;
+        border: $analysisQ2TableArrowWidth solid;
         border-color: transparent transparent transparent #dddddd;
         transform: translate(-50%, 50%) ;
         bottom: 50%;
-        left: calc(-12.5% + (0.5*$analysisQuestion2TableArrowWidth));
+        left: calc(-12.5% + (0.5*$analysisQ2TableArrowWidth));
     }
 }
 
