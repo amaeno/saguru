@@ -2,24 +2,24 @@
 <section class="main__section">
     <h2 class="main__sectionTtl">経験の振り返り</h2>
     <%# header列数 * エピソード行数　のテーブルを作成 %>
-    <div    id="<%= @episodeTable %>"
-            class="<%= @episodeTable %> main__sectionContent">
-        <div class="<%= @episodeTable_header %>">
+    <div    id="episodeTable"
+            class="episodeTable main__sectionContent">
+        <div class="episodeTable__header">
             <% @episode_header_list.each do |header_item| %>
-                <div class="<%= @episodeTable_column %>">
+                <div class="episodeTable__column">
                     <%= header_item %>
                 </div>
             <% end %>
         </div> 
     <% @episodeTable_cell_data = init_episodeTable_cell_data() %>
     <% @episodeTable_default_row_nums.times do |row_num| %>
-        <div class="<%= @episodeTable_row %>">
+        <div class="episodeTable__row">
             <% @episode_header_list.length.times do |col_num| %>
                 <% episodeTable_cell_attribute  = get_episodeTable_cell_attribute(row_num, col_num) %>
                 <div class="<%= episodeTable_cell_attribute[:attr_class] %>">
                     <% if episodeTable_cell_is_input_tag? %>
                         <input  id="<%= episodeTable_cell_attribute[:attr_id] %>"
-                                class="<%= @episodeTable_input %>"
+                                class="episodeTable__input"
                                 type="<%= episodeTable_cell_attribute[:attr_type] %>"
                                 min="<%= episodeTable_cell_attribute[:attr_min] %>"
                                 max="<%= episodeTable_cell_attribute[:attr_max] %>"
@@ -27,7 +27,7 @@
                                 value="<%= @episodeTable_cell_data[(@episode_header_list.length)*row_num + col_num] %>">
                     <% else %>
                         <textarea   id="<%= episodeTable_cell_attribute[:attr_id] %>"
-                                    class="<%= @episodeTable_textarea %>"
+                                    class="episodeTable__textarea"
                                     row="<%= episodeTable_cell_attribute[:attr_row] %>"
                                     placeholder="<%= episodeTable_cell_attribute[:attr_placeholder] %>"></textarea>
                     <% end %>
@@ -37,8 +37,6 @@
     <% end %>
     </div>
 </section>
-
-
 
 <%# ===== chronology ===== %>
 <section class="main__section">
@@ -56,86 +54,94 @@
     </div>
 </section>
 
-
 <%# ===== analysis ===== %>
 <section class="main__section">
     <h2 class="main__sectionTtl">分析</h2>
-    <div id="analysisTableArea" class="main__sectionContent">
-        <%# <ul class="analysisQuestionTableList">
-            <li class="analysisQuestionTableList__item">
-                <h3 class="main__sectionSubTtl">モチベーションが上がったのはどんな時？</h3>
-                <div class="analysisQuestion1Table">
-                    <div class="analysisQuestion1Table__header">
-                        <div class="analysisQuestion1Table__column">エピソード</div>
-                        <div class="analysisQuestion1Table__column">理由</div>
+    <ul id="analysisTableList"
+        class="analysisTableList main__sectionContent">
+        <% @analysisTableQ_theme_list.length.times do |theme_num| %>
+            <li class="analysisTableList__item">
+                <div class="analysisTableWrapper">
+                    <h3 class="main__sectionSubTtl">
+                        <%= @analysisTableQ_theme_list[theme_num][@analysisTableHeader[:Q1]] %>
+                    </h3>
+                    <div class="analysisQ1Table">
+                        <div class="analysisQ1Table__header">
+                            <% @analysisTableQ1_header_list[theme_num].each do |header_item| %>
+                                <div class="analysisQ1Table__column">
+                                    <%= header_item %>
+                                </div>
+                            <% end %>
+                        </div>
+                        <% @analysisTable_default_row_nums.times do |row_num| %>
+                            <div class="analysisQ1Table__row">
+                                <% @analysisTableQ1_header_list[theme_num].length.times do |col_num| %>
+                                    <% analysisTable_cell_attribute = get_analysisTable_cell_attribute(theme_num, "Q1", row_num, col_num) %>
+                                    <div class="analysisQ1Table__column">
+                                        <textarea   id="<%= analysisTable_cell_attribute[:attr_id] %>"
+                                                    class="analysisQ1Table__textarea"
+                                                    row="<%= analysisTable_cell_attribute[:attr_row] %>"
+                                                    placeholder="<%= analysisTable_cell_attribute[:attr_placeholder] %>"></textarea>
+                                    </div>
+                                <% end %>
+                            </div>
+                        <% end %>
                     </div>
-                    <div class="analysisQuestion1Table__row">
-                        <div class="analysisQuestion1Table__column">
-                            <textarea class="analysisQuestion1Table__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
+                </div>
+                <div class="analysisTableWrapper">
+                    <h3 class="main__sectionSubTtl">
+                        <%= @analysisTableQ_theme_list[theme_num][@analysisTableHeader[:Q2]] %>
+                    </h3>
+                    <div class="analysisQ2Table">
+                        <div class="analysisQ2Table__header">
+                            <% @analysisTableQ2_header_list[theme_num].each do |header_item| %>
+                                <div class="analysisQ2Table__column">
+                                    <%= header_item %>
+                                </div>
+                            <% end %>
                         </div>
-                        <div class="analysisQuestion1Table__column">
-                            <textarea class="analysisQuestion1Table__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                        </div>
-                    </div>
-                    <div class="analysisQuestion1Table__row">
-                        <div class="analysisQuestion1Table__column">
-                            <textarea class="analysisQuestion1Table__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                        </div>
-                        <div class="analysisQuestion1Table__column">
-                            <textarea class="analysisQuestion1Table__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                        </div>
+                        <% @analysisTable_default_row_nums.times do |row_num| %>
+                            <div class="analysisQ2Table__row">
+                                <% @analysisTableQ2_header_list[theme_num].length.times do |col_num| %>
+                                    <% analysisTable_cell_attribute = get_analysisTable_cell_attribute(theme_num, "Q2", row_num, col_num) %>
+                                    <div class="analysisQ2Table__column">
+                                        <textarea   id="<%= analysisTable_cell_attribute[:attr_id] %>"
+                                                    class="analysisQ2Table__textarea"
+                                                    row="<%= analysisTable_cell_attribute[:attr_row] %>"
+                                                    placeholder="<%= analysisTable_cell_attribute[:attr_placeholder] %>"></textarea>
+                                    </div>
+                                <% end %>
+                            </div>
+                        <% end %>
                     </div>
                 </div>
             </li>
-            <li class="analysisQuestionTableList__item">
-                <h3 class="main__sectionSubTtl">モチベーションが上がる時の共通要素は？</h3>
-                <div class="analysisQuestion2Table">
-                    
-                    <div class="analysisQuestion2Table__header">
-                        <div class="analysisQuestion2Table__column">共通要素</div>
-                    </div>
-                    <div class="analysisQuestion2Table__row">
-                        <div class="analysisQuestion2Table__column">
-                            <textarea class="analysisQuestion2Table__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                        </div>
-                    </div>
-                    <div class="analysisQuestion2Table__row">
-                        <div class="analysisQuestion2Table__column">
-                            <textarea class="analysisQuestion2Table__textarea" name="" id="" rows="2" placeholder="ここに入力"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>%>
+        <% end %>
     </div>
 </section>
-
-
 
 <%# ===== summary ===== %>
 <section class="main__section">
     <h2 class="main__sectionTtl">まとめ</h2>
-    <div    id="<%= @summaryTableArea %>"
-            class="main__sectionContent">
-        <ul class="<%= @summaryTableList %>">
-            <% @summary_header_list.length.times do |header_num| %>
-            <% summaryTable_cell_attribute  = get_summaryTable_cell_attribute(header_num) %>
-                <li class="<%= add_class(@summaryTable, [@summaryTableList_item]) %>">
-                    <div class="<%= @summaryTable_header %>">
-                        <div class="<%= @summaryTable_column %>">
-                            <%= @summary_header_list[header_num] %>
-                        </div>
+    <ul id="summaryTableList"
+        class="summaryTableList main__sectionContent">
+        <% @summary_header_list.length.times do |header_num| %>
+        <% summaryTable_cell_attribute  = get_summaryTable_cell_attribute(header_num) %>
+            <li class="summaryTable summaryTableList__item">
+                <div class="summaryTable__header">
+                    <div class="summaryTable__column">
+                        <%= @summary_header_list[header_num] %>
                     </div>
-                    <div class="<%= @summaryTable_row %>">
-                        <div class="<%= @summaryTable_column %>">
-                            <textarea   id="<%= summaryTable_cell_attribute[:attr_id] %>"
-                                        class="<%= @summaryTable_textarea %>"
-                                        rows="<%= summaryTable_cell_attribute[:attr_row] %>"
-                                        placeholder="<%= summaryTable_cell_attribute[:attr_placeholder] %>"></textarea>
-                        </div>
+                </div>
+                <div class="summaryTable__row">
+                    <div class="summaryTable__column">
+                        <textarea   id="<%= summaryTable_cell_attribute[:attr_id] %>"
+                                    class="summaryTable__textarea"
+                                    rows="<%= summaryTable_cell_attribute[:attr_row] %>"
+                                    placeholder="<%= summaryTable_cell_attribute[:attr_placeholder] %>"></textarea>
                     </div>
-                </li>
-            <% end %>
-        </ul>
-    </div>
+                </div>
+            </li>
+        <% end %>
+    </ul>
 </section>

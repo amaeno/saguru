@@ -1,13 +1,13 @@
 import {add_child_object, limit_textarea_lines, dammy_text, get_table_cell_position} from "./common";
 
 
-const id_analysis_table_area = "analysisTableArea";
+const id_analysis_table_area = "analysisTableList";
 
-const class_analysisQuestionGroup_list = "analysisQuestionTableList";
-const class_analysisQuestionGroup_list_item = "analysisQuestionTableList__item";
+const class_analysisQGroup_list = "analysisTableList";
+const class_analysisQGroup_list_item = "analysisTableList__item";
 
-const class_analysisQuestion1Table = "analysisQuestion1Table";
-const class_analysisQuestion2Table = "analysisQuestion2Table";
+const class_analysisQ1Table = "analysisQ1Table";
+const class_analysisQ2Table = "analysisQ2Table";
 
 const class_suffix_header = "__header";
 const class_suffix_row = "__row";
@@ -73,10 +73,10 @@ let TABLE_ROWS = 2;
 export const init_analysis_table = () => {
     const analysis_table_area = document.getElementById(id_analysis_table_area);
 
-    make_analysis_table(analysis_table_area);
+    // make_analysis_table(analysis_table_area);
 
     // テーブルセルの要素(textareaタグ)のリスト取得
-    let analysis_cells = analysis_table_area.querySelectorAll(`.${class_analysisQuestion1Table + class_suffix_textarea}, .${class_analysisQuestion2Table + class_suffix_textarea}`);
+    let analysis_cells = analysis_table_area.querySelectorAll(`.${class_analysisQ1Table + class_suffix_textarea}, .${class_analysisQ2Table + class_suffix_textarea}`);
     let len_analysis_cells = analysis_cells.length;
 
     // init_analysis_data_array(analysis_cells);
@@ -140,7 +140,7 @@ const make_analysis_table = (element_analysis_table_area) => {
     // テーブルを生成
     for(let group_num=0; group_num < len_analysis_question_group; group_num++){
         const analysis_question_group_list = add_child_object(element_analysis_table_area, "ul");
-        analysis_question_group_list.className = class_analysisQuestionGroup_list;
+        analysis_question_group_list.className = class_analysisQGroup_list;
 
         // 記入欄
         make_analysis_table_question(analysis_question_group_list, "Q1", group_num);
@@ -151,30 +151,30 @@ const make_analysis_table = (element_analysis_table_area) => {
 
 // ************************************************
 //     @breief:  分析記入欄Question1のHTMLを生成する
-//     @param[1]: .analysisQuestionTableList が付与されたオブジェクト
+//     @param[1]: .analysisTableList が付与されたオブジェクト
 //     @param[2]: Question名(Q1 or Q2)
 //     @param[3]: QuestionのGroup番号
 //     @return: 実行結果
 // ************************************************
 const make_analysis_table_question = (element_analysis_question_group, question_no, group_num) => {
-    let class_analysisQuestionTable = "";
+    let class_analysisQTable = "";
     let theme = [];
     let header = [];
 
     //　Question名によってクラス名を設定
     if(question_no === "Q1"){
-        class_analysisQuestionTable = class_analysisQuestion1Table;
+        class_analysisQTable = class_analysisQ1Table;
         theme = analysisTable_question1_theme_list[group_num];
         header = analysisTable_question1_header_list[group_num];
     }
     else if(question_no === "Q2"){
-        class_analysisQuestionTable = class_analysisQuestion2Table;
+        class_analysisQTable = class_analysisQ2Table;
         theme = analysisTable_question2_theme_list[group_num];
         header = analysisTable_question2_header_list[group_num];
     }
 
     const analysis_question_group_list_item = add_child_object(element_analysis_question_group, "li");
-    analysis_question_group_list_item.className = class_analysisQuestionGroup_list_item;
+    analysis_question_group_list_item.className = class_analysisQGroup_list_item;
 
     // 設問文生成
     const analysisTable_question_theme = add_child_object(analysis_question_group_list_item, "h3");
@@ -183,30 +183,30 @@ const make_analysis_table_question = (element_analysis_question_group, question_
 
     // 記入欄ラッパー生成
     const analysis_question_table = add_child_object(analysis_question_group_list_item, "div");
-    analysis_question_table.className = class_analysisQuestionTable;
+    analysis_question_table.className = class_analysisQTable;
 
     // header欄生成
     const analysis_question_table_header = add_child_object(analysis_question_table, "div");
-    analysis_question_table_header.className = class_analysisQuestionTable + class_suffix_header;
+    analysis_question_table_header.className = class_analysisQTable + class_suffix_header;
 
     for(let col_num=0; col_num < header.length; col_num++){
         const analysis_question_table_column = add_child_object(analysis_question_table_header, "div");
-        analysis_question_table_column.className = class_analysisQuestionTable + class_suffix_column;
+        analysis_question_table_column.className = class_analysisQTable + class_suffix_column;
         analysis_question_table_column.textContent = header[col_num];
     }
 
     // 行を生成
     for(let row_num=0; row_num < TABLE_ROWS; row_num++){
         const analysis_question_table_row = add_child_object(analysis_question_table, "div");
-        analysis_question_table_row.className = class_analysisQuestionTable + class_suffix_row;
+        analysis_question_table_row.className = class_analysisQTable + class_suffix_row;
 
         // 各行に列要素を生成
         for(let col_num=0; col_num < header.length; col_num++){
             const elem_table_column = add_child_object(analysis_question_table_row, "div");
-            elem_table_column.className = class_analysisQuestionTable + class_suffix_column;
+            elem_table_column.className = class_analysisQTable + class_suffix_column;
 
             const elem_table_textarea = add_child_object(elem_table_column, "textarea");
-            elem_table_textarea.className = class_analysisQuestionTable + class_suffix_textarea;
+            elem_table_textarea.className = class_analysisQTable + class_suffix_textarea;
             elem_table_textarea.rows = 2;
             elem_table_textarea.placeholder = dammy_text;
             // セル位置記録

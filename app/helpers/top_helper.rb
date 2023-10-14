@@ -57,7 +57,7 @@ module TopHelper
     # ************************************************
     def get_episodeTable_cell_attribute(row_num, col_num)
         cell_id = "episode_row#{row_num}col#{col_num}"
-        cell_class = @episodeTable_column
+        cell_class = "episodeTable__column"
         cell_type = ""
         cell_min = 0
         cell_max = 100
@@ -113,8 +113,30 @@ module TopHelper
 
 
 
+# chronology =======================================
+
+
+
+
 # analysisTable =======================================
 
+    # ************************************************
+    #   @breief:  分析記入欄の各属性値を取得する
+    #   @param[1]: ヘッダー番号
+    #   @param[2]: Question番号
+    #   @param[3]: 行番号
+    #   @param[4]: 列番号
+    #   @return: 各属性値を含んだハッシュ
+    # ************************************************
+    def get_analysisTable_cell_attribute(header_num, question_num, row_num, col_num)
+        cell_id = "analysis_G#{header_num}#{question_num}row#{row_num}col#{col_num}"
+        cell_row = @textarea_row
+        cell_placeholder = @textarea_placeholder
+
+        return {attr_id: cell_id,
+                attr_row: cell_row,
+                attr_placeholder: cell_placeholder}
+    end
 
 
 
@@ -127,12 +149,10 @@ module TopHelper
     # ************************************************
     def get_summaryTable_cell_attribute(header_num)
         cell_id = "summary_G#{header_num}row0col0"
-        cell_class = @summaryTable_column
         cell_row = @textarea_row
         cell_placeholder = @textarea_placeholder
 
         return {attr_id: cell_id, 
-                attr_class: cell_class, 
                 attr_row: cell_row,
                 attr_placeholder: cell_placeholder}
     end
