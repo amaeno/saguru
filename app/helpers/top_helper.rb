@@ -26,7 +26,7 @@ module TopHelper
         start_age = 6
         default_motivation = 50
 
-        @episodeTable_default_row_nums.times do |row_num|
+        @episodeTable_row_nums.times do |row_num|
             @episode_header_list.each do |header_col|
                 case header_col
                     when "年齢"
@@ -112,9 +112,44 @@ module TopHelper
     end
 
 
+    # ************************************************
+    #   @breief:  エピソード欄に記入されたデータの指定列の要素を取得する
+    #   @param[1]: エピソード欄の列名シンボル
+    #   @return: エピソード欄の指定列データ配列
+    # ************************************************
+    def get_episodeTable_column_data(col_name)
+        col_data_array = []
+        col_num = @episode_header_list.length
+        len_episodeTable_data = @episodeTable_cell_data.length - 1
+
+        if (@episode_header_index[:age]..@episode_header_index[:note]).include?(@episode_header_index[col_name])
+            # 一列目の指定セルから行数個おきに要素を取り出す
+            @episode_header_index[col_name].step(len_episodeTable_data, col_num){ |cell_data| col_data_array.push(@episodeTable_cell_data[cell_data]) }
+        else
+            p "不適切な引数"
+        end
+        
+        return col_data_array
+    end
+
 
 # chronology =======================================
 
+    # ************************************************
+    #   @breief:  チャート欄のidを取得する
+    #   @param[1]: 行番号
+    #   @param[2]: セル属性(:age or :episode)
+    #   @return: セルのid
+    # ************************************************
+    def get_chronology_cell_id(row_num, cell_attr)
+        if cell_attr == :age
+            cell_id = "chronology_row#{row_num}col#{@episode_header_index[:age]}"
+        elsif cell_attr == :episode
+            cell_id = "chronology_row#{row_num}col#{@episode_header_index[:episode]}"
+        else
+            p "不適切な属性"
+        end
+    end
 
 
 

@@ -26,7 +26,7 @@ export const draw_chronology_chart_and_text = () => {
     let episode_column_data_array = get_episode_column_data_array();
 
     draw_chronology_chart(episode_column_data_array[header_episode.motivation]);
-    make_chronology_text_template(episode_column_data_array[header_episode.age], episode_column_data_array[header_episode.episode]);
+    // make_chronology_text_template(episode_column_data_array[header_episode.age], episode_column_data_array[header_episode.episode]);
 }
 
 
