@@ -233,7 +233,7 @@ $chartTextHeight: 370px;
 @include makeGridTable("analysisQuestion1", $analysisQuestion1TableTempCol);
 @include makeGridTable("analysisQuestion2", $analysisQuestion2TableTempCol);
 
-.analysisQuestionGroupList {
+.analysisQuestionTableList {
     display: grid;
     grid-template-columns: 8fr 1fr 4fr;
 
@@ -242,11 +242,11 @@ $chartTextHeight: 370px;
     }
 }
 
-.analysisQuestionGroupList__item:nth-of-type(1) {
+.analysisQuestionTableList__item:nth-of-type(1) {
     grid-column: 1 / 2;
 }
 
-.analysisQuestionGroupList__item:nth-of-type(2) {
+.analysisQuestionTableList__item:nth-of-type(2) {
     grid-column: 3 / 4;
 }
 

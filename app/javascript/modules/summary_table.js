@@ -30,7 +30,7 @@ let TABLE_ROWS = 1;
 export const init_summary_table = () => {
     const summary_table = document.getElementById(id_summary_table_area);
 
-    make_summary_table(summary_table);
+    // make_summary_table(summary_table);
 
     // テーブルセルの要素(textarea or inputタグ)のリスト取得
     let summary_cells = summary_table.querySelectorAll(`.${class_summaryTable_textarea}`);
