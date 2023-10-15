@@ -1,23 +1,11 @@
-import {header_episode, cell_position, add_child_object, get_table_cell_position, limit_textarea_lines, dammy_text, limit_input_range} from "./common";
+import {header_episode, cell_position, get_table_cell_position, limit_textarea_lines, dammy_text, limit_input_range} from "./common";
 import {update_chronology_chart_and_text} from "./chronology_chart";
 
 
 const id_episode_table = "episodeTable";
-const class_episodeTable_header = "episodeTable__header";
-const class_episodeTable_row = "episodeTable__row";
-const class_episodeTable_column = "episodeTable__column";
 const class_episodeTable_input = "episodeTable__input";
 const class_episodeTable_textarea = "episodeTable__textarea";
-const class_item_age = "-numItemAge";
-const class_item_motivataion = "-numItemMotivation";
 
-const episodeTable_header_list =  ["年齢", "エピソード", "当時の感情・思考", "モチベーション", "振り返って気づいたこと"];
-
-
-// エピソードの最小年齢
-let MIN_AGE = 6;
-// エピソード欄の初期行数
-let TABLE_ROWS = 19;
 
 // 　テーブルに記述したデータを配列に保持する
 let episode_data_array = [];
@@ -31,8 +19,6 @@ let episode_data_array = [];
 // ************************************************
 export const init_episode_table = () => {
     const episode_table = document.getElementById(id_episode_table);
-
-    // make_episode_table(episode_table);
 
     // テーブルセルの要素(textarea or inputタグ)のリスト取得
     let episode_cells = episode_table.querySelectorAll(`.${class_episodeTable_input}, .${class_episodeTable_textarea}`);
@@ -56,75 +42,6 @@ export const init_episode_table = () => {
             // モチベーションチャート描画更新
             update_chronology_chart_and_text(episode_data_array);
         });
-    }
-}
-
-
-// ************************************************
-//     @breief:  エピソード記入欄のHTMLを生成する
-//     @param[1]: #episodeTable が付与されたオブジェクト
-//     @return: -
-// ************************************************
-const make_episode_table = (element_episode_table) => {
-    // テーブルのヘッダーを生成
-    const episode_table_header = add_child_object(element_episode_table, "div");
-    episode_table_header.className = class_episodeTable_header;
-
-    for(let col_num=0; col_num < header_episode.length; col_num++){
-        const episode_table_header_colunm = add_child_object(episode_table_header, "div");
-        episode_table_header_colunm.className = class_episodeTable_column;
-        episode_table_header_colunm.textContent = episodeTable_header_list[col_num];
-    }
-
-    // テーブルの行を生成
-    for(let row_num=0; row_num < TABLE_ROWS; row_num++){
-        const episode_table_row = add_child_object(element_episode_table, "div");
-        episode_table_row.className = class_episodeTable_row;
-
-        // 各行に列要素を生成
-        for(let col_num=0; col_num < header_episode.length; col_num++){
-            const elem_table_column = add_child_object(episode_table_row, "div");
-
-            // 年齢とモチベーション値の欄はinputタグ
-            if((col_num ===header_episode.age) || (col_num === header_episode.motivation)) {
-                const elem_table_input = add_child_object(elem_table_column, "input");
-                elem_table_input.type = "number";
-                elem_table_input.min = "0";
-                elem_table_input.max = "100";
-                // セル位置記録
-                elem_table_input.id = `episode_row${row_num}col${col_num}`;
-
-                // 年齢の属性設定
-                if(col_num === header_episode.age) {
-                    elem_table_input.className = class_episodeTable_input;
-                    elem_table_input.placeholder = row_num + MIN_AGE;
-                    elem_table_input.value = row_num + MIN_AGE;
-
-                    // "歳"の表示のためのクラス付与
-                    elem_table_column.className = class_episodeTable_column + " " + class_item_age;
-                }
-                // モチベーション値の属性設定
-                else {
-                    elem_table_input.className = class_episodeTable_input;
-                    elem_table_input.placeholder = "50";
-                    elem_table_input.value = 50;
-
-                    // "点"の表示のためのクラス付与
-                    elem_table_column.className = class_episodeTable_column + " " + class_item_motivataion;
-                }
-            }
-            else {
-                const elem_table_textarea = add_child_object(elem_table_column, "textarea");
-                elem_table_textarea.className = class_episodeTable_textarea;
-                elem_table_textarea.rows = 2;
-                elem_table_textarea.placeholder = dammy_text;
-                // セル位置記録
-                elem_table_textarea.id = `episode_row${row_num}col${col_num}`;
-
-                elem_table_column.className = class_episodeTable_column;
-            }
-            
-        }
     }
 }
 

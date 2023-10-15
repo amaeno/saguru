@@ -1,13 +1,8 @@
-import {header_episode, add_child_object} from "./common";
+import {header_episode} from "./common";
 import {get_episode_column_data_array} from "./episode_table";
 
 
 const id_canvas = "chronologyChart";
-const id_chronology_text = "chronologyText";
-
-const class_item = "chronologyEpisodeList__item";
-const class_item_age = "chronologyEpisodeList__itemAge";
-const class_item_text = "chronologyEpisodeList__itemText";
 
 
 const canvas_mergin_y = 10;
@@ -26,7 +21,6 @@ export const draw_chronology_chart_and_text = () => {
     let episode_column_data_array = get_episode_column_data_array();
 
     draw_chronology_chart(episode_column_data_array[header_episode.motivation]);
-    // make_chronology_text_template(episode_column_data_array[header_episode.age], episode_column_data_array[header_episode.episode]);
 }
 
 
@@ -221,46 +215,6 @@ const draw_axis = (context, width, height, cell_height) => {
     context.closePath();
 
     context.stroke();
-}
-
-
-
-// ************************************************
-//     @breief:  エピソードのテキストを生成する
-//     @param[1]:  年齢配列
-//     @param[2]:  エピソードテキスト配列
-//     @return: -
-// ************************************************
-const make_chronology_text_template = (age_array, episode_array) => {
-    const len_data_array = age_array.length;
-
-    // HTML生成
-    for(let row_num=0; row_num < len_data_array; row_num++){
-        const chronology_text_list = document.getElementById(id_chronology_text);
-
-        // リストコンテナ
-        const chronology_text_item = add_child_object(chronology_text_list, "li");
-        chronology_text_item.className = class_item;
-    
-        // 年齢
-        const chronology_text_item_age = add_child_object(chronology_text_item, "p");
-        chronology_text_item_age.className = class_item_age;
-
-        // 行番号とヘッダー番号からセルを取得
-        chronology_text_item_age.id = `chronology_row${row_num}col${header_episode.age}`;
-
-        chronology_text_item_age.textContent = String(age_array[row_num]);
-    
-        // エピソードテキスト
-        const chronology_text_item_episode = add_child_object(chronology_text_item, "p");
-        chronology_text_item_episode.className = class_item_text;
-        // 行番号とヘッダー番号からセルを取得
-        chronology_text_item_episode.id = `chronology_row${row_num}col${header_episode.episode}`;
-
-        chronology_text_item_episode.textContent = episode_array[row_num];
-    }
-
-    update_chronology_text(age_array, episode_array);
 }
 
 
