@@ -1,0 +1,5 @@
+<%= form_with url: "/users/create" do |form|%>
+    <%= form.text_field :new_user_name %>
+    <%= form.password_field :new_user_password %>
+    <%= form.submit "SEND" %>
+<% end %>
