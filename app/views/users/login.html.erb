@@ -1,14 +1,14 @@
-<h1>新規ユーザ登録</h1>
-<%= form_with url: "/users/create" do |form|%>
+<h1>ログイン</h1>
+<%= form_with url: "/users/authorize" do |form|%>
     <div>
         <p>ユーザ名</p>
         <small>半角英数字記号いずれかを組み合わせて6〜15文字以内で入力</small>
-        <%= form.text_field :new_user_name, value: @new_user_name %>
+        <%= form.text_field :user_name, value: @user_name %>
     </div>
     <div>
         <p>パスワード</p>
         <small>半角英数字記号全てを組み合わせて10〜20文字以内で入力</small>
-        <%= form.password_field :new_user_password, value: @new_user_password %>
+        <%= form.password_field :user_password, value: @user_password %>
     </div>
-    <%= form.submit "SEND" %>
+    <%= form.submit "SEND" %> 
 <% end %>

@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_10_19_142654) do
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.string "name"
     t.string "password"
     t.datetime "created_at", null: false
