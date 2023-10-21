@@ -1,4 +1,9 @@
 <h1>ログイン</h1>
+<% if @error_message %>
+    <p>
+        <%= @error_message %>
+    </p>
+<% end %>
 <%= form_with url: "/users/authorize" do |form|%>
     <div>
         <p>ユーザ名</p>

@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
+    before_action :authenticate_user, {only: [:update]}
+
+    # 新規ユーザ登録
     def signup
     end
 
-    # 新規ユーザ情報登録
     def create
         @user_info = User.new(
                         name: params[:new_user_name],
@@ -15,7 +17,7 @@ class UsersController < ApplicationController
             redirect_to("/")
         else
             # DB保存失敗時は登録画面へ戻る
-            @error_message = "このユーザ名またはパスワードはすでに登録されています"
+            @error_message = "登録済みまたは不適切な入力です"
             @new_user_name = params[:new_user_name]
             @new_user_password = params[:new_user_password]
             render("users/signup")
@@ -23,11 +25,10 @@ class UsersController < ApplicationController
 
     end
 
+    # ユーザ情報照合
     def login
-
     end
 
-    # ユーザ情報を照合
     def authorize
         @user_info = User.find_by(
                         name: params[:user_name],
@@ -45,5 +46,35 @@ class UsersController < ApplicationController
             @user_password = params[:user_password]
             render("users/login")
         end
+    end
+
+    # ユーザ情報編集
+    def setting
+    end
+
+    def update
+        @user_info = User.find_by(id: session[:user_id])
+
+        # 対象ユーザのレコード編集
+        @user_info.name = params[:update_user_name]
+        @user_info.name = params[:update_user_password]
+
+        if @user_info.save
+            flash[:notice] = "ユーザ情報を編集しました"
+            redirect_to("/")
+        else
+            # DB保存失敗時は登録画面へ戻る
+            @error_message = "登録済みまたは不適切な入力です"
+            @new_user_name = params[:new_user_name]
+            @new_user_password = params[:new_user_password]
+            render("users/setting")
+        end
+    end
+
+    # ログアウト
+    def logout
+        session[:user_id] = nil
+        flash[:notice] = "ログアウトしました"
+        redirect_to("/login")
     end
 end
