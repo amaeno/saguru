@@ -17,10 +17,10 @@ class UsersController < ApplicationController
             redirect_to("/")
         else
             # DB保存失敗時は登録画面へ戻る
-            @error_message = "登録済みまたは不適切な入力です"
+            @error_message = @user_info.errors.full_messages
             @new_user_name = params[:new_user_name]
             @new_user_password = params[:new_user_password]
-            render("users/signup")
+            render "users/signup", status: :unprocessable_entity
         end
 
     end
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
             @error_message = "ユーザ名またはパスワードが間違っています"
             @user_name = params[:user_name]
             @user_password = params[:user_password]
-            render("users/login")
+            render "users/login", status: :unprocessable_entity
         end
     end
 
@@ -57,17 +57,17 @@ class UsersController < ApplicationController
 
         # 対象ユーザのレコード編集
         @user_info.name = params[:update_user_name]
-        @user_info.name = params[:update_user_password]
+        @user_info.password = params[:update_user_password]
 
         if @user_info.save
             flash[:notice] = "ユーザ情報を編集しました"
             redirect_to("/")
         else
             # DB保存失敗時は登録画面へ戻る
-            @error_message = "登録済みまたは不適切な入力です"
+            @error_message = @user_info.errors.full_messages
             @new_user_name = params[:new_user_name]
             @new_user_password = params[:new_user_password]
-            render("users/setting")
+            render "users/setting", status: :unprocessable_entity
         end
     end
 

@@ -1,13 +1,32 @@
 <h1>新規ユーザ登録</h1>
+<%# varidationエラー時はメッセージ表示 %>
+<% if @error_message %>
+    <ul>
+        <% @error_message.each do |message| %>
+            <li>
+                <%= message %>
+            </li>
+        <% end %>
+    </ul>
+<% end %>
+
 <%= form_with url: "/users/create" do |form|%>
     <div>
         <p>ユーザ名</p>
-        <small>半角英数字記号いずれかを組み合わせて6〜15文字以内で入力</small>
+        <dl>
+            <dd>入力条件</dd>
+            <dt>半角英数字記号いずれかからなる組み合わせ</dt>
+            <dt>6〜15文字以内</dt>
+        </dl>
         <%= form.text_field :new_user_name, value: @new_user_name %>
     </div>
     <div>
         <p>パスワード</p>
-        <small>半角英数字記号全てを組み合わせて10〜20文字以内で入力</small>
+        <dl>
+            <dd>入力条件</dd>
+            <dt>半角英数字記号全てを含んだ組み合わせ</dt>
+            <dt>10〜20文字以内</dt>
+        </dl>
         <%= form.password_field :new_user_password, value: @new_user_password %>
     </div>
     <%= form.submit "SEND" %>
