@@ -1,0 +1,9 @@
+# バリデーションエラーの日本語化
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+    attributes:
+      user:
+        name: ユーザー名
+        password: パスワード
