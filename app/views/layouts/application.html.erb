@@ -16,6 +16,18 @@
         <p class="logo__ruby">-サグル-</p>
         <p class="logo__ttl">Saguru</p>
       </h1>
+      <%# ログイン中リンク %>
+      <% if @current_user %>
+        <%= link_to("Saguruについて", "/about") %>
+        <%= link_to("自己分析する", "/") %>
+        <%= link_to("ユーザ編集", "/") %>
+        <%= link_to("ログアウト", "/logout")%>
+      <%# ログアウト中リンク %>
+      <% else %>
+        <%= link_to("Saguruについて", "/about") %>
+        <%= link_to("新規ユーザ登録", "/signup") %>
+        <%= link_to("ログイン", "/login") %>
+      <% end %>
     </header>
 
     <main class="main body__main">
