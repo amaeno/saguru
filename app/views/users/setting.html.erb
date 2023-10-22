@@ -1,33 +1,40 @@
-<h1>ユーザ編集</h1>
-<%# varidationエラー時はメッセージ表示 %>
-<% if @error_message %>
-    <ul>
-        <% @error_message.each do |message| %>
-            <li>
-                <%= message %>
-            </li>
-        <% end %>
-    </ul>
-<% end %>
+<div class="userInfo">
+    <h1 class="userInfo__ttl">登録情報変更</h1>
+    <%# varidationエラー時はメッセージ表示 %>
+    <% if @error_message %>
+        <ul class="errorMessageBox userInfo__error">
+            <li class="errorMessageBox__ttl">エラー！</li>
+            <% @error_message.each do |message| %>
+                <li class="errorMessageBox__item">
+                    <%= message %>
+                </li>
+            <% end %>
+        </ul>
+    <% end %>
 
-<%= form_with url: "/users/update" do |form|%>
-    <div>
-        <p>ユーザ名</p>
-        <dl>
-            <dd>入力条件</dd>
-            <dt>半角英数字記号いずれかからなる組み合わせ</dt>
-            <dt>6〜15文字以内</dt>
-        </dl>
-        <%= form.text_field :update_user_name, value: @update_user_name %>
-    </div>
-    <div>
-        <p>パスワード</p>
-        <dl>
-            <dd>入力条件</dd>
-            <dt>半角英数字記号全てを含んだ組み合わせ</dt>
-            <dt>10〜20文字以内</dt>
-        </dl>
-        <%= form.password_field :update_user_password, value: @update_user_password %>
-    </div>
-    <%= form.submit "SEND" %>
-<% end %>
+    <%= form_with url: "/users/update", class: "userInfo__formArea" do |form| %>
+        <div class="userInfoInputArea userInfo__formItem">
+            <h2 class="userInfoInputArea__ttl">ユーザ名</h2>
+            <%= form.text_field  :update_user_name,
+                                value: @update_user_name,
+                                class: "userInfoInputArea__form" %>
+            <dl class="userInfoInputArea__noteList">
+                <dd class="userInfoInputArea__noteDesc">ユーザ名は以下の条件を満たすよう設定してください</dd>
+                <dt class="userInfoInputArea__noteTerm">半角英数字記号いずれかからなる組み合わせ</dt>
+                <dt class="userInfoInputArea__noteTerm">6〜15文字以内</dt>
+            </dl>
+        </div>
+        <div class="userInfoInputArea userInfo__formItem">
+            <h2 class="userInfoInputArea__ttl">パスワード</h2>
+            <%= form.password_field :update_user_password,
+                                    value: @update_user_password,
+                                    class: "userInfoInputArea__form" %>
+            <dl class="userInfoInputArea__noteList">
+                <dd class="userInfoInputArea__noteDesc">パスワードは以下の条件を満たすよう設定してください</dd>
+                <dt class="userInfoInputArea__noteTerm">半角英数字記号全てを含んだ組み合わせ</dt>
+                <dt class="userInfoInputArea__noteTerm">10〜20文字以内</dt>
+            </dl>
+        </div>
+        <%= form.submit "更新", class: "userInfo__formSendBtn" %>
+    <% end %>
+</div>

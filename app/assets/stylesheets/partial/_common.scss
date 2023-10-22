@@ -14,10 +14,22 @@ html {
 
 .body__header {
     height: $headerHeight;
+    padding: 0 100px;
 }
 
 .body__main {
     // 固定ヘッダーと重ならないためのpadding
     padding-top:  $headerHeight;
     padding-bottom: 30px;
+}
+
+.body__flashMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: 2rem;
+    padding: 10px;
+    color: white;
+    background-color: orange;
 }

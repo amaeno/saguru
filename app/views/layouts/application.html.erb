@@ -16,21 +16,30 @@
         <p class="logo__ruby">-サグル-</p>
         <p class="logo__ttl">Saguru</p>
       </h1>
-      <%# ログイン中リンク %>
-      <% if @current_user %>
-        <%= link_to("Saguruについて", "/about") %>
-        <%= link_to("自己分析する", "/") %>
-        <%= link_to("ユーザ編集", "/setting") %>
-        <%= link_to("ログアウト", "/logout")%>
-      <%# ログアウト中リンク %>
-      <% else %>
-        <%= link_to("Saguruについて", "/about") %>
-        <%= link_to("新規ユーザ登録", "/signup") %>
-        <%= link_to("ログイン", "/login") %>
-      <% end %>
+      <nav class="nav header__nav">
+        <%# ログイン中リンク %>
+        <% if @loggedin_user %>
+          <p class="nav__username">ユーザ：<%= @loggedin_user.name %></p>
+          <%= link_to "Saguruについて", "/about", class: "nav__item" %>
+          <%= link_to "自己分析する", "/", class: "nav__item" %>
+          <%= link_to "登録情報変更", "/setting", class: "nav__item" %>
+          <%= link_to "ログアウト", "/logout", class: "nav__item" %>
+        <%# ログアウト中リンク %>
+        <% else %>
+          <%= link_to "Saguruについて", "/about", class: "nav__item" %>
+          <%= link_to "新規登録", "/signup", class: "nav__item" %>
+          <%= link_to "ログイン", "/login", class: "nav__item" %>
+        <% end %>
+      </nav>
     </header>
 
     <main class="main body__main">
+      <% if flash[:notice] %>
+          <div class="body__flashMessage">
+            <%= notice %>
+          </div>
+      <% end %>
+
       <%= yield %>
     </main>
   </body>

@@ -81,9 +81,9 @@ $chartTextHeight: 370px;
 // style
 // ============================================
 .main {
+    position: relative;
     display: block;
     margin: 0 auto;
-    padding: auto 20px;
     width: $maxWidth;
     max-width: $maxWidth;
 }
