@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
     before_action :authenticate_user, {only: [:update]}
 
-    # 新規ユーザ登録
+    # 新規登録
     def signup
     end
 
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
     end
 
-    # ユーザ情報照合
+    # 登録情報照合
     def login
     end
 
@@ -48,8 +48,10 @@ class UsersController < ApplicationController
         end
     end
 
-    # ユーザ情報編集
+    # 登録情報編集
     def setting
+        @user_info = User.find_by(id: session[:user_id])
+        @update_user_name = @user_info.name
     end
 
     def update
@@ -60,13 +62,13 @@ class UsersController < ApplicationController
         @user_info.password = params[:update_user_password]
 
         if @user_info.save
-            flash[:notice] = "ユーザ情報を編集しました"
+            flash[:notice] = "登録情報を更新しました"
             redirect_to("/")
         else
             # DB保存失敗時は登録画面へ戻る
             @error_message = @user_info.errors.full_messages
-            @new_user_name = params[:new_user_name]
-            @new_user_password = params[:new_user_password]
+            @update_user_name = params[:update_user_name]
+            @update_user_password = params[:update_user_password]
             render "users/setting", status: :unprocessable_entity
         end
     end
