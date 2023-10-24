@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :authenticate_user, {only: [:update]}
+    before_action :authenticate_user, {only: [:setting]}
 
     # 新規登録
     def signup
@@ -13,8 +13,15 @@ class UsersController < ApplicationController
 
         if @user_info.save
             session[:user_id] = @user_info.id
-            flash[:notice] = "ユーザ登録が完了しました"
-            redirect_to("/")
+
+            # 新規登録完了時に初期値エピソード記入欄追加
+            if Episode.make_new_episode_records(session[:user_id], 6, 24)
+                flash[:notice] = "ユーザ登録が完了しました"
+                redirect_to("/")
+            else
+                flash[:notice] = "サーバ内部エラーが発生しました"
+                render "users/signup", status: :unprocessable_entity
+            end
         else
             # DB保存失敗時は登録画面へ戻る
             @error_message = @user_info.errors.full_messages
@@ -22,7 +29,6 @@ class UsersController < ApplicationController
             @new_user_password = params[:new_user_password]
             render "users/signup", status: :unprocessable_entity
         end
-
     end
 
     # 登録情報照合

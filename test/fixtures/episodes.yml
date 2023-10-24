@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  row_num: MyString
+  integer: MyString
+  user_id: MyString
+  string: MyString
+  age: MyString
+  integer: MyString
+  episode: MyString
+  string: MyString
+  emotion: MyString
+  string: MyString
+  motivation: MyString
+  integer: MyString
+  awareness: MyString
+  string: MyString
+
+two:
+  row_num: MyString
+  integer: MyString
+  user_id: MyString
+  string: MyString
+  age: MyString
+  integer: MyString
+  episode: MyString
+  string: MyString
+  emotion: MyString
+  string: MyString
+  motivation: MyString
+  integer: MyString
+  awareness: MyString
+  string: MyString
