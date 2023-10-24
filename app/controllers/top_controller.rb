@@ -2,53 +2,22 @@ class TopController < ApplicationController
     before_action :authenticate_user, {only: [:index]}
 
     def index
-        # common =======================================
-    
-        block_list = "List"
-
-        element_item = "__item"
-        element_header = "__header"
-        element_row = "__row"
-        element_column = "__column"
-        element_input = "__input"
-        element_textarea = "__textarea"
-    
-    
-        @textarea_row = 2
-        @textarea_placeholder = "ここに入力"
-    
-    
-        @input_type = "number"
-    
-        @input_min_age = 0
-        @input_max_age = 100
-        # placeholderは年齢値を設定
-        @input_placeholder_age = 0
-    
-        @input_min_motivation = 0
-        @input_max_motivation = 100
-        @input_placeholder_motivation= 50
-        
+        # common ======================================= 
     
     
         # episodeTable =======================================
-        @episode_header_index = {   age: 0,
-                                    episode: 1,
-                                    emotion: 2,
-                                    motivation: 3,
-                                    note: 4}
+                            # DB参照用ハッシュ # 列番号 # headerテキスト 
+        @episode_header =  {
+                                age:        [0,     "年齢"],
+                                episode:    [1,     "エピソード"],
+                                emotion:    [2,     "当時の感情・思考"],
+                                motivation: [3,     "モチベーション"],
+                                awareness:  [4,     "振り返って気づいたこと"],
+                            }
 
-        @episode_header_list = ["年齢",
-                                "エピソード",
-                                "当時の感情・思考",
-                                "モチベーション",
-                                "振り返って気づいたこと"]
-    
-        # エピソード欄に記入したデータを保持する列数*行数の1次元配列
-        @episodeTable_cell_data = []
-
-        episodeTable_default_row_nums = 19
-        @episodeTable_row_nums = episodeTable_default_row_nums
+        # Episodeモデルからデータ参照
+        @episode_table_data = Episode.where(user_id: session[:user_id])
+        @len_episode_table_data = @episode_table_data.length
 
         @option_colAge = "-numItemAge"
         @option_colMotivation = "-numItemMotivation"

@@ -71,6 +71,11 @@ group :test do
 
 end
 
+# SASSを使えるようにする
 gem "dartsass-rails", "~> 0.5.0"
 
+# バリデーションエラーを日本語化する
 gem 'rails-i18n'
+
+# Modelへの書き込みをひとまとめに実施する
+gem 'activerecord-import'

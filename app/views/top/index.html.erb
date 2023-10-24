@@ -5,17 +5,16 @@
     <div    id="episodeTable"
             class="episodeTable main__sectionContent">
         <div class="episodeTable__header">
-            <% @episode_header_list.each do |header_item| %>
+            <% @episode_header.each do |k_sym, v_header_info| %>
                 <div class="episodeTable__column">
-                    <%= header_item %>
+                    <%= v_header_info[$H_TEXT] %>
                 </div>
             <% end %>
-        </div> 
-    <% @episodeTable_cell_data = init_episodeTable_cell_data() %>
-    <% @episodeTable_row_nums.times do |row_num| %>
+        </div>
+    <% @episode_table_data.each do |record| %>
         <div class="episodeTable__row">
-            <% @episode_header_list.length.times do |col_num| %>
-                <% episodeTable_cell_attribute  = get_episodeTable_cell_attribute(row_num, col_num) %>
+            <% @episode_header.each do |k_sym, v_colomn| %>
+                <% episodeTable_cell_attribute  = get_episodeTable_cell_attribute(record, v_colomn) %>
                 <div class="<%= episodeTable_cell_attribute[:attr_class] %>">
                     <% if episodeTable_cell_is_input_tag? %>
                         <input  id="<%= episodeTable_cell_attribute[:attr_id] %>"
@@ -24,12 +23,13 @@
                                 min="<%= episodeTable_cell_attribute[:attr_min] %>"
                                 max="<%= episodeTable_cell_attribute[:attr_max] %>"
                                 placeholder="<%= episodeTable_cell_attribute[:attr_placeholder] %>"
-                                value="<%= @episodeTable_cell_data[(@episode_header_list.length)*row_num + col_num] %>">
+                                value="<%= record[k_sym] %>">
                     <% else %>
                         <textarea   id="<%= episodeTable_cell_attribute[:attr_id] %>"
                                     class="episodeTable__textarea"
                                     row="<%= episodeTable_cell_attribute[:attr_row] %>"
-                                    placeholder="<%= episodeTable_cell_attribute[:attr_placeholder] %>"></textarea>
+                                    placeholder="<%= episodeTable_cell_attribute[:attr_placeholder] %>"
+                                    value="<%= record[k_sym] %>"></textarea>
                     <% end %>
                 </div>
             <% end %>
@@ -46,9 +46,9 @@
                 class="chronology__chart"></canvas>
         <ul id="chronologyText"
             class="chronologyEpisodeList chronology__episode">
-            <% episodeTable_age_data = get_episodeTable_column_data(:age) %>
-            <% episodeTable_episode_data = get_episodeTable_column_data(:episode) %>
-            <% @episodeTable_row_nums.times do |item_num| %>
+            <% episodeTable_age_data = @episode_table_data.pluck(:age) %>
+            <% episodeTable_episode_data = @episode_table_data.pluck(:episode) %>
+            <% @len_episode_table_data.times do |item_num| %>
                 <li class="chronologyEpisodeList__item">
                     <p  class="chronologyEpisodeList__itemAge"
                         id="<%= get_chronology_cell_id(item_num, :age) %>">

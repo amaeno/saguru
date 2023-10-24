@@ -1,5 +1,20 @@
 module TopHelper
 # common =======================================
+    # headerの情報取得用定数
+    $H_INDEX = 0.freeze
+    $H_TEXT = 1.freeze
+
+    # フォームの属性初期値
+    $TEXTAREA_ROW = 2.freeze
+    $TEXTAREA_PLACEHOLDER = "ここに入力".freeze
+
+    $INPUT_MIN_AGE = 0.freeze
+    $INPUT_MAX_AGE = 100.freeze
+
+    $INPUT_MIN_MOTIVATION = 0.freeze
+    $INPUT_MAX_MOTIVATION = 100.freeze
+    $INPUT_PLACEHOLDER_MOTIVATION = 50.freeze
+
 
     # ************************************************
     #   @breief:  param[1]にparam[2]のクラスを全て追加する
@@ -14,48 +29,26 @@ module TopHelper
 
 # episodeTable =======================================
     $episodeTable_cell_is_input_tag = false
-
-    # ************************************************
-    #   @breief:  エピソード記入欄のデータを格納する配列を作成する
-    #   @param[1]: -
-    #   @return: 初期化された列数*行数のデータ配列
-    # ************************************************
-    def init_episodeTable_cell_data()
-        # ２次元テーブルのデータを 列数*行数 の１次元配列で管理する
-        data_array = []
-        start_age = 6
-        default_motivation = 50
-
-        @episodeTable_row_nums.times do |row_num|
-            @episode_header_list.each do |header_col|
-                case header_col
-                    when "年齢"
-                        data_array.push(start_age)
-                    when "エピソード"
-                        data_array.push("")
-                    when "当時の感情・思考"
-                        data_array.push("")
-                    when "モチベーション"
-                        data_array.push(default_motivation)
-                    when "振り返って気づいたこと"
-                        data_array.push("")
-                    else
-                        p "不適切なヘッダー値"
-                end
-            end
-            start_age += 1
-        end
-
-        return data_array
-    end
     
     # ************************************************
     #   @breief:  エピソード記入欄の各属性値を取得する
-    #   @param[1]: セルの行番号
-    #   @param[2]: セルの列番号
+    #   @param[1]: エピソードモデルのレコード配列
+    #   @param[2]: エピソードモデルのカラム情報
     #   @return: 各属性値を含んだハッシュ
     # ************************************************
-    def get_episodeTable_cell_attribute(row_num, col_num)
+    def get_episodeTable_cell_attribute(record, column)
+        if record.blank?
+            p 無効のレコードです
+            return false
+        end
+        if column.blank?
+            p 無効のカラム情報です
+            return false
+        end
+
+        row_num = record.row
+        col_num = column[$H_INDEX]
+
         cell_id = "episode_row#{row_num}col#{col_num}"
         cell_class = "episodeTable__column"
         cell_type = ""
@@ -65,13 +58,14 @@ module TopHelper
         cell_placeholder = ""
         $episodeTable_cell_is_input_tag = false
 
-        case @episode_header_list[col_num]
+        case column[$H_TEXT]
             when "年齢"
                 cell_class = add_class(cell_class, [@option_colAge])
                 cell_type = "number"
-                cell_min = @input_min_age
-                cell_max =  @input_max_age
-                cell_placeholder = @input_placeholder_age
+                cell_min = $INPUT_MIN_AGE
+                cell_max =  $INPUT_MAX_AGE
+                # placeholderは年齢値を設定
+                cell_placeholder = record.age
 
                 # 子要素をinputタグに設定するためのフラグ
                 $episodeTable_cell_is_input_tag = true
@@ -79,17 +73,17 @@ module TopHelper
             when "モチベーション"
                 cell_class = add_class(cell_class, [@option_colMotivation])
                 cell_type = "number"
-                cell_min = @input_min_motivation
-                cell_max =  @input_max_motivation
-                cell_placeholder = @input_placeholder_motivation
+                cell_min = $INPUT_MIN_MOTIVATION
+                cell_max =  $INPUT_MAX_MOTIVATION
+                cell_placeholder = $INPUT_PLACEHOLDER_MOTIVATION
 
                 # 子要素をinputタグに設定するためのフラグ
                 $episodeTable_cell_is_input_tag = true
 
             else
                 # クラスの追加はしない
-                cell_row = @textarea_row
-                cell_placeholder = @textarea_placeholder
+                cell_row = $TEXTAREA_ROW
+                cell_placeholder = $TEXTAREA_PLACEHOLDER
         end
 
         return {attr_id: cell_id, 
@@ -112,27 +106,6 @@ module TopHelper
     end
 
 
-    # ************************************************
-    #   @breief:  エピソード欄に記入されたデータの指定列の要素を取得する
-    #   @param[1]: エピソード欄の列名シンボル
-    #   @return: エピソード欄の指定列データ配列
-    # ************************************************
-    def get_episodeTable_column_data(col_name)
-        col_data_array = []
-        col_num = @episode_header_list.length
-        len_episodeTable_data = @episodeTable_cell_data.length - 1
-
-        if (@episode_header_index[:age]..@episode_header_index[:note]).include?(@episode_header_index[col_name])
-            # 一列目の指定セルから行数個おきに要素を取り出す
-            @episode_header_index[col_name].step(len_episodeTable_data, col_num){ |cell_data| col_data_array.push(@episodeTable_cell_data[cell_data]) }
-        else
-            p "不適切な引数"
-        end
-        
-        return col_data_array
-    end
-
-
 # chronology =======================================
 
     # ************************************************
@@ -143,9 +116,9 @@ module TopHelper
     # ************************************************
     def get_chronology_cell_id(row_num, cell_attr)
         if cell_attr == :age
-            cell_id = "chronology_row#{row_num}col#{@episode_header_index[:age]}"
+            cell_id = "chronology_row#{row_num}col#{@episode_header[:age][$H_INDEX]}"
         elsif cell_attr == :episode
-            cell_id = "chronology_row#{row_num}col#{@episode_header_index[:episode]}"
+            cell_id = "chronology_row#{row_num}col#{@episode_header[:episode][$H_INDEX]}"
         else
             p "不適切な属性"
         end
@@ -165,8 +138,8 @@ module TopHelper
     # ************************************************
     def get_analysisTable_cell_attribute(header_num, question_num, row_num, col_num)
         cell_id = "analysis_G#{header_num}#{question_num}row#{row_num}col#{col_num}"
-        cell_row = @textarea_row
-        cell_placeholder = @textarea_placeholder
+        cell_row = $TEXTAREA_ROW
+        cell_placeholder = $TEXTAREA_PLACEHOLDER
 
         return {attr_id: cell_id,
                 attr_row: cell_row,
@@ -184,8 +157,8 @@ module TopHelper
     # ************************************************
     def get_summaryTable_cell_attribute(header_num)
         cell_id = "summary_G#{header_num}row0col0"
-        cell_row = @textarea_row
-        cell_placeholder = @textarea_placeholder
+        cell_row = $TEXTAREA_ROW
+        cell_placeholder = $TEXTAREA_PLACEHOLDER
 
         return {attr_id: cell_id, 
                 attr_row: cell_row,
