@@ -30,6 +30,17 @@ module TopHelper
     $EP_COL = 2.freeze
 
     $episodeTable_cell_is_input_tag = false
+
+                            # DB参照用ハッシュ # headerテキスト 
+    $episode_header =  {
+                                age:        "年齢",
+                                episode:    "エピソード",
+                                emotion:    "当時の感情・思考",
+                                motivation: "モチベーション",
+                                awareness:  "振り返って気づいたこと",
+                            }
+
+    $len_episode_header = $episode_header.length
     
     # ************************************************
     #   @breief:  エピソード記入欄の各属性値を取得する
