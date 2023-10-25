@@ -7,16 +7,7 @@ class TopController < ApplicationController
     
     
         # episodeTable =======================================
-                            # DB参照用ハッシュ # headerテキスト 
-        @episode_header =  {
-                                age:        "年齢",
-                                episode:    "エピソード",
-                                emotion:    "当時の感情・思考",
-                                motivation: "モチベーション",
-                                awareness:  "振り返って気づいたこと",
-                            }
-        
-        @len_episode_header = @episode_header.length
+        @episode_header =  $episode_header 
 
         # Episodeモデルからデータ参照
         @episode_table_data = Episode.where(user_id: session[:user_id])
@@ -103,13 +94,20 @@ class TopController < ApplicationController
                         # return false
                 end
 
-                p row_data
-
                 col_cnt += 1
 
                 # 1行全て取得したらレコード変更
-                if col_cnt == @len_episode_header 
+                if col_cnt == $len_episode_header
+                    original_row = Episode.find_by(
+                                                    user_id: session[:user_id],
+                                                    row: row_data[:row]
+                                                )
+                    p 
+                    p row_data
+                    # 更新前後でidが共通のものは更新・存在しない場合は追加
                     update_episode << Episode.new(
+                                                    id:         original_row.id,
+                                                    user_id:    session[:user_id],
                                                     row:        row_data[:row],
                                                     age:        row_data[:age],
                                                     episode:    row_data[:episode],
@@ -125,13 +123,14 @@ class TopController < ApplicationController
         end
 
         # レコードをひとまとめに追加
-        result = Episode.import update_episode, on_duplicate_key_update:   [:row,
+        result = Episode.import update_episode, on_duplicate_key_update: [
+                                                                            :row,
                                                                             :age,
                                                                             :episode,
                                                                             :emotion,
                                                                             :motivation,
                                                                             :awareness
-                                                                            ]
+                                                                        ]
 
         # import成功時
         if result.failed_instances.blank?
@@ -139,10 +138,10 @@ class TopController < ApplicationController
             redirect_to("/")
             # return true
         else
-            p importできませんでした
-            p result.failed_instances
+            p "importできませんでした"
+            p result.failed_instances.first.errors
             # return false
-            render "top/", status: :unprocessable_entity
+            render "top/index", status: :unprocessable_entity
         end
     end
 
