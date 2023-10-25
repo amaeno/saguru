@@ -4,10 +4,13 @@ class Episode < ApplicationRecord
 
     # バリデーション
     validates :row, 
+            presence: true,
             numericality: { only_integer: true, in: 0...200 }
     validates :age,
+            presence: true,
             numericality: { only_integer: true, in: 0..100 }
     validates :motivation, 
+            presence: true,
             numericality: { only_integer: true, in: 0..100 }
 
     # メソッド

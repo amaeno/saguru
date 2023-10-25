@@ -34,8 +34,13 @@
     </header>
 
     <main class="main body__main">
+      <% if flash[:alert] %>
+          <div class="body__flashMessage body__flashMessage_alert">
+            <%= alert %>
+          </div>
+      <% end %>
       <% if flash[:notice] %>
-          <div class="body__flashMessage">
+          <div class="body__flashMessage body__flashMessage_notice">
             <%= notice %>
           </div>
       <% end %>

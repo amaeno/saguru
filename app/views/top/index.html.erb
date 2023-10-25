@@ -2,39 +2,42 @@
 <section class="main__section">
     <h2 class="main__sectionTtl">経験の振り返り</h2>
     <%# header列数 * エピソード行数　のテーブルを作成 %>
-    <div    id="episodeTable"
-            class="episodeTable main__sectionContent">
-        <div class="episodeTable__header">
-            <% @episode_header.each do |k_sym, v_header_info| %>
-                <div class="episodeTable__column">
-                    <%= v_header_info[$H_TEXT] %>
-                </div>
-            <% end %>
-        </div>
-    <% @episode_table_data.each do |record| %>
-        <div class="episodeTable__row">
-            <% @episode_header.each do |k_sym, v_colomn| %>
-                <% episodeTable_cell_attribute  = get_episodeTable_cell_attribute(record, v_colomn) %>
-                <div class="<%= episodeTable_cell_attribute[:attr_class] %>">
-                    <% if episodeTable_cell_is_input_tag? %>
-                        <input  id="<%= episodeTable_cell_attribute[:attr_id] %>"
-                                class="episodeTable__input"
-                                type="<%= episodeTable_cell_attribute[:attr_type] %>"
-                                min="<%= episodeTable_cell_attribute[:attr_min] %>"
-                                max="<%= episodeTable_cell_attribute[:attr_max] %>"
-                                placeholder="<%= episodeTable_cell_attribute[:attr_placeholder] %>"
-                                value="<%= record[k_sym] %>">
-                    <% else %>
-                        <textarea   id="<%= episodeTable_cell_attribute[:attr_id] %>"
-                                    class="episodeTable__textarea"
-                                    row="<%= episodeTable_cell_attribute[:attr_row] %>"
-                                    placeholder="<%= episodeTable_cell_attribute[:attr_placeholder] %>"
-                                    value="<%= record[k_sym] %>"></textarea>
+    
+    <div id="episodeTable" class="episodeTable main__sectionContent">
+        <%= form_with url: "/update_episode" do |form| %>
+            <%= form.submit "保存", class: "episodeTable__formSendBtn" %>
+                <div class="episodeTable__header">
+                    <% @episode_header.each do |k_sym, v_header_info| %>
+                        <div class="episodeTable__column">
+                            <%= v_header_info %>
+                        </div>
                     <% end %>
                 </div>
-            <% end %>
-        </div>
-    <% end %>
+            <% @episode_table_data.each do |record| %>
+                <div class="episodeTable__row">
+                    <% @episode_header.each do |k_sym, v_colomn| %>
+                        <% episodeTable_cell_attribute  = get_episodeTable_cell_attribute(record, k_sym, v_colomn) %>
+                        <div class="<%= episodeTable_cell_attribute[:attr_class] %>">
+                            <% if episodeTable_cell_is_input_tag? %>
+                                <%= form.number_field   episodeTable_cell_attribute[:attr_name].to_sym,
+                                                        value: record[k_sym],
+                                                        class: "episodeTable__input",
+                                                        type: episodeTable_cell_attribute[:attr_type],
+                                                        min: episodeTable_cell_attribute[:attr_min],
+                                                        max: episodeTable_cell_attribute[:attr_max],
+                                                        placeholder: episodeTable_cell_attribute[:attr_placeholder] %>
+                            <% else %>
+                                <%= form.text_area episodeTable_cell_attribute[:attr_name].to_sym,
+                                                    value: record[k_sym],
+                                                    class: "episodeTable__textarea",
+                                                    row: episodeTable_cell_attribute[:attr_row],
+                                                    placeholder: episodeTable_cell_attribute[:attr_placeholder] %>
+                            <% end %>
+                        </div>
+                    <% end %>
+                </div>
+            <% end %> 
+        <% end %>
     </div>
 </section>
 
@@ -51,11 +54,11 @@
             <% @len_episode_table_data.times do |item_num| %>
                 <li class="chronologyEpisodeList__item">
                     <p  class="chronologyEpisodeList__itemAge"
-                        id="<%= get_chronology_cell_id(item_num, :age) %>">
+                        id="<%= get_chronology_cell_id(item_num, "age") %>">
                         <%= episodeTable_age_data[item_num] %>
                     </p>
                     <p  class="chronologyEpisodeList__itemText"
-                        id="<%= get_chronology_cell_id(item_num, :episode) %>">
+                        id="<%= get_chronology_cell_id(item_num, "episode") %>">
                         <%= episodeTable_episode_data[item_num] %>
                     </p>
                 </li>
