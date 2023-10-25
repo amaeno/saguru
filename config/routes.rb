@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get "/" => "top#index"
+  post "/update_episode" => "top#update_episode"
   get "/about" => "top#about"
   get "/signup" => "users#signup"
   post "/users/create" => "users#create"

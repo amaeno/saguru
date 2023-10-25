@@ -1,26 +1,26 @@
 class TopController < ApplicationController
-    before_action :authenticate_user, {only: [:index]}
+    before_action :authenticate_user, {only: [:index, :update_episode]}
 
+    # 自己分析ページ表示
     def index
         # common ======================================= 
     
     
         # episodeTable =======================================
-                            # DB参照用ハッシュ # 列番号 # headerテキスト 
+                            # DB参照用ハッシュ # headerテキスト 
         @episode_header =  {
-                                age:        [0,     "年齢"],
-                                episode:    [1,     "エピソード"],
-                                emotion:    [2,     "当時の感情・思考"],
-                                motivation: [3,     "モチベーション"],
-                                awareness:  [4,     "振り返って気づいたこと"],
+                                age:        "年齢",
+                                episode:    "エピソード",
+                                emotion:    "当時の感情・思考",
+                                motivation: "モチベーション",
+                                awareness:  "振り返って気づいたこと",
                             }
+        
+        @len_episode_header = @episode_header.length
 
         # Episodeモデルからデータ参照
         @episode_table_data = Episode.where(user_id: session[:user_id])
         @len_episode_table_data = @episode_table_data.length
-
-        @option_colAge = "-numItemAge"
-        @option_colMotivation = "-numItemMotivation"
 
 
         # chronology =======================================
@@ -68,6 +68,82 @@ class TopController < ApplicationController
                                 "やりたいこと",
                                 "活躍できる環境",
                                 "目指す姿"] 
-
     end
+
+    # Episodeモデル更新
+    def update_episode
+        col_cnt = 0
+        row_data = {}
+        update_episode = []
+
+        params.each do |k, v|
+            # 受け取ったparamのうち、セル情報を含むものだけを抽出
+            if k.match?(/_r_\d+_c_\w+/)
+                # セルの属性を抽出 [テーブル名, 行数, 列名]
+                cell_attr = k.split(/_r_|_c_/)
+
+                row_num = cell_attr[$EP_ROW].to_i
+                col_sym = cell_attr[$EP_COL].to_sym
+
+                # 各列の値を行ごとにハッシュにまとめる
+                row_data.store(:row, row_num)
+                case col_sym
+                    when :age
+                        row_data.store(:age, v.to_i)
+                    when :episode
+                        row_data.store(:episode, v.to_s)
+                    when :emotion
+                        row_data.store(:emotion, v.to_s)
+                    when :motivation
+                        row_data.store(:motivation, v.to_i)
+                    when :awareness
+                        row_data.store(:awareness, v.to_s)
+                    else
+                        p 不適切な列項目
+                        # return false
+                end
+
+                p row_data
+
+                col_cnt += 1
+
+                # 1行全て取得したらレコード変更
+                if col_cnt == @len_episode_header 
+                    update_episode << Episode.new(
+                                                    row:        row_data[:row],
+                                                    age:        row_data[:age],
+                                                    episode:    row_data[:episode],
+                                                    emotion:    row_data[:emotion],
+                                                    motivation: row_data[:motivation],
+                                                    awareness:  row_data[:awareness]
+                                                )
+                    # 列カウントを初期化し次の行でカウント開始
+                    col_cnt = 0
+                    row_data = {}
+                end
+            end
+        end
+
+        # レコードをひとまとめに追加
+        result = Episode.import update_episode, on_duplicate_key_update:   [:row,
+                                                                            :age,
+                                                                            :episode,
+                                                                            :emotion,
+                                                                            :motivation,
+                                                                            :awareness
+                                                                            ]
+
+        # import成功時
+        if result.failed_instances.blank?
+            flash[:notice] = "更新内容を保存しました"
+            redirect_to("/")
+            # return true
+        else
+            p importできませんでした
+            p result.failed_instances
+            # return false
+            render "top/", status: :unprocessable_entity
+        end
+    end
+
 end

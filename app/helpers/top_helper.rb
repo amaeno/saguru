@@ -1,9 +1,5 @@
 module TopHelper
 # common =======================================
-    # headerの情報取得用定数
-    $H_INDEX = 0.freeze
-    $H_TEXT = 1.freeze
-
     # フォームの属性初期値
     $TEXTAREA_ROW = 2.freeze
     $TEXTAREA_PLACEHOLDER = "ここに入力".freeze
@@ -13,7 +9,7 @@ module TopHelper
 
     $INPUT_MIN_MOTIVATION = 0.freeze
     $INPUT_MAX_MOTIVATION = 100.freeze
-    $INPUT_PLACEHOLDER_MOTIVATION = 50.freeze
+    $INPUT_PLACEHOLDER_MOTIVATION = "50".freeze
 
 
     # ************************************************
@@ -28,17 +24,27 @@ module TopHelper
 
 
 # episodeTable =======================================
+    # テーブルセルのnameから属性を取得するための定数
+    $EP_TAB_NAME = 0.freeze
+    $EP_ROW = 1.freeze
+    $EP_COL = 2.freeze
+
     $episodeTable_cell_is_input_tag = false
     
     # ************************************************
     #   @breief:  エピソード記入欄の各属性値を取得する
     #   @param[1]: エピソードモデルのレコード配列
-    #   @param[2]: エピソードモデルのカラム情報
+    #   @param[2]: エピソードモデルのシンボル
+    #   @param[3]: エピソードモデルのカラム情報
     #   @return: 各属性値を含んだハッシュ
     # ************************************************
-    def get_episodeTable_cell_attribute(record, column)
+    def get_episodeTable_cell_attribute(record, sym, column)
         if record.blank?
             p 無効のレコードです
+            return false
+        end
+        if sym.blank?
+            p 無効のシンボルです
             return false
         end
         if column.blank?
@@ -47,10 +53,14 @@ module TopHelper
         end
 
         row_num = record.row
-        col_num = column[$H_INDEX]
 
-        cell_id = "episode_row#{row_num}col#{col_num}"
+        cell_name = "episode_r_#{row_num}_c_#{sym}"
         cell_class = "episodeTable__column"
+
+        option_colAge = "-numItemAge"
+        option_colMotivation = "-numItemMotivation"
+
+        # フォームタグ属性初期化
         cell_type = ""
         cell_min = 0
         cell_max = 100
@@ -58,20 +68,20 @@ module TopHelper
         cell_placeholder = ""
         $episodeTable_cell_is_input_tag = false
 
-        case column[$H_TEXT]
+        case column
             when "年齢"
-                cell_class = add_class(cell_class, [@option_colAge])
+                cell_class = add_class(cell_class, [option_colAge])
                 cell_type = "number"
                 cell_min = $INPUT_MIN_AGE
                 cell_max =  $INPUT_MAX_AGE
                 # placeholderは年齢値を設定
-                cell_placeholder = record.age
+                cell_placeholder = record.age.to_s
 
                 # 子要素をinputタグに設定するためのフラグ
                 $episodeTable_cell_is_input_tag = true
 
             when "モチベーション"
-                cell_class = add_class(cell_class, [@option_colMotivation])
+                cell_class = add_class(cell_class, [option_colMotivation])
                 cell_type = "number"
                 cell_min = $INPUT_MIN_MOTIVATION
                 cell_max =  $INPUT_MAX_MOTIVATION
@@ -86,13 +96,15 @@ module TopHelper
                 cell_placeholder = $TEXTAREA_PLACEHOLDER
         end
 
-        return {attr_id: cell_id, 
-                attr_class: cell_class, 
-                attr_type: cell_type, 
-                attr_min: cell_min, 
-                attr_max: cell_max, 
-                attr_row: cell_row,
-                attr_placeholder: cell_placeholder}
+        return {
+                    attr_name: cell_name, 
+                    attr_class: cell_class, 
+                    attr_type: cell_type, 
+                    attr_min: cell_min, 
+                    attr_max: cell_max, 
+                    attr_row: cell_row,
+                    attr_placeholder: cell_placeholder
+                }
     end
 
 
@@ -111,14 +123,14 @@ module TopHelper
     # ************************************************
     #   @breief:  チャート欄のidを取得する
     #   @param[1]: 行番号
-    #   @param[2]: セル属性(:age or :episode)
+    #   @param[2]: セル属性("age" or "episode")
     #   @return: セルのid
     # ************************************************
     def get_chronology_cell_id(row_num, cell_attr)
-        if cell_attr == :age
-            cell_id = "chronology_row#{row_num}col#{@episode_header[:age][$H_INDEX]}"
-        elsif cell_attr == :episode
-            cell_id = "chronology_row#{row_num}col#{@episode_header[:episode][$H_INDEX]}"
+        if cell_attr == "age"
+            cell_id = "chronology_r_#{row_num}_c_#{cell_attr}"
+        elsif cell_attr == "episode"
+            cell_id = "chronology_r_#{row_num}_c_#{cell_attr}"
         else
             p "不適切な属性"
         end

@@ -31,5 +31,12 @@ html {
     font-size: 2rem;
     padding: 10px;
     color: white;
-    background-color: orange;
+
+    &_alert {
+        background-color: orange;
+    }
+
+    &_notice {
+        background-color: lightgreen;
+    }
 }
