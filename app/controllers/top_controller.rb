@@ -63,82 +63,24 @@ class TopController < ApplicationController
 
     # Episodeモデル更新
     def update_episode
-        col_cnt = 0
-        row_data = {}
-        update_episode = []
 
-        params.each do |k, v|
-            # 受け取ったparamのうち、セル情報を含むものだけを抽出
-            if k.match?(/_r_\d+_c_\w+/)
-                # セルの属性を抽出 [テーブル名, 行数, 列名]
-                cell_attr = k.split(/_r_|_c_/)
+        result = Episode.save_episode_change(params, session[:user_id])
 
-                row_num = cell_attr[$EP_ROW].to_i
-                col_sym = cell_attr[$EP_COL].to_sym
-
-                # 各列の値を行ごとにハッシュにまとめる
-                row_data.store(:row, row_num)
-                case col_sym
-                    when :age
-                        row_data.store(:age, v.to_i)
-                    when :episode
-                        row_data.store(:episode, v.to_s)
-                    when :emotion
-                        row_data.store(:emotion, v.to_s)
-                    when :motivation
-                        row_data.store(:motivation, v.to_i)
-                    when :awareness
-                        row_data.store(:awareness, v.to_s)
-                    else
-                        p 不適切な列項目
-                        # return false
-                end
-
-                col_cnt += 1
-
-                # 1行全て取得したらレコード変更
-                if col_cnt == $len_episode_header
-                    original_row = Episode.find_by(
-                                                    user_id: session[:user_id],
-                                                    row: row_data[:row]
-                                                )
-
-                    # 更新前後でidが共通のものは更新・存在しない場合は追加
-                    update_episode << Episode.new(
-                                                    id:         original_row.id,
-                                                    user_id:    session[:user_id],
-                                                    row:        row_data[:row],
-                                                    age:        row_data[:age],
-                                                    episode:    row_data[:episode],
-                                                    emotion:    row_data[:emotion],
-                                                    motivation: row_data[:motivation],
-                                                    awareness:  row_data[:awareness]
-                                                )
-                    # 列カウントを初期化し次の行でカウント開始
-                    col_cnt = 0
-                    row_data = {}
-                end
+        if result
+            # 保存成功時
+            if result.failed_instances.blank?
+                flash[:notice] = "更新内容を保存しました"
+                redirect_to("/")
+            else
+                p "importできませんでした"
+                p result.failed_instances.first.errors
+                flash[:alert] = "保存に失敗しました。入力内容を確認して再度保存してください"
+                redirect_to("/")
             end
-        end
-
-        # レコードをひとまとめに追加
-        result = Episode.import update_episode, on_duplicate_key_update: [
-                                                                            :row,
-                                                                            :age,
-                                                                            :episode,
-                                                                            :emotion,
-                                                                            :motivation,
-                                                                            :awareness
-                                                                        ]
-
-        # import成功時
-        if result.failed_instances.blank?
-            flash[:notice] = "更新内容を保存しました"
-            redirect_to("/")
         else
-            p "importできませんでした"
-            p result.failed_instances.first.errors
-            render "top/index", status: :unprocessable_entity
+            p "不適切な引数です"
+            flash[:alert] = "サーバ内部エラーが発生しました"
+            redirect_to("/")
         end
     end
 
