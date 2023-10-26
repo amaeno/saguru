@@ -1,4 +1,4 @@
-import {get_table_cell_position, limit_textarea_lines} from "./common";
+import {limit_textarea_lines} from "./common";
 
 
 const id_summary_table_list = "summaryTableList";
@@ -23,10 +23,6 @@ export const init_summary_table = () => {
         summary_cells[num].addEventListener('input', () => {
             // テキストの入力可能行数を制限
             limit_textarea_lines(summary_cells[num]);
-
-            // 対応する配列のデータを更新
-            let evented_cell_row_col = get_table_cell_position(summary_cells[num].id);
-            // summary_data_array[evented_cell_row_col[cell_position.row]][evented_cell_row_col[cell_position.col]] = summary_cells[num].value;
         });
     }
 }
