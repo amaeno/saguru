@@ -1,5 +1,5 @@
 import {header_episode} from "./common";
-import {get_episode_column_data_array} from "./episode_table";
+import {episode_data_array} from "./episode_table";
 
 
 const id_canvas = "chronologyChart";
@@ -17,10 +17,7 @@ const axis_mergin_x = 20;
 //     @return: -
 // ************************************************
 export const draw_chronology_chart_and_text = () => {
-
-    let episode_column_data_array = get_episode_column_data_array();
-
-    draw_chronology_chart(episode_column_data_array[header_episode.motivation]);
+    draw_chronology_chart(episode_data_array[header_episode.motivation]);
 }
 
 
@@ -30,11 +27,8 @@ export const draw_chronology_chart_and_text = () => {
 //     @return: -
 // ************************************************
 export const update_chronology_chart_and_text = () => {
-
-    let episode_column_data_array = get_episode_column_data_array();
-
-    draw_chronology_chart(episode_column_data_array[header_episode.motivation]);
-    update_chronology_text(episode_column_data_array[header_episode.age], episode_column_data_array[header_episode.episode]);
+    draw_chronology_chart(episode_data_array[header_episode.motivation]);
+    update_chronology_text(episode_data_array[header_episode.age], episode_data_array[header_episode.episode]);
 }
 
 
@@ -230,8 +224,8 @@ export const update_chronology_text = (age_array, episode_array) => {
     for(let row_num=0; row_num < len_data_array; row_num++){
 
         // 行番号とヘッダー番号からセルを取得
-        let cell_id_age = `chronology_row${row_num}col${header_episode.age}`;
-        let cell_id_episode = `chronology_row${row_num}col${header_episode.episode}`;
+        let cell_id_age = `chronology_r_${row_num}_c_age`;
+        let cell_id_episode = `chronology_r_${row_num}_c_episode`;
 
         const chronology_text_item_age = document.getElementById(cell_id_age);
         const chronology_text_item_episode = document.getElementById(cell_id_episode);

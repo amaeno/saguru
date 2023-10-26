@@ -50,7 +50,7 @@ $chartTextHeight: 370px;
     }
     
     .#{$tableName}Table__column {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         padding: 5px 10px;
         border: 1px solid $gridBorderColor;
     }
@@ -180,11 +180,12 @@ $chartTextHeight: 370px;
 // chronology ============================================
 .chronology {
     width: $chartWidth;
+    overflow: scroll;
 }
 
 .chronology__chart {
     position: relative;
-    width: 100%;
+    width: 2000px;
     height: $chartHeight;
     margin-top: 15px; 
 }
@@ -251,7 +252,7 @@ $chartTextHeight: 370px;
 .chronologyEpisodeList__itemText {
     display: flex;
     align-items: center;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     width: 100%;
     height: $chartTextHeight;
     padding: 10px;

@@ -1,4 +1,4 @@
-import {limit_textarea_lines, get_table_cell_position} from "./common";
+import {limit_textarea_lines} from "./common";
 
 
 const id_analysis_table_area = "analysisTableList";
@@ -37,11 +37,6 @@ export const init_analysis_table = () => {
         analysis_cells[num].addEventListener('input', () => {
             // テキストの入力可能行数を制限
             limit_textarea_lines(analysis_cells[num]);
-
-            // 対応する配列のデータを更新
-            let analysis_cell_row_col = get_table_cell_position(analysis_cells[num].id);
-            // console.log(analysis_cell_row_col);
-            // episode_data_array[analysis_cell_row_col[cell_position.row]][analysis_cell_row_col[cell_position.col]] = analysis_cells[num].value;
         });
     }
 }
