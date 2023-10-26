@@ -102,8 +102,7 @@ class TopController < ApplicationController
                                                     user_id: session[:user_id],
                                                     row: row_data[:row]
                                                 )
-                    p 
-                    p row_data
+
                     # 更新前後でidが共通のものは更新・存在しない場合は追加
                     update_episode << Episode.new(
                                                     id:         original_row.id,
@@ -136,11 +135,9 @@ class TopController < ApplicationController
         if result.failed_instances.blank?
             flash[:notice] = "更新内容を保存しました"
             redirect_to("/")
-            # return true
         else
             p "importできませんでした"
             p result.failed_instances.first.errors
-            # return false
             render "top/index", status: :unprocessable_entity
         end
     end
