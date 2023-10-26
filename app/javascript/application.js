@@ -7,10 +7,19 @@ import {draw_chronology_chart_and_text} from "./modules/chronology_chart";
 import {init_analysis_table} from "./modules/analysis_table";
 import {init_summary_table} from "./modules/summary_table";
 
-window.onload = () => {
-    // 初期化
-    // init_episode_table();
-    // draw_chronology_chart_and_text();
-    // init_analysis_table();
-    // init_summary_table();
-};
+// 特定ページ訪問時毎に実行
+document.addEventListener("turbo:load", () => {
+    switch (location.pathname) {
+        // 自己分析画面
+        case "/":
+            init_episode_table();
+            draw_chronology_chart_and_text();
+            // init_analysis_table();
+            // init_summary_table();
+
+            break;
+        // その他の画面
+        default:
+            break;
+    }
+});

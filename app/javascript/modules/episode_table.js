@@ -25,7 +25,7 @@ export const init_episode_table = () => {
     let len_episode_cells = episode_cells.length;
 
     // 2次元配列を作成し初期化
-    init_episode_data_array(episode_cells);
+    // init_episode_data_array(episode_cells);
 
     // 各セルにイベント追加
     for(let num = 0; num < len_episode_cells; num++){
@@ -35,12 +35,12 @@ export const init_episode_table = () => {
             limit_textarea_lines(episode_cells[num]);
             limit_input_range(episode_cells[num]);
 
-            // 対応する配列のデータを更新
-            let evented_cell_row_col = get_table_cell_position(episode_cells[num].id);
-            episode_data_array[evented_cell_row_col[cell_position.row]][evented_cell_row_col[cell_position.col]] = episode_cells[num].value;
-
-            // モチベーションチャート描画更新
-            update_chronology_chart_and_text(episode_data_array);
+//             // 対応する配列のデータを更新
+//             let evented_cell_row_col = get_table_cell_position(episode_cells[num].id);
+//             episode_data_array[evented_cell_row_col[cell_position.row]][evented_cell_row_col[cell_position.col]] = episode_cells[num].value;
+// 
+//             // モチベーションチャート描画更新
+//             update_chronology_chart_and_text(episode_data_array);
         });
     }
 }

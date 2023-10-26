@@ -56,13 +56,9 @@
             <% @len_episode_table_data.times do |item_num| %>
                 <li class="chronologyEpisodeList__item">
                     <p  class="chronologyEpisodeList__itemAge"
-                        id="<%= get_chronology_cell_id(item_num, "age") %>">
-                        <%= episodeTable_age_data[item_num] %>
-                    </p>
+                        id="<%= get_chronology_cell_id(item_num, "age") %>"><%= episodeTable_age_data[item_num] %></p>
                     <p  class="chronologyEpisodeList__itemText"
-                        id="<%= get_chronology_cell_id(item_num, "episode") %>">
-                        <%= episodeTable_episode_data[item_num] %>
-                    </p>
+                        id="<%= get_chronology_cell_id(item_num, "episode") %>"><%= episodeTable_episode_data[item_num] %></p>
                 </li>
             <% end %>
         </ul>
