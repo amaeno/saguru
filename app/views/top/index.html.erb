@@ -6,6 +6,7 @@
     <div id="episodeTable" class="episodeTable main__sectionContent">
         <%= form_with url: "/update_episode" do |form| %>
             <%= form.submit "保存", class: "episodeTable__formSendBtn" %>
+            <div class="episodeTable__cells">
                 <div class="episodeTable__header">
                     <% @episode_header.each do |k_sym, v_header_info| %>
                         <div class="episodeTable__column">
@@ -37,6 +38,7 @@
                     <% end %>
                 </div>
             <% end %> 
+            </div>
         <% end %>
     </div>
 </section>
