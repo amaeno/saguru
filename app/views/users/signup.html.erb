@@ -17,7 +17,8 @@
             <h2 class="userInfoInputArea__ttl">ユーザ名</h2>
             <%= form.text_field  :new_user_name,
                                 value: @new_user_name,
-                                class: "userInfoInputArea__form" %>
+                                class: "userInfoInputArea__form",
+                                autocomplete: "on" %>
             <dl class="userInfoInputArea__noteList">
                 <dd class="userInfoInputArea__noteDesc">ユーザ名は以下の条件を満たすよう設定してください</dd>
                 <dt class="userInfoInputArea__noteTerm">半角英数字記号いずれかからなる組み合わせ</dt>
@@ -28,7 +29,8 @@
             <h2 class="userInfoInputArea__ttl">パスワード</h2>
             <%= form.password_field :new_user_password,
                                     value: @new_user_password,
-                                    class: "userInfoInputArea__form" %>
+                                    class: "userInfoInputArea__form",
+                                    autocomplete: "on" %>
             <dl class="userInfoInputArea__noteList">
                 <dd class="userInfoInputArea__noteDesc">パスワードは以下の条件を満たすよう設定してください</dd>
                 <dt class="userInfoInputArea__noteTerm">半角英数字記号全てを含んだ組み合わせ</dt>
