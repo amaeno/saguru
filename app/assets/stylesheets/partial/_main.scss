@@ -104,6 +104,9 @@ $chartTextHeight: 370px;
     margin: 10px 0 0 0;
 }
 
+.main__sectionContent.analysisTableList {
+    margin-top: 15px;
+}
 
 // episode ============================================
 @include makeGridTable("episode", $episodeTableTempCol);
@@ -269,6 +272,11 @@ $chartTextHeight: 370px;
 // analysis ============================================
 @include makeGridTable("analysisQ1", $analysisQ1TableTempCol);
 @include makeGridTable("analysisQ2", $analysisQ2TableTempCol);
+
+.analysisTableList {
+    height: 500px;
+    overflow: scroll;
+}
 
 .analysisTableList__item {
     display: grid;
