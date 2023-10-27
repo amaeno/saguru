@@ -11,6 +11,11 @@ module TopHelper
     $INPUT_MAX_MOTIVATION = 100.freeze
     $INPUT_PLACEHOLDER_MOTIVATION = "50".freeze
 
+    # テーブルセルのnameから属性を取得するための定数
+    $ATTR_TAB_NAME = 0.freeze
+    $ATTR_ROW = 1.freeze
+    $ATTR_COL = 2.freeze
+
 
     # ************************************************
     #   @breief:  param[1]にparam[2]のクラスを全て追加する
@@ -24,10 +29,9 @@ module TopHelper
 
 
 # episodeTable =======================================
-    # テーブルセルのnameから属性を取得するための定数
-    $EP_TAB_NAME = 0.freeze
-    $EP_ROW = 1.freeze
-    $EP_COL = 2.freeze
+    # 新規登録時に作成作成する年齢の範囲
+    $START_AGE = 6
+    $END_AGE = 24
 
     $episodeTable_cell_is_input_tag = false
 
@@ -172,18 +176,24 @@ module TopHelper
 
 
 # summaryTable =======================================
+    $summary_header =  {
+                            value:          "価値観・大切にしている考え",
+                            try:            "やりたいこと",
+                            environment:    "活躍できる環境",
+                            vision:         "目指す姿",
+                        }
 
     # ************************************************
     #   @breief:  まとめ記入欄の各属性値を取得する
-    #   @param[1]: ヘッダー番号
+    #   @param[1]: ヘッダーキー
     #   @return: 各属性値を含んだハッシュ
     # ************************************************
-    def get_summaryTable_cell_attribute(header_num)
-        cell_id = "summary_G#{header_num}row0col0"
+    def get_summaryTable_cell_attribute(header_key)
+        cell_name = "summary_r_0_c_#{header_key}"
         cell_row = $TEXTAREA_ROW
         cell_placeholder = $TEXTAREA_PLACEHOLDER
 
-        return {attr_id: cell_id, 
+        return {attr_name: cell_name, 
                 attr_row: cell_row,
                 attr_placeholder: cell_placeholder}
     end

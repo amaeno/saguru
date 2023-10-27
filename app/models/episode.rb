@@ -78,8 +78,8 @@ class Episode < ApplicationRecord
                 # セルの属性を抽出 [テーブル名, 行数, 列名]
                 cell_attr = k.split(/_r_|_c_/)
 
-                row_num = cell_attr[$EP_ROW].to_i
-                col_sym = cell_attr[$EP_COL].to_sym
+                row_num = cell_attr[$ATTR_ROW].to_i
+                col_sym = cell_attr[$ATTR_COL].to_sym
 
                 # 各列の値を行ごとにハッシュにまとめる
                 row_data.store(:row, row_num)
@@ -95,7 +95,7 @@ class Episode < ApplicationRecord
                     when :awareness
                         row_data.store(:awareness, v.to_s)
                     else
-                        p 不適切な列項目
+                        p "不適切な列項目"
                         # return false
                 end
 

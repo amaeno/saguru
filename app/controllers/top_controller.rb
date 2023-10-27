@@ -1,25 +1,28 @@
 class TopController < ApplicationController
     before_action :authenticate_user, {only: [:index, :update_episode]}
 
+    # サービス紹介ページ
+    def about
+        p @user = User.all
+        p @episode = Episode.all
+        p @summary = Summary.all
+    end
+
     # 自己分析ページ表示
     def index
-        # common ======================================= 
+    # common ======================================= 
     
     
-        # episodeTable =======================================
+    # episodeTable =======================================
         @episode_header =  $episode_header 
 
         # Episodeモデルからデータ参照
         @episode_table_data = Episode.where(user_id: session[:user_id])
         @len_episode_table_data = @episode_table_data.length
 
+    # chronology =======================================
 
-        # chronology =======================================
-
-
-    
-    
-        # analysisTable =======================================
+    # analysisTable =======================================
         @analysisTableHeader = {Q1: 0, Q2: 1}
 
                                         #Qustion1 Header                                  Qustion2 Header 
@@ -54,17 +57,41 @@ class TopController < ApplicationController
         @analysisTable_row_nums = analysisTable_default_row_nums
 
     
-        # summaryTable =======================================
-        @summary_header_list = ["価値観・大切にしている考え",
-                                "やりたいこと",
-                                "活躍できる環境",
-                                "目指す姿"] 
+    # summaryTable =======================================
+        @summary_header =  $summary_header 
+
+        # Summaryモデルからデータ参照
+        @summary_table_data = Summary.where(user_id: session[:user_id])
+        @len_summary_table_data = @summary_table_data.length
+
     end
 
     # Episodeモデル更新
     def update_episode
-
         result = Episode.save_episode_change(params, session[:user_id])
+
+        if result
+            # 保存成功時
+            if result.failed_instances.blank?
+                flash[:notice] = "更新内容を保存しました"
+                redirect_to("/")
+            else
+                p "importできませんでした"
+                p result.failed_instances.first.errors
+                flash[:alert] = "保存に失敗しました。入力内容を確認して再度保存してください"
+                redirect_to("/")
+            end
+        else
+            p "不適切な引数です"
+            flash[:alert] = "サーバ内部エラーが発生しました"
+            redirect_to("/")
+        end
+    end
+
+
+    # Summaryモデル更新
+    def update_summary
+        result = Summary.save_summary_change(params, session[:user_id])
 
         if result
             # 保存成功時
