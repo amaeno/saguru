@@ -5,7 +5,7 @@
 // ============================================
 $maxWidth: 1440px;
 $gridBgColor: #777777;
-$gridBorderColor: #aaaaaa;
+$gridBorderColor: #bbbbbb;
 
 $episodeTableTempCol: 1fr 4fr 4fr 1.5fr 4fr;
 $analysisQ1TableTempCol: 1fr 1fr;
@@ -32,8 +32,9 @@ $chartTextHeight: 370px;
 @mixin makeGridTable($tableName, $girdTempCol){
     .#{$tableName}Table {
         width: 100%;
-        border: 1px solid $gridBorderColor;
         margin-top: 15px;
+        // border-top: 1px solid $gridBorderColor;
+        // border-bottom: 1px solid $gridBorderColor;
     }
     
     .#{$tableName}Table__header {
@@ -52,7 +53,7 @@ $chartTextHeight: 370px;
     .#{$tableName}Table__column {
         font-size: 1.5rem;
         padding: 5px 10px;
-        border: 1px solid $gridBorderColor;
+        border-bottom: 2px solid $gridBorderColor;
     }
 
     .#{$tableName}Table__input,
@@ -96,6 +97,13 @@ $chartTextHeight: 370px;
     font-size: 2.4rem;
     font-weight: bold;
     margin: 20px 0 0 0;
+
+    &::before {
+        content: "";
+        padding-right: 10px;
+        margin-right: 10px;
+        background-color: #222222;
+    }
 }
 
 .main__sectionSubTtl {
@@ -125,6 +133,7 @@ $chartTextHeight: 370px;
 .episodeTable__cells {
     height: 700px;
     overflow: scroll;
+    overflow-x: hidden;
 }
 
 .episodeTable__formSendBtn {
@@ -181,6 +190,7 @@ $chartTextHeight: 370px;
 .chronology {
     width: $chartWidth;
     overflow: scroll;
+    overflow-x: hidden;
 }
 
 .chronology__chart {
@@ -277,6 +287,7 @@ $chartTextHeight: 370px;
 .analysisTableList {
     height: 500px;
     overflow: scroll;
+    overflow-x: hidden;
 }
 
 .analysisTableList__item {
