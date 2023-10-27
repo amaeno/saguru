@@ -1,5 +1,5 @@
 <div class="userInfo">
-    <h1 class="userInfo__ttl">登録情報変更</h1>
+    <h1 class="userInfo__ttl">アカウント編集</h1>
     <%# varidationエラー時はメッセージ表示 %>
     <% if @error_message %>
         <ul class="errorMessageBox userInfo__error">
@@ -39,4 +39,5 @@
         </div>
         <%= form.submit "更新", class: "userInfo__formSendBtn" %>
     <% end %>
+            <%= link_to "アカウントを削除する場合はこちら", "/delete_account", class: "userInfo__linkDelete" %>
 </div>

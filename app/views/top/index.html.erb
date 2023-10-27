@@ -136,23 +136,29 @@
     <h2 class="main__sectionTtl">まとめ</h2>
     <ul id="summaryTableList"
         class="summaryTableList main__sectionContent">
-        <% @summary_header_list.length.times do |header_num| %>
-        <% summaryTable_cell_attribute  = get_summaryTable_cell_attribute(header_num) %>
-            <li class="summaryTable summaryTableList__item">
-                <div class="summaryTable__header">
-                    <div class="summaryTable__column">
-                        <%= @summary_header_list[header_num] %>
-                    </div>
-                </div>
-                <div class="summaryTable__row">
-                    <div class="summaryTable__column">
-                        <textarea   id="<%= summaryTable_cell_attribute[:attr_id] %>"
-                                    class="summaryTable__textarea"
-                                    rows="<%= summaryTable_cell_attribute[:attr_row] %>"
-                                    placeholder="<%= summaryTable_cell_attribute[:attr_placeholder] %>"></textarea>
-                    </div>
-                </div>
-            </li>
+        <%= form_with url: "/update_summary" do |form| %>
+            <%= form.submit "保存", class: "summaryTable__formSendBtn" %>
+            <% @summary_table_data.each do |record| %>
+                <% @summary_header.each do |k_sym, v_header_info| %>
+                <% summaryTable_cell_attribute  = get_summaryTable_cell_attribute(k_sym) %>
+                    <li class="summaryTable summaryTableList__item">
+                        <div class="summaryTable__header">
+                            <div class="summaryTable__column">
+                                <%= v_header_info %>
+                            </div>
+                        </div>
+                        <div class="summaryTable__row">
+                            <div class="summaryTable__column">
+                                <%= form.text_area summaryTable_cell_attribute[:attr_name].to_sym,
+                                                        value: record[k_sym],
+                                                        class: "summaryTable__textarea",
+                                                        row: summaryTable_cell_attribute[:attr_row],
+                                                        placeholder: summaryTable_cell_attribute[:attr_placeholder] %>
+                            </div>
+                        </div>
+                    </li>
+                <% end %>
+            <% end %>
         <% end %>
     </ul>
 </section>

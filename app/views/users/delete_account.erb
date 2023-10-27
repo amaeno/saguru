@@ -1,0 +1,12 @@
+<div class="userInfo">
+    <h1 class="userInfo__ttl">アカウント削除</h1>
+    <%= form_with url: "/users/delete", class: "deleteUserInfo userInfo__formArea" do |form| %>
+        <h2 class="deleteUserInfo__name">ユーザ：<%= @loggedin_user.name %></h2>
+        <ul class="deleteUserInfo__alertList">
+            <li class="deleteUserInfo__alertTtl">以下内容をご確認ください</li>
+            <li class="deleteUserInfo__alertListItem">アカウントを削除すると、これまで保存したデータおよびユーザ情報は全て削除されます。</li>
+            <li class="deleteUserInfo__alertListItem">一度削除したアカウントは復元できません。再度ご利用の場合は新規登録をしてください。</li>
+        </ul>
+        <%= form.submit "削除", class: "userInfo__formSendBtn userInfo__formSendBtn_delete" %>
+    <% end %>
+</div>

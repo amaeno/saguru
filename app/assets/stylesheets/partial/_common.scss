@@ -29,8 +29,10 @@ html {
     align-items: center;
     width: 100%;
     font-size: 2rem;
+    margin: 10px auto;
     padding: 10px;
     color: white;
+    border-radius: 7px;
 
     &_alert {
         background-color: orange;

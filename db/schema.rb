@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_23_094649) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_26_171122) do
   create_table "episodes", force: :cascade do |t|
     t.integer "row"
     t.string "user_id"
@@ -19,6 +19,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_094649) do
     t.string "emotion"
     t.integer "motivation"
     t.string "awareness"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "summaries", force: :cascade do |t|
+    t.string "user_id"
+    t.string "value"
+    t.string "try"
+    t.string "environment"
+    t.string "vision"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
