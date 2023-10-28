@@ -190,7 +190,7 @@ $chartTextHeight: 370px;
 .chronology {
     width: $chartWidth;
     overflow: scroll;
-    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .chronology__chart {
