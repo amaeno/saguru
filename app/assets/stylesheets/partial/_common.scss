@@ -1,5 +1,24 @@
 @charset "utf-8";
 
+// ============================================
+// 使用色一覧
+// ============================================
+$color_black: #000000;
+$color_gray: #84919E;
+$color_lightGray: #C8C8CB;
+$color_white: #FFFFFF;
+$color_green: #03AF7A;
+$color_lightGreen: #77D9A8;
+$color_yellowGreen: #D8F255;
+$color_orange: #F6AA00;
+$color_red: #FF4B00;
+$color_lightPink: #FFCABF;
+
+
+// ============================================
+//  variable 
+// ============================================
+$maxWidth: 1000px;
 $headerHeight: 90px;
 
 * {
@@ -9,7 +28,9 @@ $headerHeight: 90px;
 html {
     font-family: YuGothic,'Yu Gothic',sans-serif;
     font-size: 62.5%;
-    background-color: white;
+    background-color: $color_white;
+    // スクロールバー全ページで表示(スクロールバーの有無でレイアウトがズレるため)
+    overflow-y: scroll;
 }
 
 .body__header {
@@ -31,14 +52,14 @@ html {
     font-size: 2rem;
     margin: 10px auto;
     padding: 10px;
-    color: white;
+    color: $color_white;
     border-radius: 7px;
 
     &_alert {
-        background-color: orange;
+        background-color: $color_orange;
     }
 
     &_notice {
-        background-color: lightgreen;
+        background-color: $color_lightGreen;
     }
 }

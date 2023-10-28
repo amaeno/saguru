@@ -1,4 +1,5 @@
 @charset "utf-8";
+@use "partial/common" as com;
 
 // 入力フォーム ============================================
 .userInfo  {
@@ -24,13 +25,13 @@
     width: 100%;
     font-size: 2rem;
     padding: 0.5rem 1rem;
-    color: white;
-    background-color: gray;
+    color: com.$color_white;
+    background-color: com.$color_gray;
     border-radius: 7px;
     margin: 20px 0;
 
     &_delete {
-        background-color: orangered;
+        background-color: com.$color_red;
     
         &:hover {
             opacity: 0.8;
@@ -48,7 +49,7 @@
     align-items: center;
     width: 100%;
     font-size: 1.5rem;
-    color: orangered;
+    color: com.$color_red;
 
     &::before {
         content: "※";
@@ -71,12 +72,12 @@
     font-size: 1.6rem;
     width: 100%;
     padding: 0.5em 1em;
-    border: 1px solid gray;
+    border: 1px solid com.$color_gray;
 }
 
 .userInfoInputArea__noteList {
     font-size: 1.4rem;
-    color: gray;
+    color: com.$color_gray;
     padding-top: 10px;
 }
 
@@ -98,10 +99,10 @@
 
 .deleteUserInfo__alertList {
     font-size: 1.4rem;
-    color: red;
-    border: 4px solid red;
+    color: com.$color_red;
+    border: 4px solid com.$color_red;
     border-radius: 10px;
-    background-color: rgb(246, 233, 235);
+    background-color: com.$color_lightPink;
     margin-top: 30px;
     padding: 10px 20px;
 }
@@ -137,10 +138,10 @@
 
 .errorMessageBox {
     font-size: 1.4rem;
-    color: red;
-    border: 4px solid red;
+    color: com.$color_red;
+    border: 4px solid com.$color_red;
     border-radius: 10px;
-    background-color: rgb(246, 233, 235);
+    background-color: com.$color_lightPink;
 }
 
 .errorMessageBox__ttl {
