@@ -3,11 +3,15 @@ import {episode_data_array} from "./episode_table";
 
 
 const id_canvas = "chronologyChart";
+const id_canvas_vaxis = "chronologyChartVaxis";
 
 
 const canvas_mergin_y = 10;
 const canvas_mergin_x = 30;
 const axis_mergin_x = 20;
+
+const scale_long = 15;
+const scale_short = 7;
 
 
 
@@ -17,6 +21,7 @@ const axis_mergin_x = 20;
 //     @return: -
 // ************************************************
 export const draw_chronology_chart_and_text = () => {
+    draw_chronology_chart_Vaxis();
     draw_chronology_chart(episode_data_array[header_episode.motivation]);
 }
 
@@ -27,6 +32,7 @@ export const draw_chronology_chart_and_text = () => {
 //     @return: -
 // ************************************************
 export const update_chronology_chart_and_text = () => {
+    draw_chronology_chart_Vaxis();
     draw_chronology_chart(episode_data_array[header_episode.motivation]);
     update_chronology_text(episode_data_array[header_episode.age], episode_data_array[header_episode.episode]);
 }
@@ -37,7 +43,7 @@ export const update_chronology_chart_and_text = () => {
 //     @param[1]:  モチベーション値配列
 //     @return: -
 // ************************************************
-export const draw_chronology_chart = (motivation_array) => {
+const draw_chronology_chart = (motivation_array) => {
     const canvas = document.getElementById(id_canvas);
 
     const canvas_width = canvas.clientWidth;
@@ -67,17 +73,45 @@ export const draw_chronology_chart = (motivation_array) => {
     const context = canvas.getContext('2d');
 
 // 描画処理 ========================
-    draw_axis(context, canvas_width + canvas_mergin_x, chart_height + canvas_mergin_y, cell_height);
+    draw_h_axis(context, canvas_width, cell_height);
 
     for(let i=0; i < motivation_array.length; i++){
-        draw_dash_line(context, item_center + (item_width * i) + (canvas_mergin_x + axis_mergin_x), canvas_mergin_y , item_center + (item_width * i) + (canvas_mergin_x + axis_mergin_x), chart_height + canvas_mergin_y );
-        draw_dot(context, item_center + (item_width * i) + (canvas_mergin_x + axis_mergin_x), (chart_height - (motivation_array[i]*cell_height)) + canvas_mergin_y , 6);        
+        draw_dash_line(context, item_center + (item_width * i), canvas_mergin_y , item_center + (item_width * i), chart_height + canvas_mergin_y );
+        draw_dot(context, item_center + (item_width * i), (chart_height - (motivation_array[i]*cell_height)) + canvas_mergin_y , 6);        
     
         // 描画したドットの座標を保存
-        motivation_dot_array.push([item_center + (item_width * i) + (canvas_mergin_x + axis_mergin_x), (chart_height - (motivation_array[i]*cell_height) + canvas_mergin_y)]);
+        motivation_dot_array.push([item_center + (item_width * i), (chart_height - (motivation_array[i]*cell_height) + canvas_mergin_y)]);
     }
 
     draw_chart(context, motivation_dot_array);
+}
+
+
+// ************************************************
+//     @breief:  モチベーションチャートをcanvasに描画する
+//     @param[1]:  モチベーション値配列
+//     @return: -
+// ************************************************
+const draw_chronology_chart_Vaxis = () => {
+    const canvas = document.getElementById(id_canvas_vaxis);
+
+    const canvas_width = canvas.clientWidth;
+    const canvas_height = canvas.clientHeight;
+    let chart_height = canvas_height - (canvas_mergin_y * 2);
+
+    // ドット1セルに当たるピクセル数
+    const cell_height = Math.ceil(chart_height / 100);
+
+    // CSSで設定した要素サイズに描画サイズ合わせる
+    canvas.setAttribute( "width" , canvas_width );
+    canvas.setAttribute( "height" , canvas_height );
+
+    // canvasに対応していない場合は何もしない
+    if ( ! canvas || ! canvas.getContext ) {
+        return false;
+    }
+    const context = canvas.getContext('2d');
+    draw_v_axis(context, chart_height + canvas_mergin_y, cell_height);
 }
 
 
@@ -149,17 +183,14 @@ const draw_chart = (context, dot_array) => {
 
 
 // ************************************************
-//     @breief:  グラフの軸を描画する
+//     @breief:  グラフの縦軸を描画する
 //     @param[1]:  canvasのcontext
 //     @param[2]:  横軸軸の長さ
 //     @param[3]:  縦軸の長さ
 //     @param[4]:  1セル相当の長さ
 //     @return: -
 // ************************************************
-const draw_axis = (context, width, height, cell_height) => {
-
-    let scale_long = 15;
-    let scale_short = 7;
+const draw_v_axis = (context, height, cell_height) => {
 
     // 縦線
     context.beginPath();
@@ -198,14 +229,25 @@ const draw_axis = (context, width, height, cell_height) => {
 
         context.stroke();
     }
+}
 
+
+// ************************************************
+//     @breief:  グラフの横軸を描画する
+//     @param[1]:  canvasのcontext
+//     @param[2]:  横軸軸の長さ
+//     @param[3]:  縦軸の長さ
+//     @param[4]:  1セル相当の長さ
+//     @return: -
+// ************************************************
+const draw_h_axis = (context, width, cell_height) => {
     // 横線
     context.beginPath();
         context.lineWidth = 1;
         context.setLineDash([]) // 実線に戻す 
         context.strokeStyle = "#000000";
-        context.moveTo(canvas_mergin_x + scale_long + 7, (cell_height * 50) + canvas_mergin_y );
-        context.lineTo(canvas_mergin_x + scale_long + 7 + width, (cell_height * 50) + canvas_mergin_y );
+        context.moveTo(scale_long + 7, (cell_height * 50) + canvas_mergin_y );
+        context.lineTo(scale_long + 7 + width, (cell_height * 50) + canvas_mergin_y );
     context.closePath();
 
     context.stroke();
