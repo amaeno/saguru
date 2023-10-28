@@ -1,16 +1,32 @@
 @charset "utf-8";
+@use "partial/common" as com;
 
 .header {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: white;
+    background-color: com.$color_white;
     position: fixed;
     z-index: 9999;
     top: 0;
-    left: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
     width: 100%; 
-    box-shadow: 0 1px 7px gray;
+    max-width: 1400px;
+
+    &::after {
+        position: absolute;
+        content: "";
+        width: 100vw;
+        height: 0;
+        padding-top: 5px;
+        background: linear-gradient(to bottom, com.$color_lightGray, com.$color_white);
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+    
 }
 
 .header__logo {
@@ -51,11 +67,35 @@
 }
 
 .nav__item  {
+    position: relative;
     display: inline-block;
     font-size: 1.6rem;
     font-weight: bold;
+    z-index: 0;
 
     &:not(:last-of-type) {
         margin-right: 30px;
     }
+
+    &:hover {
+        color: com.$color_gray;
+    }
+
+    &_currentPage{
+        pointer-events: none;
+
+        &::before {
+            position: absolute;
+            z-index: -1;
+            content: "";
+            background-color: com.$color_lightGreen;
+            width: 110%;
+            height: 0;
+            padding-top: 10px;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+    }
+
 }

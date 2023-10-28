@@ -1,23 +1,20 @@
 @charset "utf-8";
+@use "partial/common" as com;
 
 // ============================================
 // variable 
 // ============================================
-$maxWidth: 1440px;
-$gridBgColor: #777777;
-$gridBorderColor: #bbbbbb;
-
-$episodeTableTempCol: 1fr 4fr 4fr 1.5fr 4fr;
+$episodeTableTempCol: 1.2fr 4fr 4fr 2fr 4fr;
 $analysisQ1TableTempCol: 1fr 1fr;
 $analysisQ2TableTempCol: 1fr;
 $summaryTableTempCol: 1fr;
 
-$analysisQ2TableArrowWidth: 40px;
+$analysisQ2TableArrowWidth: 30px;
 
-$chartWidth: $maxWidth;
+$chartWidth: com.$maxWidth;
 $chartHeight: 420px;
 $chartTextWidth: 71px;
-$chartTextHeight: 370px;
+$chartTextHeight: 300px;
 
 
 // ============================================
@@ -33,16 +30,18 @@ $chartTextHeight: 370px;
     .#{$tableName}Table {
         width: 100%;
         margin-top: 15px;
-        // border-top: 1px solid $gridBorderColor;
-        // border-bottom: 1px solid $gridBorderColor;
     }
     
     .#{$tableName}Table__header {
         display: grid;
         grid-template-columns: $girdTempCol;
-        color: white;
+        color: com.$color_white;
         font-weight: bold;
-        background-color: $gridBgColor;
+        background-color: com.$color_green;
+
+        & .#{$tableName}Table__column {
+            border-bottom: none;
+        }
     }
     
     .#{$tableName}Table__row {
@@ -51,9 +50,9 @@ $chartTextHeight: 370px;
     }
     
     .#{$tableName}Table__column {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         padding: 5px 10px;
-        border-bottom: 2px solid $gridBorderColor;
+        border-bottom: 2px solid com.$color_lightGray;
     }
 
     .#{$tableName}Table__input,
@@ -62,7 +61,7 @@ $chartTextHeight: 370px;
         height: 100%;
 
         &::placeholder {
-            color: lightgrey;
+            color: com.$color_lightGray;
         }
 
         &:focus::placeholder {
@@ -73,6 +72,27 @@ $chartTextHeight: 370px;
     .#{$tableName}Table__input::-webkit-outer-spin-button,
     .#{$tableName}Table__input::-webkit-inner-spin-button {
         margin-left: 5px;
+    }
+
+    .#{$tableName}Table__formSendBtn {
+        position: absolute;
+        top: - 10px;
+        right: 0;
+        transform: translate(0, -100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.8rem;
+        font-weight: bold;
+        padding: 0.5rem 1rem;
+        color: com.$color_white;
+        background-color: com.$color_gray;
+        border: 2px solid com.$color_lightGray;
+        border-radius: 7px;
+    
+        &:hover {
+            opacity: 0.8;
+        }
     }
 }
 
@@ -85,8 +105,8 @@ $chartTextHeight: 370px;
     position: relative;
     display: block;
     margin: 0 auto;
-    width: $maxWidth;
-    max-width: $maxWidth;
+    width: com.$maxWidth;
+    max-width: com.$maxWidth;
 }
 
 .main__section:not(:first-of-type) {
@@ -102,7 +122,7 @@ $chartTextHeight: 370px;
         content: "";
         padding-right: 10px;
         margin-right: 10px;
-        background-color: #222222;
+        background-color: com.$color_black;
     }
 }
 
@@ -136,40 +156,19 @@ $chartTextHeight: 370px;
     overflow-x: hidden;
 }
 
-.episodeTable__formSendBtn {
-    position: absolute;
-    top: - 10px;
-    right: 0;
-    transform: translate(0, -100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-    color: dimgray;
-    background-color: lightgray;
-    border: 3px solid dimgray;
-    border-radius: 7px;
-
-    &:hover {
-        opacity: 0.8;
-    }
-}
-
 .-numItemAge,
 .-numItemMotivation {
     position: relative;
     text-align: right;
     font-weight: bold;
-    padding-right: 25px;
+    padding-right: 15%;
     padding-left: 0;
 
     &::after {
         position: absolute;
         content: ""; // 数値の単位は以下で個別に更新
         top: 50%;
-        right: 10px;
+        right: 10%;
         transform: translate(0, -50%);
         font-size: 1.2rem;
         font-weight: normal;
@@ -216,9 +215,9 @@ $chartTextHeight: 370px;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #222222;
+        background-color: com.$color_black;
         content: "エピソード";
-        color: #ffffff;
+        color: com.$color_white;
         font-size: 1.6rem;
         font-weight: bold;
         width: 3.5rem;
@@ -243,6 +242,11 @@ $chartTextHeight: 370px;
 
 .chronologyEpisodeList__itemAge {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $chartTextWidth;
+    max-width: $chartTextWidth;
     height: 40px;
     font-size: 1.6rem;
     font-weight: bold;
@@ -285,7 +289,7 @@ $chartTextHeight: 370px;
 @include makeGridTable("analysisQ2", $analysisQ2TableTempCol);
 
 .analysisTableList {
-    height: 500px;
+    height: 700px;
     overflow: scroll;
     overflow-x: hidden;
 }
@@ -315,7 +319,7 @@ $chartTextHeight: 370px;
         position: absolute;
         content: "";
         border: $analysisQ2TableArrowWidth solid;
-        border-color: transparent transparent transparent #dddddd;
+        border-color: transparent transparent transparent com.$color_lightGray;
         transform: translate(-50%, 50%) ;
         bottom: 50%;
         left: calc(-12.5% + (0.5*$analysisQ2TableArrowWidth));
@@ -328,26 +332,10 @@ $chartTextHeight: 370px;
 .summaryTableList {
     position: relative;
 }
-
-.summaryTable__formSendBtn {
-    position: absolute;
-    top: - 10px;
-    right: 0;
-    transform: translate(0, -100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-    color: dimgray;
-    background-color: lightgray;
-    border: 3px solid dimgray;
-    border-radius: 7px;
-
-    &:hover {
-        opacity: 0.8;
-    }
+.summaryTable  {
+    border-left: 2px solid com.$color_lightGray;
+    border-right: 2px solid com.$color_lightGray;
+    border-top: 2px solid com.$color_lightGray;
 }
 
 // utility ============================================
