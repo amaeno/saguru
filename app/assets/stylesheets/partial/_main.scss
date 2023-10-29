@@ -12,7 +12,8 @@ $summaryTableTempCol: 1fr;
 $analysisQ2TableArrowWidth: 30px;
 
 $chartWidth: com.$maxWidth;
-$chartHeight: 420px;
+// mergin抜きの数値は100の倍数に設定すること！(1ドットあたりの数値が少数になると表現できないため)
+$chartHeight: 320px;
 $chartTextWidth: 71px;
 $chartTextHeight: 300px;
 
@@ -187,48 +188,81 @@ $chartTextHeight: 300px;
 
 // chronology ============================================
 .chronology {
+    position: relative;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    grid-template-rows: $chartHeight 350px;
+    grid-row-gap: 10px;
+    margin-top: 15px;
     width: $chartWidth;
     overflow: scroll;
     overflow-y: hidden;
 }
 
-.chronology__chart {
+.chronology__axis {
+    position: sticky;
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    bottom: 0;
+    background-color: com.$color_white;
+    z-index: 1;
+    margin-left: auto;
+}
+
+.chronology__chartVaxis {
+    width: 100%;
+    height: 100%;
+}
+
+.chronology__chartBody {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
     position: relative;
     width: 2000px;
-    height: $chartHeight;
-    margin-top: 15px; 
+    height: 100%;
+    z-index: -1;
+}
+
+.chronology__chart {
+    width: 100%;
+    height: 100%;
+}
+
+.chronology__textTtl {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: com.$color_black;
+    color: com.$color_white;
+    font-size: 1.6rem;
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    left: 0;
+    bottom: 0;
+
+    // 縦書き設定
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+}
+
+.chronology__textList {
+    position: relative;
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+    z-index: -1;
+    width: $chartWidth;
 }
 
 .chronologyEpisodeList {
     display: flex;
-}
-
-.chronology__episode {
-    position: relative;
-    // jsで設定しているcanvas内merginと同じ値になるように計算すること！
-    // canvas_mergin_x + axis_mergin_x
-    padding-left: 50px;
-    margin-top: 10px; 
-
-    &::before {
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: com.$color_black;
-        content: "エピソード";
-        color: com.$color_white;
-        font-size: 1.6rem;
-        font-weight: bold;
-        width: 3.5rem;
-        height: 100%;
-        top: 0;
-        left: 10px;
-
-        // 縦書き設定
-        writing-mode: vertical-rl;
-        text-orientation: upright;
-    }
 }
 
 .chronologyEpisodeList__item {
@@ -237,6 +271,7 @@ $chartTextHeight: 300px;
     align-items: center;
     width: $chartTextWidth;
     max-width: $chartTextWidth;
+    height: 100%;
     margin-top: 5px;
 }
 

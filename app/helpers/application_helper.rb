@@ -9,12 +9,29 @@ module ApplicationHelper
         current_url = request.fullpath
         result = ""
 
-        # アカウント削除ページ遷移時は""
         if current_url == url
             result = class_name
         # アカウント削除ページ遷移時は"アカウント編集"でクラス設定
         elsif (current_url == "/delete_account") && (url == "/setting")
             result = class_name
+        # バリデーションエラーでrenderの際のヘッダークラス付与
+        else
+            case current_url
+                when "/users/create"
+                    if url == "/signup"
+                        result = class_name
+                    end
+                when "/users/update"
+                    if url == "/setting"
+                        result = class_name
+                    end
+                when "/users/authorize"
+                    if url == "/login"
+                        result = class_name
+                    end
+                else
+                    result = ""
+            end
         end
 
         return result
