@@ -12,7 +12,8 @@ $summaryTableTempCol: 1fr;
 $analysisQ2TableArrowWidth: 30px;
 
 $chartWidth: com.$maxWidth;
-$chartHeight: 420px;
+// mergin抜きの数値は100の倍数に設定すること！(1ドットあたりの数値が少数になると表現できないため)
+$chartHeight: 320px;
 $chartTextWidth: 71px;
 $chartTextHeight: 300px;
 
