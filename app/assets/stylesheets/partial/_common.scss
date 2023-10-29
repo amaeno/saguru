@@ -13,6 +13,7 @@ $color_yellowGreen: #D8F255;
 $color_orange: #F6AA00;
 $color_red: #FF4B00;
 $color_lightPink: #FFCABF;
+$color_lightBlue: #BFE4FF;
 
 
 // ============================================
@@ -60,6 +61,6 @@ html {
     }
 
     &_notice {
-        background-color: $color_lightGreen;
+        background-color: $color_lightBlue;
     }
 }
