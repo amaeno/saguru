@@ -1,15 +1,12 @@
 class TopController < ApplicationController
-    before_action :authenticate_user, {only: [:index, :update_episode]}
+    before_action :authenticate_user, {only: [:saguru, :update_episode]}
 
     # サービス紹介ページ
-    def about
-        p @user = User.all
-        p @episode = Episode.all
-        p @summary = Summary.all
+    def index
     end
 
     # 自己分析ページ表示
-    def index
+    def saguru
     # common ======================================= 
     
     
@@ -25,15 +22,15 @@ class TopController < ApplicationController
     # analysisTable =======================================
         @analysisTableHeader = {Q1: 0, Q2: 1}
 
-                                        #Qustion1 Header                                  Qustion2 Header 
-        @analysisTableQ_theme_list = [  ["モチベーションが上がったのはどんな時？",              "モチベーション上昇の共通要素は？"],
-                                        ["モチベーションが下がったのはどんな時？",              "モチベーション低下の共通要素は？"],
-                                        ["成功体験は？",                                    "どんな学びや成長があった？"],
-                                        ["失敗体験は？",                                    "どんな学びや成長があった？"],
-                                        ["活躍できた・居心地の良かったチームでの活動は？",        "良い環境の共通要素は？"],
-                                        ["活躍できなかった・居心地の悪かったチームでの活動は？",   "悪い環境の共通要素は？"],
-                                        ["年代を通して好きなこと・得意なことは？",               "好き・得意なことの共通要素は？"],
-                                        ["年代を通して嫌いなこと・苦手なことは？",               "嫌い・苦手なことの共通要素は？"]]
+                                        #Qustion1 Header                                            Qustion2 Header 
+        @analysisTableQ_theme_list = [  ["モチベーションが上がったのはどんな時？",                  "モチベーション上昇の共通要素は？"],
+                                        ["モチベーションが下がったのはどんな時？",                  "モチベーション低下の共通要素は？"],
+                                        ["成功体験は？",                                            "どんな学びや成長があった？"],
+                                        ["失敗体験は？",                                            "どんな学びや成長があった？"],
+                                        ["活躍できた・居心地の良かったチームでの活動は？",          "良い環境の共通要素は？"],
+                                        ["活躍できなかった・居心地の悪かったチームでの活動は？",    "悪い環境の共通要素は？"],
+                                        ["年代を通して好きなこと・得意なことは？",                  "好き・得意なことの共通要素は？"],
+                                        ["年代を通して嫌いなこと・苦手なことは？",                  "嫌い・苦手なことの共通要素は？"]]
 
         @analysisTableQ1_header_list = [["エピソード", "理由"],
                                         ["エピソード", "理由"],
@@ -74,17 +71,17 @@ class TopController < ApplicationController
             # 保存成功時
             if result.failed_instances.blank?
                 flash[:notice] = "更新内容を保存しました"
-                redirect_to("/")
+                redirect_to("/saguru")
             else
                 p "importできませんでした"
                 p result.failed_instances.first.errors
                 flash[:alert] = "保存に失敗しました。入力内容を確認して再度保存してください"
-                redirect_to("/")
+                redirect_to("/saguru")
             end
         else
             p "不適切な引数です"
             flash[:alert] = "サーバ内部エラーが発生しました"
-            redirect_to("/")
+            redirect_to("/saguru")
         end
     end
 
@@ -97,17 +94,17 @@ class TopController < ApplicationController
             # 保存成功時
             if result.failed_instances.blank?
                 flash[:notice] = "更新内容を保存しました"
-                redirect_to("/")
+                redirect_to("/saguru")
             else
                 p "importできませんでした"
                 p result.failed_instances.first.errors
                 flash[:alert] = "保存に失敗しました。入力内容を確認して再度保存してください"
-                redirect_to("/")
+                redirect_to("/saguru")
             end
         else
             p "不適切な引数です"
             flash[:alert] = "サーバ内部エラーが発生しました"
-            redirect_to("/")
+            redirect_to("/saguru")
         end
     end
 
