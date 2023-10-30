@@ -18,7 +18,7 @@ class UsersController < ApplicationController
             if Episode.make_new_episode_records(session[:user_id], $START_AGE, $END_AGE) &&
                 Summary.make_new_summary_records(session[:user_id]) 
                 flash[:notice] = "ユーザ登録が完了しました"
-                redirect_to("/")
+                redirect_to("/saguru")
             else
                 flash[:alert] = "サーバ内部エラーが発生しました"
                 render "users/signup", status: :unprocessable_entity
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
         if @user_info
             session[:user_id] = @user_info.id
             flash[:notice] = "ログインしました"
-            redirect_to("/")
+            redirect_to("/saguru")
         else
             # DBに該当ない時はログイン画面へ戻る
             @error_message = "ユーザ名またはパスワードが間違っています"
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
 
         if @user_info.save
             flash[:notice] = "アカウントを更新しました"
-            redirect_to("/")
+            redirect_to("/saguru")
         else
             # DB保存失敗時は登録画面へ戻る
             @error_message = @user_info.errors.full_messages

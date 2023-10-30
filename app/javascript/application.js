@@ -11,7 +11,7 @@ import {init_summary_table} from "./modules/summary_table";
 document.addEventListener("turbo:load", () => {
     switch (location.pathname) {
         // 自己分析画面
-        case "/":
+        case "/saguru":
             init_episode_table();
             draw_chronology_chart_and_text();
             // init_analysis_table();
