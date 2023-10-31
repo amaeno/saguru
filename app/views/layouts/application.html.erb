@@ -20,13 +20,13 @@
         <%# ログイン中リンク %>
         <% if @loggedin_user %>
           <p class="nav__username">ユーザ：<%= @loggedin_user.name %></p>
-          <%= link_to "Saguruについて", "/", class: "nav__item #{set_class_only_current_page("/", "nav__item_currentPage")}" %>
+          <%= link_to "Saguruとは", "/", class: "nav__item #{set_class_only_current_page("/", "nav__item_currentPage")}" %>
           <%= link_to "自己分析する", "/saguru", class: "nav__item #{set_class_only_current_page("/saguru", "nav__item_currentPage")}" %>
           <%= link_to "アカウント編集", "/setting", class: "nav__item #{set_class_only_current_page("/setting", "nav__item_currentPage")}" %>
           <%= link_to "ログアウト", "/logout", class: "nav__item #{set_class_only_current_page("/logout", "nav__item_currentPage")}" %>
         <%# ログアウト中リンク %>
         <% else %>
-          <%= link_to "Saguruについて", "/", class: "nav__item #{set_class_only_current_page("/", "nav__item_currentPage")}" %>
+          <%= link_to "Saguruとは", "/", class: "nav__item #{set_class_only_current_page("/", "nav__item_currentPage")}" %>
           <%= link_to "新規登録", "/signup", class: "nav__item #{set_class_only_current_page("/signup", "nav__item_currentPage")}" %>
           <%= link_to "ログイン", "/login", class: "nav__item #{set_class_only_current_page("/login", "nav__item_currentPage")}" %>
         <% end %>

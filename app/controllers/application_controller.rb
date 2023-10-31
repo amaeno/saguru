@@ -13,4 +13,12 @@ class ApplicationController < ActionController::Base
             redirect_to("/login")
         end
     end
+
+    # ログイン状態でのアクセスを禁止する
+    def forbid_user
+        if @loggedin_user
+            flash[:alert] = "既にログインしています"
+            redirect_to("/saguru")
+        end
+    end
 end

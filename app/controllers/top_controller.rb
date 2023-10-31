@@ -3,7 +3,7 @@ class TopController < ApplicationController
                                             [   :saguru, 
                                                 :update_episode, 
                                                 :update_analysis, 
-                                                :update_summary
+                                                :update_summary,
                                             ]
                                         }
 
