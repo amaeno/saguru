@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-  # 自己分析
+  # 自己分析 =======================================
   get "/" => "top#index"
   get "/saguru" => "top#saguru"
   post "/update_episode" => "top#update_episode"
+  post "/update_analysis" => "top#update_analysis"
   post "/update_summary" => "top#update_summary"
-  # ユーザ登録関連
+  # ユーザ登録関連 =======================================
   get "/signup" => "users#signup"
   post "/users/create" => "users#create"
   get "/setting" => "users#setting"

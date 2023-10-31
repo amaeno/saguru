@@ -8,10 +8,9 @@ class Summary < ApplicationRecord
     # ************************************************
     #   @breief:  指定したブロック分の初期値まとめ記入欄をModelへ追加
     #   @param[1]: ユーザID
-    #   @param[2]: ブロック数
     #   @return: OK or NG
     # ************************************************
-    def self.make_new_summary_records(id)
+    def self.make_new_summary_records?(id)
         summary = []
 
         summary << Summary.new(
@@ -53,7 +52,7 @@ class Summary < ApplicationRecord
             # 受け取ったparamのうち、セル情報を含むものだけを抽出
             if k.match?(/_r_\d+_c_\w+/)
                 # セルの属性を抽出 [テーブル名, 行数, 列名]
-                cell_attr = k.split(/_r_|_c_/)
+                cell_attr = k.split(/_g_|_r_|_c_/)
 
                 row_num = cell_attr[$ATTR_ROW].to_i
                 col_sym = cell_attr[$ATTR_COL].to_sym

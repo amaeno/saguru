@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: MyString
+  group: 1
+  row: 1
+  similarity: MyString
+
+two:
+  user_id: MyString
+  group: 1
+  row: 1
+  similarity: MyString

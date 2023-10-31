@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_26_171122) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_30_163632) do
+  create_table "analysis_q1s", force: :cascade do |t|
+    t.string "user_id"
+    t.integer "group"
+    t.integer "row"
+    t.string "example"
+    t.string "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "analysis_q2s", force: :cascade do |t|
+    t.string "user_id"
+    t.integer "group"
+    t.integer "row"
+    t.string "similarity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "episodes", force: :cascade do |t|
     t.integer "row"
     t.string "user_id"

@@ -75,17 +75,19 @@ $chartTextHeight: 300px;
         margin-left: 5px;
     }
 
-    .#{$tableName}Table__formSendBtn {
-        position: absolute;
-        top: - 10px;
-        right: 0;
-        transform: translate(0, -100%);
+    .#{$tableName}Table__formSendBtn,
+    .analysisTable__formSendBtn {
+        // position: absolute;
+        // top: - 10px;
+        // right: 0;
+        // transform: translate(0, -100%);
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         align-items: center;
         font-size: 1.8rem;
         font-weight: bold;
         padding: 0.5rem 1rem;
+        margin: 5px 0;
         color: com.$color_white;
         background-color: com.$color_gray;
         border: 2px solid com.$color_lightGray;
@@ -133,9 +135,6 @@ $chartTextHeight: 300px;
     margin: 10px 0 0 0;
 }
 
-.main__sectionContent.analysisTableList {
-    margin-top: 15px;
-}
 
 // episode ============================================
 @include makeGridTable("episode", $episodeTableTempCol);
@@ -190,7 +189,7 @@ $chartTextHeight: 300px;
 .chronology {
     position: relative;
     display: grid;
-    grid-template-columns: 40px 1fr;
+    grid-template-columns: 50px 1fr;
     grid-template-rows: $chartHeight 350px;
     grid-row-gap: 10px;
     margin-top: 15px;
@@ -232,25 +231,37 @@ $chartTextHeight: 300px;
 }
 
 .chronology__textTtl {
+    position: relative;
     grid-row: 2 / 3;
     grid-column: 1 / 2;
     position: sticky;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: com.$color_black;
-    color: com.$color_white;
-    font-size: 1.6rem;
-    font-weight: bold;
     width: 100%;
     height: 100%;
+    background-color: com.$color_white;
     z-index: 1;
     left: 0;
     bottom: 0;
 
-    // 縦書き設定
-    writing-mode: vertical-rl;
-    text-orientation: upright;
+
+    &::after {
+        position: absolute;
+        content: "エピソード";
+        width: 40px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: com.$color_black;
+        color: com.$color_white;
+        font-size: 1.6rem;
+        font-weight: bold;
+        top: 0;
+        right: 0;
+
+        // 縦書き設定
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+    }
 }
 
 .chronology__textList {
@@ -324,6 +335,8 @@ $chartTextHeight: 300px;
 @include makeGridTable("analysisQ2", $analysisQ2TableTempCol);
 
 .analysisTableList {
+    position: relative;
+    width: 100%;
     height: 700px;
     overflow: scroll;
     overflow-x: hidden;

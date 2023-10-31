@@ -22,7 +22,7 @@ class Episode < ApplicationRecord
     #   @param[3]: 終了年齢
     #   @return: OK or NG
     # ************************************************
-    def self.make_new_episode_records(id, start_age, end_age)
+    def self.make_new_episode_records?(id, start_age, end_age)
         # 引数が正しい時処理を実行
         if(start_age.to_i < end_age.to_i)
             episode = []
@@ -76,7 +76,7 @@ class Episode < ApplicationRecord
             # 受け取ったparamのうち、セル情報を含むものだけを抽出
             if k.match?(/_r_\d+_c_\w+/)
                 # セルの属性を抽出 [テーブル名, 行数, 列名]
-                cell_attr = k.split(/_r_|_c_/)
+                cell_attr = k.split(/_g_|_r_|_c_/)
 
                 row_num = cell_attr[$ATTR_ROW].to_i
                 col_sym = cell_attr[$ATTR_COL].to_sym
