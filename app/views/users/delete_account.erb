@@ -1,5 +1,5 @@
-<div class="userInfo">
-    <h1 class="userInfo__ttl">アカウント削除</h1>
+<section class="userInfo main__section">
+    <h2 class="userInfo__ttl main__sectionTtl">アカウント削除</h2>
     <%= form_with url: "/users/delete", class: "deleteUserInfo userInfo__formArea" do |form| %>
         <h2 class="deleteUserInfo__name">ユーザ：<%= @loggedin_user.name %></h2>
         <ul class="deleteUserInfo__alertList">
@@ -9,4 +9,4 @@
         </ul>
         <%= form.submit "削除", class: "userInfo__formSendBtn userInfo__formSendBtn_delete" %>
     <% end %>
-</div>
+</section>

@@ -1,5 +1,15 @@
 class UsersController < ApplicationController
-    before_action :authenticate_user, {only: [:setting, :delete_account]}
+    before_action :authenticate_user, {only: [  :setting,
+                                                :update,
+                                                :logout,
+                                                :delete_account,
+                                                :delete,
+                                                ]}
+    before_action :forbid_user, {only: [:signup,
+                                        :create,
+                                        :login,
+                                        :authorize,
+                                        ]}
 
     # 新規登録
     def signup
@@ -71,7 +81,7 @@ class UsersController < ApplicationController
         @user_info.password = params[:update_user_password]
 
         if @user_info.save
-            flash[:notice] = "アカウントを更新しました"
+            flash[:notice] = "アカウント情報を更新しました"
             redirect_to("/saguru")
         else
             # DB保存失敗時は登録画面へ戻る
