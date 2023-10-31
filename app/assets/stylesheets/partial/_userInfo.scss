@@ -1,0 +1,156 @@
+@charset "utf-8";
+@use "partial/common" as com;
+
+// 入力フォーム ============================================
+.userInfo  {
+    width: 60%;
+    margin: 30px auto;
+}
+
+.userInfo__ttl  {
+
+}
+
+.userInfo__formItem {
+    &:not(:last-of-type) {
+        margin-bottom: 20px;
+    }
+}
+
+.userInfo__formSendBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    color: com.$color_white;
+    background-color: com.$color_gray;
+    border-radius: 7px;
+    margin: 20px 0;
+
+    &_delete {
+        background-color: com.$color_red;
+    
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.userInfo__linkDelete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: 1.5rem;
+    color: com.$color_red;
+
+    &::before {
+        content: "※";
+        margin-right: 0.5em;
+    }
+}
+
+.userInfoInputArea__ttl {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.userInfo__formArea {
+    padding: 60px 100px 15px;
+}
+
+.userInfoInputArea__form {
+    display: block;
+    font-size: 1.6rem;
+    width: 100%;
+    padding: 0.5em 1em;
+    border: 1px solid com.$color_gray;
+}
+
+.userInfoInputArea__noteList {
+    font-size: 1.4rem;
+    color: com.$color_gray;
+    padding-top: 10px;
+}
+
+.userInfoInputArea__noteDesc {
+
+}
+
+.userInfoInputArea__noteTerm {
+    &::before {
+        content: "・";
+        padding-left: 1em;
+    }
+}
+
+.deleteUserInfo__name {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.deleteUserInfo__alertList {
+    font-size: 1.4rem;
+    color: com.$color_red;
+    border: 4px solid com.$color_red;
+    border-radius: 10px;
+    background-color: com.$color_lightPink;
+    margin-top: 30px;
+    padding: 10px 20px;
+}
+
+.deleteUserInfo__alertTtl {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.deleteUserInfo__alertListItem  {
+    position: relative;
+    margin-left: 1em;
+    &:not(:last-of-type) {
+        margin-bottom: 10px;
+    }
+    &::before{
+        position: absolute;
+        content: "・";
+        width: 1em;
+        height: 1em;
+        top: 0;
+        left: -1em;
+    }
+}
+
+
+// errorメッセージ ============================================
+.userInfo__error {
+    margin-top: 30px;
+    padding: 10px 20px;
+}
+
+.errorMessageBox {
+    font-size: 1.4rem;
+    color: com.$color_red;
+    border: 4px solid com.$color_red;
+    border-radius: 10px;
+    background-color: com.$color_lightPink;
+}
+
+.errorMessageBox__ttl {
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.errorMessageBox__item {
+    &::before{
+        content: "・";
+        padding-left: 1em;
+    }
+}

@@ -1,0 +1,41 @@
+<section class="userInfo main__section">
+    <h2 class="userInfo__ttl main__sectionTtl">新規登録</h2>
+    <%# varidationエラー時はメッセージ表示 %>
+    <% if @error_message %>
+            <ul class="errorMessageBox userInfo__error">
+                <li class="errorMessageBox__ttl">エラー！</li>
+                <% @error_message.each do |message| %>
+                    <li class="errorMessageBox__item">
+                        <%= message %>
+                    </li>
+                <% end %>
+            </ul>
+        <% end %>
+
+    <%= form_with url: "/users/create", class: "userInfo__formArea" do |form| %>
+        <div class="userInfoInputArea userInfo__formItem">
+            <h2 class="userInfoInputArea__ttl">ユーザ名</h2>
+            <%= form.text_field  :new_user_name,
+                                value: @new_user_name,
+                                class: "userInfoInputArea__form" %>
+            <dl class="userInfoInputArea__noteList">
+                <dd class="userInfoInputArea__noteDesc">ユーザ名は以下の条件を満たすよう設定してください</dd>
+                <dt class="userInfoInputArea__noteTerm">半角英数字記号いずれかからなる組み合わせ</dt>
+                <dt class="userInfoInputArea__noteTerm">6〜15文字以内</dt>
+            </dl>
+        </div>
+        <div class="userInfoInputArea userInfo__formItem">
+            <h2 class="userInfoInputArea__ttl">パスワード</h2>
+            <%= form.password_field :new_user_password,
+                                    value: @new_user_password,
+                                    class: "userInfoInputArea__form",
+                                    autocomplete: "on" %>
+            <dl class="userInfoInputArea__noteList">
+                <dd class="userInfoInputArea__noteDesc">パスワードは以下の条件を満たすよう設定してください</dd>
+                <dt class="userInfoInputArea__noteTerm">半角英数字記号全てを含んだ組み合わせ</dt>
+                <dt class="userInfoInputArea__noteTerm">10〜20文字以内</dt>
+            </dl>
+        </div>
+        <%= form.submit "新規登録", class: "userInfo__formSendBtn" %>
+    <% end %>
+</section>
