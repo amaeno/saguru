@@ -1,8 +1,9 @@
 class User < ApplicationRecord
         # アソシエーション
         has_many :episodes, dependent: :destroy
+        has_many :analysis_q1, dependent: :destroy
+        has_many :analysis_q2, dependent: :destroy
         has_many :summaries, dependent: :destroy
-
 
 
         # ユーザIDをUUIDで設定

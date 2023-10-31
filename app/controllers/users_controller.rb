@@ -15,10 +15,12 @@ class UsersController < ApplicationController
             session[:user_id] = @user_info.id
 
             # 新規登録完了時に初期値エピソード・まとめ記入欄追加
-            if Episode.make_new_episode_records(session[:user_id], $START_AGE, $END_AGE) &&
-                Summary.make_new_summary_records(session[:user_id]) 
-                flash[:notice] = "ユーザ登録が完了しました"
-                redirect_to("/saguru")
+            if  Episode.make_new_episode_records?(session[:user_id], $START_AGE, $END_AGE) &&
+                AnalysisQ1.make_new_analysis_q1_records?(session[:user_id]) &&
+                AnalysisQ2.make_new_analysis_q2_records?(session[:user_id]) &&
+                Summary.make_new_summary_records?(session[:user_id]) 
+                    flash[:notice] = "ユーザ登録が完了しました"
+                    redirect_to("/saguru")
             else
                 flash[:alert] = "サーバ内部エラーが発生しました"
                 render "users/signup", status: :unprocessable_entity

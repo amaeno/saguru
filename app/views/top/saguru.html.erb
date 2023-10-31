@@ -3,12 +3,13 @@
     <h2 class="main__sectionTtl">経験の振り返り</h2>
     <%# header列数 * エピソード行数　のテーブルを作成 %>
     
-    <div id="episodeTable" class="episodeTable main__sectionContent">
+    <div    id="episodeTable"
+            class="episodeTable main__sectionContent">
         <%= form_with url: "/update_episode" do |form| %>
             <%= form.submit "保存", class: "episodeTable__formSendBtn" %>
             <div class="episodeTable__cells">
                 <div class="episodeTable__header">
-                    <% @episode_header.each do |k_sym, v_header_info| %>
+                    <% $episode_header.each do |k_sym, v_header_info| %>
                         <div class="episodeTable__column">
                             <%= v_header_info %>
                         </div>
@@ -16,7 +17,7 @@
                 </div>
             <% @episode_table_data.each do |record| %>
                 <div class="episodeTable__row">
-                    <% @episode_header.each do |k_sym, v_colomn| %>
+                    <% $episode_header.each do |k_sym, v_colomn| %>
                         <% episodeTable_cell_attribute  = get_episodeTable_cell_attribute(record, k_sym, v_colomn) %>
                         <div class="<%= episodeTable_cell_attribute[:attr_class] %>">
                             <% if episodeTable_cell_is_input_tag? %>
@@ -55,7 +56,7 @@
             <canvas id="chronologyChart"
                     class="chronology__chart"></canvas>
         </dd>
-        <dt class="chronology__textTtl">エピソード</dt>
+        <dt class="chronology__textTtl"></dt>
         <dd class="chronology__textList">
             <ul id="chronologyText"
                 class="chronologyEpisodeList chronology__episode">
@@ -77,67 +78,75 @@
 <%# ===== analysis ===== %>
 <section class="main__section">
     <h2 class="main__sectionTtl">分析</h2>
+    <%= form_with url: "/update_analysis" do |form| %>
+            <%= form.submit "保存", class: "analysisTable__formSendBtn" %>
     <ul id="analysisTableList"
         class="analysisTableList main__sectionContent">
-        <% @analysisTableQ_theme_list.length.times do |theme_num| %>
-            <li class="analysisTableList__item">
-                <div class="analysisTableWrapper">
-                    <h3 class="main__sectionSubTtl">
-                        <%= @analysisTableQ_theme_list[theme_num][@analysisTableHeader[:Q1]] %>
-                    </h3>
-                    <div class="analysisQ1Table">
-                        <div class="analysisQ1Table__header">
-                            <% @analysisTableQ1_header_list[theme_num].each do |header_item| %>
-                                <div class="analysisQ1Table__column">
-                                    <%= header_item %>
-                                </div>
-                            <% end %>
-                        </div>
-                        <% @analysisTable_row_nums.times do |row_num| %>
-                            <div class="analysisQ1Table__row">
-                                <% @analysisTableQ1_header_list[theme_num].length.times do |col_num| %>
-                                    <% analysisTable_cell_attribute = get_analysisTable_cell_attribute(theme_num, "Q1", row_num, col_num) %>
+            <% $GROUP_NUM.times do |group_num| %>
+                <li class="analysisTableList__item">
+                    <div class="analysisTableWrapper">
+                        <h3 class="main__sectionSubTtl">
+                            <%= $analysisTableQ1_content_list[group_num][$ANALYSIS_THEME] %>
+                        </h3>
+                        <div class="analysisQ1Table">
+                            <div class="analysisQ1Table__header">
+                                <% $analysisTableQ1_content_list[group_num][$ANALYSIS_HEADER].each do |header_item| %>
                                     <div class="analysisQ1Table__column">
-                                        <textarea   id="<%= analysisTable_cell_attribute[:attr_id] %>"
-                                                    class="analysisQ1Table__textarea"
-                                                    row="<%= analysisTable_cell_attribute[:attr_row] %>"
-                                                    placeholder="<%= analysisTable_cell_attribute[:attr_placeholder] %>"></textarea>
+                                        <%= header_item %>
                                     </div>
                                 <% end %>
                             </div>
-                        <% end %>
-                    </div>
-                </div>
-                <div class="analysisTableWrapper">
-                    <h3 class="main__sectionSubTtl">
-                        <%= @analysisTableQ_theme_list[theme_num][@analysisTableHeader[:Q2]] %>
-                    </h3>
-                    <div class="analysisQ2Table">
-                        <div class="analysisQ2Table__header">
-                            <% @analysisTableQ2_header_list[theme_num].each do |header_item| %>
-                                <div class="analysisQ2Table__column">
-                                    <%= header_item %>
+                            <% @analysis_table_q1_group_data = get_analysisTable_group_data(:q1, group_num) %>
+                            <% @analysis_table_q1_group_data.each do |record| %>
+                                <div class="analysisQ1Table__row">
+                                    <% $analysis_q1_header.each do |k_sym, v_colomn| %>
+                                        <% analysisTable_cell_attribute = get_analysisTable_cell_attribute(group_num, :q1, record, k_sym) %>
+                                        <div class="analysisQ1Table__column">
+                                            <%= form.text_area analysisTable_cell_attribute[:attr_name].to_sym,
+                                                                value: record[k_sym],
+                                                                class: "analysisQ1Table__textarea",
+                                                                row: analysisTable_cell_attribute[:attr_row],
+                                                                placeholder: analysisTable_cell_attribute[:attr_placeholder] %>
+                                        </div>
+                                    <% end %>
                                 </div>
                             <% end %>
                         </div>
-                        <% @analysisTable_row_nums.times do |row_num| %>
-                            <div class="analysisQ2Table__row">
-                                <% @analysisTableQ2_header_list[theme_num].length.times do |col_num| %>
-                                    <% analysisTable_cell_attribute = get_analysisTable_cell_attribute(theme_num, "Q2", row_num, col_num) %>
+                    </div>
+                    <div class="analysisTableWrapper">
+                        <h3 class="main__sectionSubTtl">
+                            <%= $analysisTableQ2_content_list[group_num][$ANALYSIS_THEME] %>
+                        </h3>
+                        <div class="analysisQ2Table">
+                            <div class="analysisQ2Table__header">
+                                <% $analysisTableQ2_content_list[group_num][$ANALYSIS_HEADER].each do |header_item| %>
                                     <div class="analysisQ2Table__column">
-                                        <textarea   id="<%= analysisTable_cell_attribute[:attr_id] %>"
-                                                    class="analysisQ2Table__textarea"
-                                                    row="<%= analysisTable_cell_attribute[:attr_row] %>"
-                                                    placeholder="<%= analysisTable_cell_attribute[:attr_placeholder] %>"></textarea>
+                                        <%= header_item %>
                                     </div>
                                 <% end %>
                             </div>
-                        <% end %>
+                            <% @analysis_table_q2_group_data = get_analysisTable_group_data(:q2, group_num) %>
+                            <% @analysis_table_q2_group_data.each do |record| %>
+                                <div class="analysisQ2Table__row">
+                                    <% $analysis_q2_header.each do |k_sym, v_colomn| %>
+                                        <% analysisTable_cell_attribute = get_analysisTable_cell_attribute(group_num, :q2, record, k_sym) %>
+                                        <div class="analysisQ2Table__column">
+                                            <%= form.text_area analysisTable_cell_attribute[:attr_name].to_sym,
+                                                                value: record[k_sym],
+                                                                class: "analysisQ2Table__textarea",
+                                                                row: analysisTable_cell_attribute[:attr_row],
+                                                                placeholder: analysisTable_cell_attribute[:attr_placeholder] %>
+                                        </div>
+                                    <% end %>
+                                </div>
+                            <% end %>
+                        </div>
                     </div>
-                </div>
-            </li>
-        <% end %>
-    </div>
+                </li>
+            <% end %>
+        
+    </ul>
+    <% end %>
 </section>
 
 <%# ===== summary ===== %>
@@ -148,7 +157,7 @@
         <%= form_with url: "/update_summary" do |form| %>
             <%= form.submit "保存", class: "summaryTable__formSendBtn" %>
             <% @summary_table_data.each do |record| %>
-                <% @summary_header.each do |k_sym, v_header_info| %>
+                <% $summary_header.each do |k_sym, v_header_info| %>
                 <% summaryTable_cell_attribute  = get_summaryTable_cell_attribute(k_sym) %>
                     <li class="summaryTable summaryTableList__item">
                         <div class="summaryTable__header">
