@@ -13,10 +13,15 @@
                 そんな方でも気軽に自己分析を始められるようSaguruを制作しました。
             </p>
         </div>
-        <%# ログアウト時表示 %>
-        <% if !@loggedin_user %>
+        <%# ログイン時表示 %>
+        <% if @loggedin_user %>
             <div class="about__link">
-                <%= link_to "ログイン", "/login", class: "about__linkItem about__linkItem_login" %>
+                <%= link_to "自己分析する", "/saguru", class: "about__linkItem about__linkItem_green" %>
+            </div>
+        <%# ログアウト時表示 %>
+        <% else %>
+            <div class="about__link">
+                <%= link_to "ログイン", "/login", class: "about__linkItem about__linkItem_green" %>
                 <%= link_to "新規登録", "/signup", class: "about__linkItem" %>
             </div>
         <% end %>
