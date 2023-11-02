@@ -8,7 +8,6 @@ const id_canvas_vaxis = "chronologyChartVaxis";
 
 const canvas_mergin_y = 10;
 const canvas_mergin_x = 30;
-const axis_mergin_x = 20;
 
 const scale_long = 15;
 const scale_short = 7;
@@ -149,8 +148,8 @@ const draw_dash_line = (context, x1, y1, x2, y2) => {
 const draw_dot = (context, x, y, r) => {
     context.beginPath();
         context.arc( x, y, r, 0 * Math.PI / 180, 360 * Math.PI / 180, false );
-        context.fillStyle = "rgb(246,170,0)";
-        context.strokeStyle = "rgba(246,170,0,0)";
+        context.fillStyle = "rgb(46,133,64)";
+        context.strokeStyle = "rgba(46,133,64,0)";
     context.fill();
 
     context.stroke();
@@ -171,7 +170,7 @@ const draw_chart = (context, dot_array) => {
         context.beginPath();
             context.lineWidth = 4;
             context.setLineDash([]) // 実線に戻す
-            context.strokeStyle = "rgba(246,170,0,1)";
+            context.strokeStyle = "rgba(46,133,64,1)";
             context.moveTo(dot_array[i][0], dot_array[i][1]);
             context.lineTo(dot_array[i+1][0], dot_array[i+1][1]);
         context.closePath();

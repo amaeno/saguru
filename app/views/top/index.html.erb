@@ -13,10 +13,15 @@
                 そんな方でも気軽に自己分析を始められるようSaguruを制作しました。
             </p>
         </div>
-        <%# ログアウト時表示 %>
-        <% if !@loggedin_user %>
+        <%# ログイン時表示 %>
+        <% if @loggedin_user %>
             <div class="about__link">
-                <%= link_to "ログイン", "/login", class: "about__linkItem about__linkItem_login" %>
+                <%= link_to "自己分析する", "/saguru", class: "about__linkItem about__linkItem_green" %>
+            </div>
+        <%# ログアウト時表示 %>
+        <% else %>
+            <div class="about__link">
+                <%= link_to "ログイン", "/login", class: "about__linkItem about__linkItem_green" %>
                 <%= link_to "新規登録", "/signup", class: "about__linkItem" %>
             </div>
         <% end %>
@@ -33,38 +38,43 @@
             <li class="aboutStep__item">分析結果のまとめ</li>
         </ol>
     </div>
-    <div class="aboutDetail about__descriptionDetail">
-        <h3 class="aboutDetail__ttl">これまでの振り返り</h3>
-        <p class="aboutTxt">
-            幼少期から現在までのエピソードを洗い出し、それぞれのエピソードについて以下を記載します。
-        </p>
-        <ul class="aboutDetail__list">
-            <li class="aboutDetail__item">当時の感情や思考</li>
-            <li class="aboutDetail__item">当時のモチベーション(0〜100点)</li>
-        </ul>
-        <p class="aboutTxt">
-            どうしてそのエピソードを選んだのか、どうしてそのような感情・結果につながったのかなど、その理由を考え気づきを振り返り欄に記入します。
-        </p>
-
-        <h3 class="aboutDetail__ttl">自分史・モチベーションチャートの確認</h3>
-        <p class="aboutTxt">
-            エピソードの記入が完了すると自動的に自分史とモチベーションチャートが作成されます。
-        </p>
-        <p class="aboutTxt">
-            モチベーションの転換点となった出来事に注目し、思い出したこと・気づきがあれば手順１の記入欄に追記・修正をします。
-        </p>
-
-        <h3 class="aboutDetail__ttl">エピソードの分析</h3>
-        <p class="aboutTxt">
-            自分史とモチベーションチャートから人生の中で軸となっている共通要素を分析します。
-        </p>
-        <p class="aboutTxt">
-            各設問に回答し、自身の潜在的な駆動力が何かを掘り下げていきます。
-        </p>
-
-        <h3 class="aboutDetail__ttl">分析結果のまとめ</h3>
-        <p class="aboutTxt">
-            手順３の結果の共通項を探し、４つの軸を完結にまとめます。
-        </p>
-    </div>
+    <ul class="aboutDetail about__descriptionDetail">
+        <li class="aboutDetail__step">
+            <h3 class="aboutDetail__ttl">これまでの振り返り</h3>
+            <p class="aboutTxt">
+                幼少期から現在までのエピソードを洗い出し、それぞれのエピソードについて以下を記載します。
+            </p>
+            <ul class="aboutDetail__list">
+                <li class="aboutDetail__item">当時の感情や思考</li>
+                <li class="aboutDetail__item">当時のモチベーション(0〜100点)</li>
+            </ul>
+            <p class="aboutTxt">
+                どうしてそのエピソードを選んだのか、どうしてそのような感情・結果につながったのかなど、その理由を考え気づきを振り返り欄に記入します。
+            </p>
+        </li>
+        <li class="aboutDetail__step">
+            <h3 class="aboutDetail__ttl">自分史・モチベーションチャートの確認</h3>
+            <p class="aboutTxt">
+                エピソードの記入が完了すると自動的に自分史とモチベーションチャートが作成されます。
+            </p>
+            <p class="aboutTxt">
+                モチベーションの転換点となった出来事に注目し、思い出したこと・気づきがあれば手順１の記入欄に追記・修正をします。
+            </p>
+        </li>
+        <li class="aboutDetail__step">
+            <h3 class="aboutDetail__ttl">エピソードの分析</h3>
+            <p class="aboutTxt">
+                自分史とモチベーションチャートから人生の中で軸となっている共通要素を分析します。
+            </p>
+            <p class="aboutTxt">
+                各設問に回答し、自身の潜在的な駆動力が何かを掘り下げていきます。
+            </p>
+        </li>
+        <li class="aboutDetail__step">
+            <h3 class="aboutDetail__ttl">分析結果のまとめ</h3>
+            <p class="aboutTxt">
+                手順３の結果の共通項を探し、４つの軸を完結にまとめます。
+            </p>
+        </li>
+    </ul>
 </section>
