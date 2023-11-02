@@ -63,13 +63,12 @@
     font-weight: bold;
     text-align: right;
     margin-bottom: 10px;
-    text-decoration: underline 3px com.$color_yellowGreen;
 }
 
 .nav__item  {
     position: relative;
     display: inline-block;
-    padding: 0 5px;
+    padding: 0 5px 5px;
     font-size: 1.6rem;
     font-weight: bold;
     z-index: 0;
@@ -83,10 +82,10 @@
         position: absolute;
         z-index: -1;
         content: "";
-        background-color: com.$color_lightGreen;
+        background-color: com.$color_green;
         width: 0%;
         height: 0;
-        padding-top: 7px;
+        padding-top: 5px;
         bottom: 0;
         left: 0;
     }
@@ -104,10 +103,10 @@
             position: absolute;
             z-index: -1;
             content: "";
-            background-color: com.$color_lightGreen;
+            background-color: com.$color_green;
             width: 100%;
             height: 0;
-            padding-top: 7px;
+            padding-top: 5px;
             bottom: 0;
             left: 0;
         }
