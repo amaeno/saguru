@@ -265,8 +265,8 @@ export const update_chronology_text = (age_array, episode_array) => {
     for(let row_num=0; row_num < len_data_array; row_num++){
 
         // 行番号とヘッダー番号からセルを取得
-        let cell_id_age = `chronology_r_${row_num}_c_age`;
-        let cell_id_episode = `chronology_r_${row_num}_c_episode`;
+        let cell_id_age = `chronology_g_0_r_${row_num}_c_age`;
+        let cell_id_episode = `chronology_g_0_r_${row_num}_c_episode`;
 
         const chronology_text_item_age = document.getElementById(cell_id_age);
         const chronology_text_item_episode = document.getElementById(cell_id_episode);

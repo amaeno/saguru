@@ -14,20 +14,6 @@ export const header_episode = {
     length: 5
 };
 
-export const header_analysis = {
-    age: 0,
-    episode: 1,
-    emotion: 2,
-    motivation: 3,
-    reason: 4,
-    length: 5
-};
-
-//  セル位置判別用辞書
-export const cell_position = {
-    row: 0,
-    col: 1
-};
 
 // textareaの最大行数
 const MAX_LINE_NUM = 2;

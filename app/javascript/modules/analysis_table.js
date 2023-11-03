@@ -10,14 +10,6 @@ const class_analysisQ2Table = "analysisQ2Table";
 const class_suffix_textarea = "__textarea";
 
 
-export const header_analysis = {
-    theme: 0,
-    reason: 1,
-    length: 3
-};
-
-
-
 // ************************************************
 //     @breief:  分析記入欄の初期設定をする
 //     @param[1]: -
@@ -29,7 +21,6 @@ export const init_analysis_table = () => {
     // テーブルセルの要素(textareaタグ)のリスト取得
     let analysis_cells = analysis_table_area.querySelectorAll(`.${class_analysisQ1Table + class_suffix_textarea}, .${class_analysisQ2Table + class_suffix_textarea}`);
     let len_analysis_cells = analysis_cells.length;
-
 
     // 各セルにイベント追加
     for(let num = 0; num < len_analysis_cells; num++){
