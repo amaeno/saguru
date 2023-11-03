@@ -165,6 +165,23 @@ $chartTextHeight: 300px;
     margin: 10px 0 0 0;
 }
 
+.saguru__formSendBtn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    padding: 0.5rem 2rem;
+    margin: 5px 0;
+    color: com.$color_white;
+    background-color: com.$color_blue;
+    border-radius: 7px;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
 
 // episode ============================================
 @include makeGridTable("episode", $episodeTableTempCol);

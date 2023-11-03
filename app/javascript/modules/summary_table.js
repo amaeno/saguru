@@ -2,6 +2,7 @@ import {limit_textarea_lines} from "./common";
 
 
 const id_summary_table_list = "summaryTableList";
+const class_summaryTable_textarea = "summaryTable__textarea";
 
 
 // ************************************************
@@ -15,7 +16,6 @@ export const init_summary_table = () => {
     // テーブルセルの要素(textarea or inputタグ)のリスト取得
     let summary_cells = summary_table.querySelectorAll(`.${class_summaryTable_textarea}`);
     let len_summary_cells = summary_cells.length;
-
 
     // 各セルにイベント追加
     for(let num = 0; num < len_summary_cells; num++){

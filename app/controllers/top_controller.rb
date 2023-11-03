@@ -1,9 +1,7 @@
 class TopController < ApplicationController
     before_action :authenticate_user, {only: 
                                             [   :saguru, 
-                                                :update_episode, 
-                                                :update_analysis, 
-                                                :update_summary,
+                                                :update,
                                             ]
                                         }
 
@@ -27,30 +25,52 @@ class TopController < ApplicationController
 
     end
 
-    # Episodeモデル更新 =======================================
-    def update_episode
+
+    # 全モデル更新 =======================================
+    def update
+
+        table_data_episode = {}
+        table_data_analysis_q1 = {}
+        table_data_analysis_q2 = {}
+        table_data_summary = {}
+
+        # 各テーブルごとにparamsを振り分け
+        params.each do |k, v|
+            # 受け取ったparamのうち、セル情報を含むものだけを抽出
+            if k.match?(/_r_\d+_c_\w+/)
+                # セルの属性を抽出 [テーブル名, グループ番号, 行数, 列名]
+                cell_attr = k.split(/_g_|_r_|_c_/)
+
+                table_name = cell_attr[$ATTR_TAB_NAME]
+                group_name = cell_attr[$ATTR_GROUP]
+
+                case table_name
+                    when "episode"
+                        table_data_episode.store(k, v)
+                    when "analysis"
+                        if group_name.include?("q1")
+                            table_data_analysis_q1.store(k, v)
+                        elsif group_name.include?("q2")
+                            table_data_analysis_q2.store(k, v)
+                        else
+                            p "不適切なQuestion番号"
+                        end
+                    when "summary"
+                        table_data_summary.store(k, v)
+                    else
+                        p "不適切なテーブル名"
+                end
+            end
+        end
+
+        # 各テーブルのDB更新
         results = []
-        results.push(Episode.save_episode_change(params, session[:user_id]))
+        results.push(Episode.save_episode_change(table_data_episode, session[:user_id]))
+        results.push(AnalysisQ1.save_analysis_q1_change(table_data_analysis_q1, session[:user_id]))
+        results.push(AnalysisQ2.save_analysis_q2_change(table_data_analysis_q2, session[:user_id]))
+        results.push(Summary.save_summary_change(table_data_summary, session[:user_id]))
         check_db_saved(results)
     end
-
-
-    # AnalysisQ1 & AnalysisQ2モデル更新 =======================================
-    def update_analysis
-        results = []
-        results.push(AnalysisQ1.save_analysis_q1_change(params, session[:user_id]))
-        results.push(AnalysisQ2.save_analysis_q2_change(params, session[:user_id]))
-        check_db_saved(results)
-    end
-
-
-    # Summaryモデル更新 =======================================
-    def update_summary
-        results = []
-        results.push(Summary.save_summary_change(params, session[:user_id]))
-        check_db_saved(results)
-    end
-
 
 
     #  メソッド=======================================

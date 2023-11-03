@@ -49,44 +49,41 @@ class Summary < ApplicationRecord
         update_summary = []
 
         params.each do |k, v|
-            # 受け取ったparamのうち、セル情報を含むものだけを抽出
-            if k.match?(/_r_\d+_c_\w+/)
-                # セルの属性を抽出 [テーブル名, 行数, 列名]
-                cell_attr = k.split(/_g_|_r_|_c_/)
+            # セルの属性を抽出 [テーブル名, 行数, 列名]
+            cell_attr = k.split(/_g_|_r_|_c_/)
 
-                row_num = cell_attr[$ATTR_ROW].to_i
-                col_sym = cell_attr[$ATTR_COL].to_sym
+            row_num = cell_attr[$ATTR_ROW].to_i
+            col_sym = cell_attr[$ATTR_COL].to_sym
 
-                # 各列の値を行ごとにハッシュにまとめる
-                case col_sym
-                    when :value
-                        row_data.store(:value, v.to_s)
-                    when :try
-                        row_data.store(:try, v.to_s)
-                    when :environment
-                        row_data.store(:environment, v.to_s)
-                    when :vision
-                        row_data.store(:vision, v.to_s)
-                    else
-                        p "不適切な列項目"
-                        return false
-                end
-
-
-                    original_row = Summary.find_by(
-                                                    user_id: user_id,
-                                                )
-
-                    # 更新前後でidが共通のものは更新・存在しない場合は追加
-                    update_summary << Summary.new(
-                                                    id:             original_row.id,
-                                                    user_id:        user_id,
-                                                    value:          row_data[:value],
-                                                    try:            row_data[:try],
-                                                    environment:    row_data[:environment],
-                                                    vision:         row_data[:vision],
-                                                )
+            # 各列の値を行ごとにハッシュにまとめる
+            case col_sym
+                when :value
+                    row_data.store(:value, v.to_s)
+                when :try
+                    row_data.store(:try, v.to_s)
+                when :environment
+                    row_data.store(:environment, v.to_s)
+                when :vision
+                    row_data.store(:vision, v.to_s)
+                else
+                    p "不適切な列項目"
+                    return false
             end
+
+
+                original_row = Summary.find_by(
+                                                user_id: user_id,
+                                            )
+
+                # 更新前後でidが共通のものは更新・存在しない場合は追加
+                update_summary << Summary.new(
+                                                id:             original_row.id,
+                                                user_id:        user_id,
+                                                value:          row_data[:value],
+                                                try:            row_data[:try],
+                                                environment:    row_data[:environment],
+                                                vision:         row_data[:vision],
+                                            )
         end
 
         # レコードをひとまとめに追加

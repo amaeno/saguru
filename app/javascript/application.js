@@ -14,8 +14,8 @@ document.addEventListener("turbo:load", () => {
         case "/saguru":
             init_episode_table();
             draw_chronology_chart_and_text();
-            // init_analysis_table();
-            // init_summary_table();
+            init_analysis_table();
+            init_summary_table();
 
             break;
         // その他の画面
