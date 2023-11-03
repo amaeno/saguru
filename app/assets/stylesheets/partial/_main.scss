@@ -60,8 +60,7 @@ $chartTextHeight: 300px;
     
     .#{$tableName}Table__column {
         position: relative;
-        font-size: 1.4rem;
-        padding: 5px 10px;
+        font-size: 1.5rem;
 
         // 各行の仕切り" | "
         &:not(:last-of-type) {
@@ -71,69 +70,43 @@ $chartTextHeight: 300px;
                 width: 2px;
                 height: 70%;
                 top: 50%;
-                right: 0;
+                right: -1px;
                 transform: translate(0, -50%);
                 background-color: com.$color_lightGray;
             }
         }
     }
 
-    .#{$tableName}Table__input{
+    .#{$tableName}Table__input,
+    .#{$tableName}Table__textarea {
         position: relative;
         width: 100%;
         height: 100%;
 
-        // &:focus {
-        //     position: absolute;
-        //     width: 101%;
-        //     height: 101%;
-        //     top: 50%;
-        //     left: 50%;
-        //     transform: translate(-50%, -50%);
-        //     padding: 12px 15px;
-        //     border: 3px solid com.$color_green;
-        //     border-radius: 10px;
-        // }
+        &:focus {
+            outline: 3px solid com.$color_green;
+            outline-offset: -3px;
+            border-radius: 10px;
+        }
 
         &::placeholder {
             color: com.$color_lightGray;
         }
 
+        // フォーカス時にplaceholder非表示
         &:focus::placeholder {
             color: transparent;
         }
     }
 
     .#{$tableName}Table__textarea {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        padding: 0.5em;
-
-        // &:focus {
-        //     position: absolute;
-        //     width: 101%;
-        //     height: 101%;
-        //     top: 50%;
-        //     left: 50%;
-        //     transform: translate(-50%, -50%);
-        //     padding: 12px 15px;
-        //     border: 3px solid com.$color_green;
-        //     border-radius: 10px;
-        // }
-
-        &::placeholder {
-            color: com.$color_lightGray;
-        }
-
-        &:focus::placeholder {
-            color: transparent;
-        }
+        padding: 0.5em 1em;
     }
 
     .#{$tableName}Table__input::-webkit-outer-spin-button,
     .#{$tableName}Table__input::-webkit-inner-spin-button {
         margin-left: 5px;
+        margin-right: 23px;
         opacity: 1;
     }
 
@@ -200,28 +173,35 @@ $chartTextHeight: 300px;
     position: relative;
 }
 
+.episodeTable__cells {
+    position: relative;
+    height: 700px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+// スライド時にセルの枠線が見えてしまうため
+// 長方形ヘッダーに背景色枠線を重ねて丸角ヘッダーに見せる
 .episodeTable__header {
     position: sticky;
+    background-color: com.$color_gray;
+    border-radius: 0px;
     z-index: 5000;
     top: 0;
     left: 0;
 
-    // &::before {
-    //     position: absolute;
-    //     content: "";
-    //     width: 100%;
-    //     height: 100%;
-    //     background-color: com.$color_white;
-    //     top: 0;
-    //     left: 0;
-    //     z-index: 5;
-    // }
-}
-
-.episodeTable__cells {
-    height: 700px;
-    overflow: scroll;
-    overflow-x: hidden;
+    &::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        z-index: 5001;
+        top: 0;
+        left: 0;
+        background-color: transparent;
+        border-radius: 10px;
+        outline: 5px solid com.$color_white;
+    }
 }
 
 .-numItemAge,
@@ -229,8 +209,6 @@ $chartTextHeight: 300px;
     position: relative;
     text-align: right;
     font-weight: bold;
-    padding-right: 22px;
-    padding-left: 0;
 
     &::after {
         position: absolute;
@@ -309,7 +287,6 @@ $chartTextHeight: 300px;
     z-index: 1;
     left: 0;
     bottom: 0;
-
 
     &::after {
         position: absolute;

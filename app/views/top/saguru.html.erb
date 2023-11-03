@@ -26,14 +26,12 @@
                                                         class: "episodeTable__input",
                                                         type: episodeTable_cell_attribute[:attr_type],
                                                         min: episodeTable_cell_attribute[:attr_min],
-                                                        max: episodeTable_cell_attribute[:attr_max],
-                                                        placeholder: episodeTable_cell_attribute[:attr_placeholder] %>
+                                                        max: episodeTable_cell_attribute[:attr_max] %>
                             <% else %>
                                 <%= form.text_area episodeTable_cell_attribute[:attr_name].to_sym,
                                                     value: record[k_sym],
                                                     class: "episodeTable__textarea",
-                                                    row: episodeTable_cell_attribute[:attr_row],
-                                                    placeholder: episodeTable_cell_attribute[:attr_placeholder] %>
+                                                    row: episodeTable_cell_attribute[:attr_row] %>
                             <% end %>
                         </div>
                     <% end %>
@@ -105,8 +103,7 @@
                                             <%= form.text_area analysisTable_cell_attribute[:attr_name].to_sym,
                                                                 value: record[k_sym],
                                                                 class: "analysisQ1Table__textarea",
-                                                                row: analysisTable_cell_attribute[:attr_row],
-                                                                placeholder: analysisTable_cell_attribute[:attr_placeholder] %>
+                                                                row: analysisTable_cell_attribute[:attr_row] %>
                                         </div>
                                     <% end %>
                                 </div>
@@ -134,8 +131,7 @@
                                             <%= form.text_area analysisTable_cell_attribute[:attr_name].to_sym,
                                                                 value: record[k_sym],
                                                                 class: "analysisQ2Table__textarea",
-                                                                row: analysisTable_cell_attribute[:attr_row],
-                                                                placeholder: analysisTable_cell_attribute[:attr_placeholder] %>
+                                                                row: analysisTable_cell_attribute[:attr_row]%>
                                         </div>
                                     <% end %>
                                 </div>
@@ -170,8 +166,7 @@
                                 <%= form.text_area summaryTable_cell_attribute[:attr_name].to_sym,
                                                         value: record[k_sym],
                                                         class: "summaryTable__textarea",
-                                                        row: summaryTable_cell_attribute[:attr_row],
-                                                        placeholder: summaryTable_cell_attribute[:attr_placeholder] %>
+                                                        row: summaryTable_cell_attribute[:attr_row] %>
                             </div>
                         </div>
                     </li>
