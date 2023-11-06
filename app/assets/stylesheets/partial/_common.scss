@@ -56,6 +56,9 @@ html {
 }
 
 .body__main {
+    position: relative;
+    display: block;
+    margin: 0 auto;
     // 固定ヘッダーと重ならないためのpadding
     padding-top:  $headerHeight;
     padding-bottom: 30px;
@@ -66,13 +69,13 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60%;
+    width: 50%;
     font-size: 2rem;
     font-weight: bold;
     padding: 10px;
     animation: message_fade 4s ease-out;
     top: 0;
-    right: 0;
+    right: 10%;
     opacity: 1;
 
     &_alert {

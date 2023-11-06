@@ -4,6 +4,8 @@
 // ============================================
 // variable 
 // ============================================
+$mainMerginTop: 150px;
+
 $episodeTableTempCol: 1.2fr 4fr 4fr 2fr 4fr;
 $analysisQ1TableTempCol: 1fr 1fr;
 $analysisQ2TableTempCol: 1fr;
@@ -136,8 +138,6 @@ $chartTextHeight: 300px;
 // ============================================
 .main {
     position: relative;
-    display: block;
-    margin: 0 auto;
     width: com.$maxWidth;
     max-width: com.$maxWidth;
 }
@@ -166,6 +166,9 @@ $chartTextHeight: 300px;
 }
 
 .saguru__formSendBtn {
+    position: absolute;
+    top: calc(com.$headerHeight + 30px);
+    right: 0;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -181,6 +184,85 @@ $chartTextHeight: 300px;
         opacity: 0.8;
     }
 }
+
+.saguru__nav {
+    margin-top: 30px;
+    // リストアイテムの頭につける数字のカウンター
+    counter-reset: number 0;
+}
+
+// タブ切り替え ===================================
+.saguru__navList {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.7rem;
+    font-weight: bold;
+    border-bottom: 5px solid com.$color_green;
+}
+
+.saguru__navItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 23.5%;
+    height: 2.4em;
+    color: com.$color_gray;
+    background-color: com.$color_lightGray;
+    border-radius: 10px 10px 0 0;
+}
+
+.saguru__navInput {
+    display: none;
+}
+
+.saguru__navLabel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    cursor:pointer; 
+
+    &::before {
+        font-size: 1.6rem;
+        counter-increment: number 1;
+        content: counter(number)"：";
+    }
+}
+
+.saguru__form .main__section {
+    position: absolute;
+    width: 100%;
+    height: 800px;
+    padding-top: 0;
+    // 固定ヘッダーと重ならないためのtop
+    top: calc(com.$headerHeight + $mainMerginTop);
+    left: 0;
+    background-color: com.$color_white;
+}
+
+// チェック時にタブのスタイル変更
+#episodeNav:checked~.saguru__nav #episodeLabel,
+#chronologyNav:checked~.saguru__nav #chronologyLabel,
+#analysisNav:checked~.saguru__nav #analysisLabel,
+#summaryNav:checked~.saguru__nav #summaryLabel {
+    position: relative;
+    color: com.$color_white;
+    background-color: com.$color_green;
+    border-bottom: transparent;
+    border-radius: 10px 10px 0 0;
+}
+
+// チェック時のみテーブル表示
+#episodeNav:checked~.saguru__form  #episodeArea,
+#chronologyNav:checked~.saguru__form  #chronologyArea,
+#analysisNav:checked~.saguru__form  #analysisArea,
+#summaryNav:checked~.saguru__form  #summaryArea {
+    z-index: 10000;
+}
+
 
 
 // episode ============================================
