@@ -1,3 +1,6 @@
+import {init_episode_table, set_episode_new_row} from "./episode_table";
+import {draw_chronology_chart_and_text} from "./chronology_chart";
+
 // 判定確認用変数
 export const status = {
     NG: false,
@@ -70,4 +73,23 @@ export const limit_input_range = (input_object) => {
             input_object.value = MIN_INPUT_NUM;
         }
     }
+}
+
+// ************************************************
+//     @breief:  追加ボタンにclickイベントを設定する
+//     @param[1]:  -
+//     @return: -
+// ************************************************
+export const set_bottun_clickEvent = () => {
+    const episode_table_btn_elems = document.querySelectorAll(".episodeTable__btn");
+                
+    episode_table_btn_elems.forEach(episode_table_btn => {
+        episode_table_btn.addEventListener("click", () => {
+            set_episode_new_row(episode_table_btn);
+            init_episode_table();
+            draw_chronology_chart_and_text();
+            // 複製したボタン自身もclickイベントが効くように再帰呼び出し
+            set_bottun_clickEvent();
+        });
+    });
 }

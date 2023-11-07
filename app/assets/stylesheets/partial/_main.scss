@@ -48,6 +48,7 @@ $chartTextHeight: 300px;
     }
     
     .#{$tableName}Table__row {
+        position: relative;
         display: grid;
         grid-template-columns: $girdTempCol;
         border: 1px solid com.$color_gray;
@@ -270,10 +271,6 @@ $chartTextHeight: 300px;
 
 .episodeTable {
     position: relative;
-}
-
-.episodeTable__cells {
-    position: relative;
     height: 700px;
     overflow: scroll;
     overflow-x: hidden;
@@ -328,7 +325,24 @@ $chartTextHeight: 300px;
     content: "点";
 }
 
+.episodeTable__rowWrapper {
+    position: relative;
+}
 
+.episodeTable__btnWrapper {
+    position: absolute;
+    content: "";
+    font-size: 1.6rem;
+    bottom: 0;
+    left: 0px;
+}
+
+.episodeTable__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+}
 
 // chronology ============================================
 .chronology {
@@ -365,13 +379,12 @@ $chartTextHeight: 300px;
     grid-row: 1 / 2;
     grid-column: 2 / 3;
     position: relative;
-    width: 2000px;
     height: 100%;
     z-index: -1;
 }
 
 .chronology__chart {
-    width: 100%;
+    // widthはjsで行数に対応した幅に設定
     height: 100%;
 }
 
