@@ -4,6 +4,7 @@ import {episode_data_array} from "./episode_table";
 
 const id_canvas = "chronologyChart";
 const id_canvas_vaxis = "chronologyChartVaxis";
+const id_chronologyText = "chronologyText";
 
 
 const canvas_mergin_y = 10;
@@ -20,20 +21,9 @@ const scale_short = 7;
 //     @return: -
 // ************************************************
 export const draw_chronology_chart_and_text = () => {
+    update_chronology_text(episode_data_array[header_episode.age]);
     draw_chronology_chart_Vaxis();
     draw_chronology_chart(episode_data_array[header_episode.motivation]);
-}
-
-
-// ************************************************
-//     @breief:  モチベーションチャートの描画更新をする
-//     @param[1]: エピソード記入欄で入力したデータの配列
-//     @return: -
-// ************************************************
-export const update_chronology_chart_and_text = () => {
-    draw_chronology_chart_Vaxis();
-    draw_chronology_chart(episode_data_array[header_episode.motivation]);
-    update_chronology_text(episode_data_array[header_episode.age], episode_data_array[header_episode.episode]);
 }
 
 
@@ -44,8 +34,10 @@ export const update_chronology_chart_and_text = () => {
 // ************************************************
 const draw_chronology_chart = (motivation_array) => {
     const canvas = document.getElementById(id_canvas);
+    const chronologyText_element = document.getElementById(id_chronologyText);
 
-    const canvas_width = canvas.clientWidth;
+    // canvasサイズを.chronologyTextのサイズと同じにする
+    const canvas_width = chronologyText_element.scrollWidth;
     const canvas_height = canvas.clientHeight;
     let chart_height = canvas_height - (canvas_mergin_y * 2);
 
@@ -256,23 +248,33 @@ const draw_h_axis = (context, width, cell_height) => {
 // ************************************************
 //     @breief:  エピソードのテキストを更新する
 //     @param[1]:  年齢配列
-//     @param[2]:  エピソードテキスト配列
 //     @return: -
 // ************************************************
-export const update_chronology_text = (age_array, episode_array) => {
+export const update_chronology_text = (age_array) => {
+    const chronology_target_area = document.getElementById("chronologyText");
     const len_data_array = age_array.length;
 
+    // ulタグの子要素を一度全て削除
+    while (chronology_target_area.firstChild) {
+        chronology_target_area.removeChild(chronology_target_area.firstChild);
+    }
+
     for(let row_num=0; row_num < len_data_array; row_num++){
+        // エピソード記入欄と対応した年齢・エピソードを取得
+        const episode_id_age = `episode_g_0_r_${row_num}_c_age`;
+        const episode_id_episode = `episode_g_0_r_${row_num}_c_episode`;
+    
+        const chronology_text_item_age = document.getElementById(episode_id_age).value;
+        const chronology_text_item_episode = document.getElementById(episode_id_episode).value;
 
-        // 行番号とヘッダー番号からセルを取得
-        let cell_id_age = `chronology_g_0_r_${row_num}_c_age`;
-        let cell_id_episode = `chronology_g_0_r_${row_num}_c_episode`;
-
-        const chronology_text_item_age = document.getElementById(cell_id_age);
-        const chronology_text_item_episode = document.getElementById(cell_id_episode);
-
-        // セルのテキストを更新
-        chronology_text_item_age.textContent = String(age_array[row_num]);
-        chronology_text_item_episode.textContent = episode_array[row_num];
+        // 追加する行要素
+        const new_chronology_element = `
+<li class="chronologyEpisodeList__item">
+    <p class="chronologyEpisodeList__itemAge" id="chronology_g_0_r_${row_num}_c_age">${chronology_text_item_age}</p>
+    <p class="chronologyEpisodeList__itemText" id="chronology_g_0_r_${row_num}_c_episode">${chronology_text_item_episode}</p>
+</li>
+`
+        // 取得したidの行要素直下に追加
+        chronology_target_area.insertAdjacentHTML('beforeend', new_chronology_element);
     }
 }

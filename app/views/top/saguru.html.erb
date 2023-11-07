@@ -27,37 +27,41 @@
                 class="main__section">
         <div    id="episodeTable"
                 class="episodeTable main__sectionContent">
-            <div class="episodeTable__cells">
-                <div class="episodeTable__header">
-                    <% $episode_header.each do |k_sym, v_header_info| %>
-                        <div class="episodeTable__column">
-                            <%= v_header_info %>
-                        </div>
-                    <% end %>
-                </div>
+            <div class="episodeTable__header">
+                <% $episode_header.each do |k_sym, v_header_info| %>
+                    <div class="episodeTable__column">
+                        <%= v_header_info %>
+                    </div>
+                <% end %>
+            </div>
             <% @episode_table_data.each do |record| %>
-                <div class="episodeTable__row">
-                    <% $episode_header.each do |k_sym, v_colomn| %>
-                        <% episodeTable_cell_attribute  = get_episodeTable_cell_attribute(record, k_sym, v_colomn) %>
-                        <div class="<%= episodeTable_cell_attribute[:attr_class] %>">
-                            <% if episodeTable_cell_is_input_tag? %>
-                                <%= form.number_field   episodeTable_cell_attribute[:attr_name].to_sym,
+                <div    id="episodeTable__rowNo<%= record[:row]%>"
+                        class="episodeTable__rowWrapper">
+                    <div class="episodeTable__row">
+                        <% $episode_header.each do |k_sym, v_colomn| %>
+                            <% episodeTable_cell_attribute  = get_episodeTable_cell_attribute(record, k_sym, v_colomn) %>
+                            <div class="<%= episodeTable_cell_attribute[:attr_class] %>">
+                                <% if episodeTable_cell_is_input_tag? %>
+                                    <%= form.number_field   episodeTable_cell_attribute[:attr_name].to_sym,
+                                                            value: record[k_sym],
+                                                            class: "episodeTable__input",
+                                                            type: episodeTable_cell_attribute[:attr_type],
+                                                            min: episodeTable_cell_attribute[:attr_min],
+                                                            max: episodeTable_cell_attribute[:attr_max] %>
+                                <% else %>
+                                    <%= form.text_area episodeTable_cell_attribute[:attr_name].to_sym,
                                                         value: record[k_sym],
-                                                        class: "episodeTable__input",
-                                                        type: episodeTable_cell_attribute[:attr_type],
-                                                        min: episodeTable_cell_attribute[:attr_min],
-                                                        max: episodeTable_cell_attribute[:attr_max] %>
-                            <% else %>
-                                <%= form.text_area episodeTable_cell_attribute[:attr_name].to_sym,
-                                                    value: record[k_sym],
-                                                    class: "episodeTable__textarea",
-                                                    row: episodeTable_cell_attribute[:attr_row] %>
-                            <% end %>
-                        </div>
-                    <% end %>
+                                                        class: "episodeTable__textarea",
+                                                        row: episodeTable_cell_attribute[:attr_row] %>
+                                <% end %>
+                            </div>
+                        <% end %>
+                    </div>
+                    <div class="episodeTable__btnWrapper">
+                        <button type="button" class="episodeTable__btn">追加</button>
+                    </div>
                 </div>
             <% end %> 
-            </div>
         </div>
     </section>
 
@@ -77,16 +81,6 @@
             <dd class="chronology__textList">
                 <ul id="chronologyText"
                     class="chronologyEpisodeList chronology__episode">
-                    <% episodeTable_age_data = @episode_table_data.pluck(:age) %>
-                    <% episodeTable_episode_data = @episode_table_data.pluck(:episode) %>
-                    <% @len_episode_table_data.times do |item_num| %>
-                        <li class="chronologyEpisodeList__item">
-                            <p  class="chronologyEpisodeList__itemAge"
-                                id="<%= get_chronology_cell_id(item_num, "age") %>"><%= episodeTable_age_data[item_num] %></p>
-                            <p  class="chronologyEpisodeList__itemText"
-                                id="<%= get_chronology_cell_id(item_num, "episode") %>"><%= episodeTable_episode_data[item_num] %></p>
-                        </li>
-                    <% end %>
                 </ul>
             </dd>
         </dl>
