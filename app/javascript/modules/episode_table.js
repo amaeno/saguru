@@ -91,7 +91,7 @@ export const get_episode_column_data_array = (episode_cell_datas) => {
 //     @param[1]: クリックされた行の要素
 //     @return: -
 // ************************************************
-export const set_episode_new_row = (clickedElement) => {
+export const add_episode_new_row = (clickedElement) => {
     // ボタンが押された行のid名を取得する
     const clickedRowElement = clickedElement.parentNode.parentNode; // episodeTable__rowWrapper
     let target_row = clickedRowElement.getAttribute("id");
@@ -155,13 +155,4 @@ export const set_episode_new_row = (clickedElement) => {
     // 取得したidの行要素直下に追加
     const episode_target_row = document.getElementById(target_row);
     episode_target_row.insertAdjacentHTML('afterend', new_row_element);
-// 
-//     // 追加したボタンにもclickイベント適用
-//     const episode_new_row = document.getElementById(`episodeTable__rowNo${target_rowNo+1}`);
-//     const episode_new_button = episode_new_row.getElementsByClassName("episodeTable__btn")[0];
-// 
-//     episode_new_button.addEventListener("click", () => {
-//         init_episode_table();
-//         draw_chronology_chart_and_text();
-//     });
 }
