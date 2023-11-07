@@ -21,6 +21,7 @@ const scale_short = 7;
 //     @return: -
 // ************************************************
 export const draw_chronology_chart_and_text = () => {
+    // draw_chronology_chart()より先に記述(テキストの数でチャートの横幅が決まるため)
     update_chronology_text(episode_data_array[header_episode.age]);
     draw_chronology_chart_Vaxis();
     draw_chronology_chart(episode_data_array[header_episode.motivation]);
@@ -40,7 +41,6 @@ const draw_chronology_chart = (motivation_array) => {
     const canvas_width = chronologyText_element.scrollWidth;
     const canvas_height = canvas.clientHeight;
     let chart_height = canvas_height - (canvas_mergin_y * 2);
-
 
     // エピソード欄の横幅
     const item_width = 71;
@@ -158,17 +158,18 @@ const draw_chart = (context, dot_array) => {
     // 直線の数は(座標の数 - 1)
     let line_num = dot_array.length - 1;
 
-    for(let i=0; i < line_num; i++){
-        context.beginPath();
-            context.lineWidth = 4;
-            context.setLineDash([]) // 実線に戻す
-            context.strokeStyle = "rgba(46,133,64,1)";
-            context.moveTo(dot_array[i][0], dot_array[i][1]);
-            context.lineTo(dot_array[i+1][0], dot_array[i+1][1]);
-        context.closePath();
-
-
-        context.stroke();
+    // 点が2つ以上の時に線を描く
+    if(line_num > 0){
+        for(let i=0; i < line_num; i++){
+            context.beginPath();
+                context.lineWidth = 4;
+                context.setLineDash([]) // 実線に戻す
+                context.strokeStyle = "rgba(46,133,64,1)";
+                context.moveTo(dot_array[i][0], dot_array[i][1]);
+                context.lineTo(dot_array[i+1][0], dot_array[i+1][1]);
+            context.closePath();
+            context.stroke();
+        }
     }
 }
 

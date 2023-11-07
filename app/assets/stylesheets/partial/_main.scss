@@ -332,16 +332,35 @@ $chartTextHeight: 300px;
 .episodeTable__btnWrapper {
     position: absolute;
     content: "";
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 1.6rem;
     bottom: 0;
     left: 0px;
 }
 
 .episodeTable__btn {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 0.5em;
     cursor:pointer;
+}
+
+.episodeTable__btn_add {
+    color: com.$color_blue;
+    &::before{
+        content: "＋";
+    }
+}
+
+.episodeTable__btn_delete {
+    color: com.$color_red;
+    &::before{
+        content: "ー";
+    }
 }
 
 // chronology ============================================

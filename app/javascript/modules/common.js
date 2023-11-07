@@ -1,5 +1,4 @@
-import {init_episode_table, add_episode_new_row} from "./episode_table";
-import {draw_chronology_chart_and_text} from "./chronology_chart";
+import {add_episode_new_row, delete_episode_new_row} from "./episode_table";
 
 // 判定確認用変数
 export const status = {
@@ -84,11 +83,13 @@ export const set_bottun_clickEvent = () => {
     const episode_table = document.getElementById("episodeTable");
 
     episode_table.addEventListener('click', (event) => {
-        // episodeTable__btnクラスがクリックされた時のみイベント設定
-        if (event.target && event.target.classList.contains("episodeTable__btn")) {
+        // episodeTable__btn_addクリック時は行追加
+        if (event.target && event.target.classList.contains("episodeTable__btn_add")) {
             add_episode_new_row(event.target);
-            init_episode_table();
-            draw_chronology_chart_and_text();
+        }
+        // episodeTable__btn_deleteクリック時は行削除
+        if (event.target && event.target.classList.contains("episodeTable__btn_delete")) {
+            delete_episode_new_row(event.target);
         }
     });
 }

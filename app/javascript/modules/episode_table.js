@@ -20,28 +20,59 @@ export const init_episode_table = () => {
 
     // テーブルセルの要素(textarea or inputタグ)のリスト取得
     let episode_cells = episode_table.querySelectorAll(`.${class_episodeTable_input}, .${class_episodeTable_textarea}`);
-    let len_episode_cells = episode_cells.length;
-
     episode_data_array = get_episode_column_data_array(episode_cells);
 
-    // 各セルにイベント追加
-    for(let num = 0; num < len_episode_cells; num++){
-        // セルのテキストが変更された場合
-        episode_cells[num].addEventListener('input', () => {
+    episode_table.addEventListener('input', (event) => {
+        if (event.target && 
+            (event.target.classList.contains("episodeTable__input") || event.target.classList.contains("episodeTable__textarea"))) {
             // テキストの入力可能行数を制限
-            limit_textarea_lines(episode_cells[num]);
-            limit_input_range(episode_cells[num]);
+            limit_textarea_lines(event.target);
+            limit_input_range(event.target);
 
-            let row_num = Math.floor(num / header_episode.length);
-            let col_num = num % header_episode.length;
+            let row_num = Number(event.target.id.match(/r_\d+/)[0].split("_")[1]);
+            let col_num = 0
+
+            const header_col = String(event.target.id.match(/c_\w+/)[0].split("_")[1])
+            switch (header_col){
+                case "age":
+                    col_num = 0;
+                    break;
+                case "episode":
+                    col_num = 1;
+                    break;
+                case "emotion":
+                    col_num = 2;
+                    break;
+                case "motivation":
+                    col_num = 3;
+                    break;
+                case "awareness":
+                    col_num = 4;
+                    break;
+                default:
+                    break;
+            }
 
             // モチベーションチャートへ渡す配列の更新
-            episode_data_array[col_num][row_num] = episode_cells[num].value;
+            episode_data_array[col_num][row_num] = event.target.value;
 
             // モチベーションチャート描画更新
             draw_chronology_chart_and_text();
-        });
-    }
+        }
+    });
+}
+
+// ************************************************
+//     @breief:  エピソード記入欄の配列を更新する
+//     @param[1]: -
+//     @return: -
+// ************************************************
+export const update_episode_table = () => {
+    const episode_table = document.getElementById(id_episode_table);
+
+    // テーブルセルの要素(textarea or inputタグ)のリスト取得
+    let episode_cells = episode_table.querySelectorAll(`.${class_episodeTable_input}, .${class_episodeTable_textarea}`);
+    episode_data_array = get_episode_column_data_array(episode_cells);
 }
 
 
@@ -100,7 +131,7 @@ export const add_episode_new_row = (clickedElement) => {
     let target_age = document.getElementById(`episode_g_0_r_${target_rowNo}_c_age`).getAttribute("value");
 
 
-    // 追加行以降の要素のidを全て1ずらす
+    // 追加行以降の要素のidを全て1増やす
     const episode_row_elems = document.querySelectorAll(`[id*="episode_g_0_r_"]`);
 
     episode_row_elems.forEach(episode_row => {
@@ -110,6 +141,7 @@ export const add_episode_new_row = (clickedElement) => {
         // 追加行以降かチェック
         if(row_rowNo > target_rowNo){
             episode_row.id = episode_row.id.replace(/r_\d+/, `r_${row_rowNo + 1}`);
+            episode_row.name = episode_row.id.replace(/r_\d+/, `r_${row_rowNo + 1}`);
         }
     });
     
@@ -147,12 +179,67 @@ export const add_episode_new_row = (clickedElement) => {
         </div>
     </div>
     <div class="episodeTable__btnWrapper">
-        <button type="button" class="episodeTable__btn">追加</button>
+        <button type="button" class="episodeTable__btn episodeTable__btn_add">追加</button>
+        <button type="button" class="episodeTable__btn episodeTable__btn_delete">削除</button>
     </div>
 </div>
     `
 
-    // 取得したidの行要素直下に追加
-    const episode_target_row = document.getElementById(target_row);
-    episode_target_row.insertAdjacentHTML('afterend', new_row_element);
+    // 200行まで取得したidの行要素直下に追加
+    if(episode_rowWrapper_elems.length <= 200){
+        const episode_target_row = document.getElementById(target_row);
+        episode_target_row.insertAdjacentHTML('afterend', new_row_element);
+
+        update_episode_table();
+        draw_chronology_chart_and_text();
+    }
+}
+
+
+
+// ************************************************
+//     @breief:  エピソード記入欄の選択行を削除する
+//     @param[1]: クリックされた行の要素
+//     @return: -
+// ************************************************
+export const delete_episode_new_row = (clickedElement) => {
+    // ボタンが押された行のid名を取得する
+    const clickedRowElement = clickedElement.parentNode.parentNode; // episodeTable__rowWrapper
+    let target_row = clickedRowElement.getAttribute("id");
+    let target_rowNo = Number(target_row.split("rowNo")[1]);
+
+    // 追加行以降の要素のidを全て1減らす
+    const episode_row_elems = document.querySelectorAll(`[id*="episode_g_0_r_"]`);
+
+    episode_row_elems.forEach(episode_row => {
+        let row_id = episode_row.id;
+        let row_rowNo = Number(row_id.match(/r_\d+/)[0].split("_")[1]);
+
+        // 追加行以降かチェック (最低1行は残る)
+        if(row_rowNo > target_rowNo){
+            episode_row.id = episode_row.id.replace(/r_\d+/, `r_${row_rowNo - 1}`);
+            episode_row.name = episode_row.id.replace(/r_\d+/, `r_${row_rowNo - 1}`);
+        }
+    });
+    
+    const episode_rowWrapper_elems = document.querySelectorAll(`[id*="episodeTable__rowNo"]`);
+
+    episode_rowWrapper_elems.forEach(episode_row => {
+        let row_id = episode_row.id;
+        let row_rowNo = Number(row_id.match(/\d+/)[0]);
+
+        // 追加行以降かチェック
+        if(row_rowNo > target_rowNo){
+            episode_row.id = episode_row.id.replace(/\d+/, `${row_rowNo - 1}`);
+        }
+    });
+
+    // 最後の1行以外の時はクリックされた行を削除
+    if(episode_rowWrapper_elems.length > 1){
+        clickedRowElement.remove();
+
+        update_episode_table();
+        draw_chronology_chart_and_text();
+    }
+
 }
