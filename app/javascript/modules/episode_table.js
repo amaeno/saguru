@@ -21,6 +21,7 @@ export const init_episode_table = () => {
     // テーブルセルの要素(textarea or inputタグ)のリスト取得
     let episode_cells = episode_table.querySelectorAll(`.${class_episodeTable_input}, .${class_episodeTable_textarea}`);
     episode_data_array = get_episode_column_data_array(episode_cells);
+    set_episode_cell_datas(episode_data_array);
 
     episode_table.addEventListener('input', (event) => {
         if (event.target && 
@@ -55,6 +56,7 @@ export const init_episode_table = () => {
 
             // モチベーションチャートへ渡す配列の更新
             episode_data_array[col_num][row_num] = event.target.value;
+            update_episode_table(episode_data_array);
 
             // モチベーションチャート描画更新
             draw_chronology_chart_and_text();
@@ -73,6 +75,7 @@ export const update_episode_table = () => {
     // テーブルセルの要素(textarea or inputタグ)のリスト取得
     let episode_cells = episode_table.querySelectorAll(`.${class_episodeTable_input}, .${class_episodeTable_textarea}`);
     episode_data_array = get_episode_column_data_array(episode_cells);
+    set_episode_cell_datas(episode_data_array);
 }
 
 
@@ -82,38 +85,98 @@ export const update_episode_table = () => {
 //     @return: 各列のデータが格納された配列
 // ************************************************
 export const get_episode_column_data_array = (episode_cell_datas) => {
-    let len_episode_cell_datas = episode_cell_datas.length;
     let age_array = [];
     let episode_array = [];
     let emotion_array = [];
     let motivation_array = [];
     let awareness_array = [];
 
+    // 年齢昇順で並び替え
+    let soted_episode_cell_datas = sort_episode_cell_datas(episode_cell_datas);
+    let len_soted_episode_cell_datas = soted_episode_cell_datas.length;
+
     // チャート作成に必要なデータを各配列へ抜き出し
+    for(let row_num=0; row_num < len_soted_episode_cell_datas; row_num++){
+        age_array.push(soted_episode_cell_datas[row_num][header_episode.age]);
+        episode_array.push(soted_episode_cell_datas[row_num][header_episode.episode]);
+        emotion_array.push(soted_episode_cell_datas[row_num][header_episode.emotion]);
+        motivation_array.push(soted_episode_cell_datas[row_num][header_episode.motivation]);
+        awareness_array.push(soted_episode_cell_datas[row_num][header_episode.awareness]);
+    }
+
+    return [age_array, episode_array, emotion_array, motivation_array, awareness_array];
+}
+
+
+// ************************************************
+//     @breief:  エピソード記入欄で入力したデータを年齢昇順でソートする
+//     @param[1]: エピソード記入欄のinput/textareaオブジェクト
+//     @return: 各列のデータが格納された配列
+// ************************************************
+const sort_episode_cell_datas = (episode_cell_datas) => {
+    let len_episode_cell_datas = episode_cell_datas.length;
+    let col_cnt = 0;
+    let row_array = [];
+    let new_episode_data_array = [];
+
+    // 行ごとにデータをまとめて配列へ格納
     for(let cell_num=0; cell_num < len_episode_cell_datas; cell_num++){
-        switch (cell_num % header_episode.length) {
+        if(col_cnt < header_episode.awareness) {
+            row_array.push(episode_cell_datas[cell_num].value);
+            col_cnt += 1;
+        }
+        else if(col_cnt === header_episode.awareness){
+            row_array.push(episode_cell_datas[cell_num].value);
+            new_episode_data_array.push(row_array);
+
+            row_array = [];
+            col_cnt = 0;
+        }
+    }
+
+    // 年齢昇順で並び替え
+    new_episode_data_array.sort((pre, post) => {
+        return (pre[header_episode.age] - post[header_episode.age]);
+    });
+
+    return new_episode_data_array;
+}
+
+
+// ************************************************
+//     @breief:  エピソード記入欄の表示を更新
+//     @param[1]: エピソード記入欄の配列
+//     @return: -
+// ************************************************
+const set_episode_cell_datas = (episode_data) => {
+    const episode_table = document.getElementById(id_episode_table);
+    let episode_cells = episode_table.querySelectorAll(`.${class_episodeTable_input}, .${class_episodeTable_textarea}`);
+    let len_episode_cells = episode_cells.length;
+
+    for(let cell_num=0; cell_num < len_episode_cells; cell_num++){
+        let row_num = Number(episode_cells[cell_num].id.match(/r_\d+/)[0].split("_")[1]);
+    
+        switch(cell_num % header_episode.length){
             case header_episode.age:
-                age_array.push(episode_cell_datas[cell_num].value);
+                episode_cells[cell_num].value = episode_data_array[header_episode.age][row_num];
                 break;
             case header_episode.episode:
-                episode_array.push(episode_cell_datas[cell_num].value);
+                episode_cells[cell_num].value = episode_data_array[header_episode.episode][row_num];
                 break;
             case header_episode.emotion:
-                emotion_array.push(episode_cell_datas[cell_num].value);
+                episode_cells[cell_num].value = episode_data_array[header_episode.emotion][row_num];
                 break;
             case header_episode.motivation:
-                motivation_array.push(episode_cell_datas[cell_num].value);
+                episode_cells[cell_num].value = episode_data_array[header_episode.motivation][row_num];
                 break;
             case header_episode.awareness:
-                awareness_array.push(episode_cell_datas[cell_num].value);
+                episode_cells[cell_num].value = episode_data_array[header_episode.awareness][row_num];
                 break;
             default:
                 console.log("不正な値");
                 break;
         }
     }
-
-    return [age_array, episode_array, emotion_array, motivation_array, awareness_array];
 }
 
 
