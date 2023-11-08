@@ -68,6 +68,7 @@ class Episode < ApplicationRecord
         if params.blank? or user_id.blank?
             return false
         end
+        row_num = 0
         col_cnt = 0
         row_data = {}
         update_episode = []
@@ -105,22 +106,43 @@ class Episode < ApplicationRecord
                                                 user_id: user_id,
                                                 row: row_data[:row]
                                             )
-
-                # 更新前後でidが共通のものは更新・存在しない場合は追加
-                update_episode << Episode.new(
-                                                id:         original_row.id,
-                                                user_id:    user_id,
-                                                row:        row_data[:row],
-                                                age:        row_data[:age],
-                                                episode:    row_data[:episode],
-                                                emotion:    row_data[:emotion],
-                                                motivation: row_data[:motivation],
-                                                awareness:  row_data[:awareness]
-                                            )
+                if original_row
+                    # 更新前後でidが共通のものを更新
+                    update_episode << Episode.new(
+                                                    id:         original_row.id,
+                                                    user_id:    user_id,
+                                                    row:        row_data[:row],
+                                                    age:        row_data[:age],
+                                                    episode:    row_data[:episode],
+                                                    emotion:    row_data[:emotion],
+                                                    motivation: row_data[:motivation],
+                                                    awareness:  row_data[:awareness]
+                                                )
+                elsif
+                    # 更新前後でidが共通のものない場合は追加
+                    update_episode << Episode.new(
+                                                    user_id:    user_id,
+                                                    row:        row_data[:row],
+                                                    age:        row_data[:age],
+                                                    episode:    row_data[:episode],
+                                                    emotion:    row_data[:emotion],
+                                                    motivation: row_data[:motivation],
+                                                    awareness:  row_data[:awareness]
+                                                )
+                end
                 # 列カウントを初期化し次の行でカウント開始
                 col_cnt = 0
                 row_data = {}
             end
+        end
+
+        # 既存DBの列数を取得
+        row_max = Episode.maximum("row")
+
+        # エピソード記入欄から削除された既存レコードのデータを削除
+        # row_num (変更を加える最終行)が既存レコードに含まれている場合のみ実行
+        if row_num < row_max
+            Episode.where(row: (row_num+1)..).destroy_all
         end
 
         # レコードをひとまとめに追加
@@ -131,6 +153,6 @@ class Episode < ApplicationRecord
                                                                             :emotion,
                                                                             :motivation,
                                                                             :awareness
-                                                                        ]
+                                                                        ]                                                               
     end
 end

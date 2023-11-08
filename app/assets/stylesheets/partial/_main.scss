@@ -6,7 +6,7 @@
 // ============================================
 $mainMerginTop: 150px;
 
-$episodeTableTempCol: 1.2fr 4fr 4fr 2fr 4fr;
+$episodeTableTempCol: 1.2fr 4fr 4fr 2fr 4fr 1fr;
 $analysisQ1TableTempCol: 1fr 1fr;
 $analysisQ2TableTempCol: 1fr;
 $summaryTableTempCol: 1fr;
@@ -330,14 +330,79 @@ $chartTextHeight: 300px;
 }
 
 .episodeTable__btnWrapper {
-    position: absolute;
-    content: "";
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
-    font-size: 1.6rem;
-    bottom: 0;
-    left: 0px;
+    font-size: 1.4rem;
+    font-weight: bold;
+
+}
+
+.episodeTableMenuLavel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    &::after {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        height: 50%;
+        content: "…";
+        background-color: com.$color_lightGray;
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 1.6rem;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        cursor:pointer;
+    }
+}
+
+// メニュー中身
+[id^="episodeTableMenu__rowNo"] {
+    // デフォルトではメニュー内容非表示
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    top: 70%;
+    right: 10px;
+    z-index: 1000;
+    background-color: com.$color_white;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px 0px com.$color_gray;
+
+    & > .episodeTableMenuItem {
+        color: com.$color_black;
+        padding: 0.5em 1em;
+    
+        &:not(:last-of-type) {
+            position: relative;
+            &::after {
+                position: absolute;
+                content: "";
+                width: 90%;
+                padding-top: 2px;
+                background-color: com.$color_gray;
+                bottom: 0;
+                left: 50%;
+                transform: translate(-50%, 0);
+            }
+        }
+    }
+}
+
+// メニュークリック時にメニュー内容表示
+[id^="episodeTableMenuBtn__rowNo"]:checked~[id^="episodeTableMenu__rowNo"] {
+    display: flex;
 }
 
 .episodeTable__btn {
@@ -345,23 +410,28 @@ $chartTextHeight: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 0.5em;
+    padding: 0.3em;
     cursor:pointer;
-}
+    font-size: 1.5rem;
+    z-index: 1;
 
-.episodeTable__btn_add {
-    color: com.$color_blue;
-    &::before{
-        content: "＋";
+    &:hover {
+        position: relative;
+        &::after {
+            position: absolute;
+            content: "";
+            width: 120%;
+            height: 100%;
+            background-color: com.$color_lightGray;
+            border-radius: 7px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
     }
 }
 
-.episodeTable__btn_delete {
-    color: com.$color_red;
-    &::before{
-        content: "ー";
-    }
-}
 
 // chronology ============================================
 .chronology {
