@@ -33,6 +33,7 @@
                         <%= v_header_info %>
                     </div>
                 <% end %>
+                <div class="episodeTable__column">操作</div>
             </div>
             <% @episode_table_data.each do |record| %>
                 <div    id="episodeTable__rowNo<%= record[:row]%>"
@@ -56,11 +57,20 @@
                                 <% end %>
                             </div>
                         <% end %>
+                        <div class="episodeTable__btnWrapper">
+                            <input type="checkbox" id="episodeTableMenuBtn__rowNo<%= record[:row]%>" class="saguru__navInput" name="episodeTableMenuBtn">
+                            <label id="episodeTableMenuLavel__rowNo<%= record[:row]%>" class="episodeTableMenuLavel" for="episodeTableMenuBtn__rowNo<%= record[:row]%>"></label>
+                            <ul id="episodeTableMenu__rowNo<%= record[:row]%>">
+                                <li class="episodeTableMenuItem">
+                                    <button type="button" class="episodeTable__btn episodeTable__btn_delete">この行を削除</button>
+                                </li>
+                                <li class="episodeTableMenuItem">
+                                    <button type="button" class="episodeTable__btn episodeTable__btn_add">下に行を追加</button>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="episodeTable__btnWrapper">
-                        <button type="button" class="episodeTable__btn episodeTable__btn_add">追加</button>
-                        <button type="button" class="episodeTable__btn episodeTable__btn_delete">削除</button>
-                    </div>
+                    
                 </div>
             <% end %> 
         </div>

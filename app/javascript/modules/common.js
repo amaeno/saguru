@@ -81,8 +81,15 @@ export const limit_input_range = (input_object) => {
 // ************************************************
 export const set_bottun_clickEvent = () => {
     const episode_table = document.getElementById("episodeTable");
-
     episode_table.addEventListener('click', (event) => {
+        // 操作メニューボタン以外の箇所を押した時、開いていたメニューを閉じる
+        if (!(event.target.id && event.target.id.includes("episodeTableMenuBtn__rowNo"))){
+            const episodeTableMenuBtn_element = document.querySelectorAll(`[id*="episodeTableMenuBtn__rowNo"]`);
+            episodeTableMenuBtn_element.forEach(element => {
+                element.checked = false; 
+            });
+        }
+
         // episodeTable__btn_addクリック時は行追加
         if (event.target && event.target.classList.contains("episodeTable__btn_add")) {
             add_episode_new_row(event.target);
