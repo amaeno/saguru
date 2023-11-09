@@ -1,4 +1,4 @@
-import {add_episode_new_row, delete_episode_new_row} from "./episode_table";
+import {sort_episode_table, add_episode_new_row, delete_episode_new_row} from "./episode_table";
 
 // 判定確認用変数
 export const status = {
@@ -80,8 +80,7 @@ export const limit_input_range = (input_object) => {
 //     @return: -
 // ************************************************
 export const set_bottun_clickEvent = () => {
-    const episode_table = document.getElementById("episodeTable");
-    episode_table.addEventListener('click', (event) => {
+    document.addEventListener('click', (event) => {
         // 操作メニューボタン以外の箇所を押した時、開いていたメニューを閉じる
         if (!(event.target.id && event.target.id.includes("episodeTableMenuBtn__rowNo"))){
             const episodeTableMenuBtn_element = document.querySelectorAll(`[id*="episodeTableMenuBtn__rowNo"]`);
@@ -89,7 +88,14 @@ export const set_bottun_clickEvent = () => {
                 element.checked = false; 
             });
         }
+    });
 
+    const episode_table = document.getElementById("episodeTable");
+    episode_table.addEventListener('click', (event) => {
+        // episodeTable__btn_sortクリック時は行全体を年齢順に並び替え
+        if (event.target && event.target.classList.contains("episodeTable__btn_sort")) {
+            sort_episode_table();
+        }
         // episodeTable__btn_addクリック時は行追加
         if (event.target && event.target.classList.contains("episodeTable__btn_add")) {
             add_episode_new_row(event.target);
