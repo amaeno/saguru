@@ -279,7 +279,7 @@ export const add_episode_new_row = (clickedElement) => {
         <div class="episodeTable__column">
                 <textarea class="episodeTable__textarea" row="2" name="episode_g_0_r_${target_rowNo+1}_c_awareness" id="episode_g_0_r_${target_rowNo+1}_c_awareness"></textarea>
         </div>
-        <div class="episodeTable__btnWrapper">
+        <div class="episodeTable__column episodeTable__btnWrapper">
             <input type="checkbox" id="episodeTableMenuBtn__rowNo${target_rowNo+1}" class="saguru__navInput" name="episodeTableMenuBtn">
             <label id="episodeTableMenuLavel__rowNo${target_rowNo+1}" class="episodeTableMenuLavel" for="episodeTableMenuBtn__rowNo${target_rowNo+1}"></label>
             <ul id="episodeTableMenu__rowNo${target_rowNo+1}">
