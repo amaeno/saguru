@@ -18,7 +18,7 @@ document.addEventListener("turbo:load", () => {
             init_analysis_table();
             init_summary_table();
 
-            // テーブルの各行の追加・削除ボタン
+            // テーブルの各行の追加・削除・ソートボタン
             set_bottun_clickEvent();
 
             break;

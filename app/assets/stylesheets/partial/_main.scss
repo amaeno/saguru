@@ -372,7 +372,7 @@ $chartTextHeight: 300px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 150px;
+    width: 200px;
     top: 70%;
     right: 10px;
     z-index: 1000;
@@ -381,6 +381,10 @@ $chartTextHeight: 300px;
     box-shadow: 0px 5px 10px 0px com.$color_gray;
 
     & > .episodeTableMenuItem {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
         color: com.$color_black;
         padding: 0.5em 1em;
     
@@ -389,7 +393,7 @@ $chartTextHeight: 300px;
             &::after {
                 position: absolute;
                 content: "";
-                width: 90%;
+                width: 85%;
                 padding-top: 2px;
                 background-color: com.$color_gray;
                 bottom: 0;
@@ -410,6 +414,7 @@ $chartTextHeight: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
     padding: 0.3em;
     cursor:pointer;
     font-size: 1.5rem;
@@ -420,7 +425,7 @@ $chartTextHeight: 300px;
         &::after {
             position: absolute;
             content: "";
-            width: 120%;
+            width: 100%;
             height: 100%;
             background-color: com.$color_lightGray;
             border-radius: 7px;

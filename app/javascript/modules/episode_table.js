@@ -66,15 +66,22 @@ export const init_episode_table = () => {
 
 // ************************************************
 //     @breief:  エピソード記入欄の配列を更新する
-//     @param[1]: -
+//     @param[1]: "default" or "sort" (記入順か年齢での並び替えか。未指定時は"default"")
 //     @return: -
 // ************************************************
-export const update_episode_table = () => {
+export const update_episode_table = (option = "default") => {
     const episode_table = document.getElementById(id_episode_table);
 
     // テーブルセルの要素(textarea or inputタグ)のリスト取得
     let episode_cells = episode_table.querySelectorAll(`.${class_episodeTable_input}, .${class_episodeTable_textarea}`);
-    episode_data_array = get_episode_column_data_array(episode_cells);
+    // 並び替えオプション設定時は年齢で昇順並び替え
+    if(option === "sort"){
+        episode_data_array = get_episode_column_data_array(episode_cells, "sort");
+    }
+    else {
+        episode_data_array = get_episode_column_data_array(episode_cells);
+    }
+    
     set_episode_cell_datas(episode_data_array);
 }
 
@@ -82,26 +89,31 @@ export const update_episode_table = () => {
 // ************************************************
 //     @breief:  エピソード記入欄で入力したデータ列ごとの配列に分解する
 //     @param[1]: エピソード記入欄のinput/textareaオブジェクト
+//     @param[2]: "default" or "sort" (記入順か年齢での並び替えか。未指定時は"default"")
 //     @return: 各列のデータが格納された配列
 // ************************************************
-export const get_episode_column_data_array = (episode_cell_datas) => {
+export const get_episode_column_data_array = (episode_cell_datas, option = "default") => {
     let age_array = [];
     let episode_array = [];
     let emotion_array = [];
     let motivation_array = [];
     let awareness_array = [];
 
-    // 年齢昇順で並び替え
-    let soted_episode_cell_datas = sort_episode_cell_datas(episode_cell_datas);
-    let len_soted_episode_cell_datas = soted_episode_cell_datas.length;
+    let episode_rows_array = convert_episode_cell_datas_to_rows_array(episode_cell_datas);
+    let len_episode_rows_array = episode_rows_array.length;
+
+    // 並び替えオプション設定時は年齢で昇順並び替え
+    if(option === "sort"){
+        sort_episode_rows_array(episode_rows_array);
+    }
 
     // チャート作成に必要なデータを各配列へ抜き出し
-    for(let row_num=0; row_num < len_soted_episode_cell_datas; row_num++){
-        age_array.push(soted_episode_cell_datas[row_num][header_episode.age]);
-        episode_array.push(soted_episode_cell_datas[row_num][header_episode.episode]);
-        emotion_array.push(soted_episode_cell_datas[row_num][header_episode.emotion]);
-        motivation_array.push(soted_episode_cell_datas[row_num][header_episode.motivation]);
-        awareness_array.push(soted_episode_cell_datas[row_num][header_episode.awareness]);
+    for(let row_num=0; row_num < len_episode_rows_array; row_num++){
+        age_array.push(episode_rows_array[row_num][header_episode.age]);
+        episode_array.push(episode_rows_array[row_num][header_episode.episode]);
+        emotion_array.push(episode_rows_array[row_num][header_episode.emotion]);
+        motivation_array.push(episode_rows_array[row_num][header_episode.motivation]);
+        awareness_array.push(episode_rows_array[row_num][header_episode.awareness]);
     }
 
     return [age_array, episode_array, emotion_array, motivation_array, awareness_array];
@@ -113,13 +125,17 @@ export const get_episode_column_data_array = (episode_cell_datas) => {
 //     @param[1]: エピソード記入欄のinput/textareaオブジェクト
 //     @return: 各列のデータが格納された配列
 // ************************************************
-const sort_episode_cell_datas = (episode_cell_datas) => {
+const convert_episode_cell_datas_to_rows_array = (episode_cell_datas) => {
     let len_episode_cell_datas = episode_cell_datas.length;
     let col_cnt = 0;
     let row_array = [];
-    let new_episode_data_array = [];
+    let episode_rows_array = [];
 
     // 行ごとにデータをまとめて配列へ格納
+    // 　row0 [age, episode ... , awareness]
+    // 　row1 [age, episode ... , awareness]
+    //   ...
+    // 　rowX [age, episode ... , awareness]
     for(let cell_num=0; cell_num < len_episode_cell_datas; cell_num++){
         if(col_cnt < header_episode.awareness) {
             row_array.push(episode_cell_datas[cell_num].value);
@@ -127,21 +143,40 @@ const sort_episode_cell_datas = (episode_cell_datas) => {
         }
         else if(col_cnt === header_episode.awareness){
             row_array.push(episode_cell_datas[cell_num].value);
-            new_episode_data_array.push(row_array);
+            episode_rows_array.push(row_array);
 
             row_array = [];
             col_cnt = 0;
         }
     }
 
-    // 年齢昇順で並び替え
-    new_episode_data_array.sort((pre, post) => {
-        return (pre[header_episode.age] - post[header_episode.age]);
-    });
-
-    return new_episode_data_array;
+    return episode_rows_array;
 }
 
+
+// ************************************************
+//     @breief:  エピソード記入欄で入力したデータを年齢昇順でソートする
+//     @param[1]: エピソード記入欄の入力が行ごとに格納された配列
+//     @return: 各列のデータが格納された配列
+// ************************************************
+const sort_episode_rows_array = (episode_rows_array) => {
+    // 各行の年齢を比較し昇順へ並び替える
+    episode_rows_array.sort((pre, post) => {
+        return (pre[header_episode.age] - post[header_episode.age]);
+    });
+}
+
+
+// ************************************************
+//     @breief:  エピソード記入欄・チャートをソートした結果で表示する
+//     @param[1]: -
+//     @return: -
+// ************************************************
+export const sort_episode_table = () => {
+    update_episode_table("sort");
+    // モチベーションチャート描画更新
+    draw_chronology_chart_and_text();
+}
 
 // ************************************************
 //     @breief:  エピソード記入欄の表示を更新
@@ -158,19 +193,19 @@ const set_episode_cell_datas = (episode_data) => {
     
         switch(cell_num % header_episode.length){
             case header_episode.age:
-                episode_cells[cell_num].value = episode_data_array[header_episode.age][row_num];
+                episode_cells[cell_num].value = episode_data[header_episode.age][row_num];
                 break;
             case header_episode.episode:
-                episode_cells[cell_num].value = episode_data_array[header_episode.episode][row_num];
+                episode_cells[cell_num].value = episode_data[header_episode.episode][row_num];
                 break;
             case header_episode.emotion:
-                episode_cells[cell_num].value = episode_data_array[header_episode.emotion][row_num];
+                episode_cells[cell_num].value = episode_data[header_episode.emotion][row_num];
                 break;
             case header_episode.motivation:
-                episode_cells[cell_num].value = episode_data_array[header_episode.motivation][row_num];
+                episode_cells[cell_num].value = episode_data[header_episode.motivation][row_num];
                 break;
             case header_episode.awareness:
-                episode_cells[cell_num].value = episode_data_array[header_episode.awareness][row_num];
+                episode_cells[cell_num].value = episode_data[header_episode.awareness][row_num];
                 break;
             default:
                 console.log("不正な値");
@@ -283,6 +318,9 @@ export const add_episode_new_row = (clickedElement) => {
             <input type="checkbox" id="episodeTableMenuBtn__rowNo${target_rowNo+1}" class="saguru__navInput" name="episodeTableMenuBtn">
             <label id="episodeTableMenuLavel__rowNo${target_rowNo+1}" class="episodeTableMenuLavel" for="episodeTableMenuBtn__rowNo${target_rowNo+1}"></label>
             <ul id="episodeTableMenu__rowNo${target_rowNo+1}">
+                <li class="episodeTableMenuItem">
+                    <button type="button" class="episodeTable__btn episodeTable__btn_sort">行を年齢順に並び替え</button>
+                </li>
                 <li class="episodeTableMenuItem">
                     <button type="button" class="episodeTable__btn episodeTable__btn_delete">この行を削除</button>
                 </li>
