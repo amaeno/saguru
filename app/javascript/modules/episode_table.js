@@ -390,9 +390,6 @@ export const add_episode_new_row = (clickedElement) => {
             <label id="episodeTableMenuLavel__rowNo${target_rowNo+1}" class="episodeTableMenuLavel" for="episodeTableMenuBtn__rowNo${target_rowNo+1}"></label>
             <ul id="episodeTableMenu__rowNo${target_rowNo+1}">
                 <li class="episodeTableMenuItem">
-                    <button type="button" class="episodeTable__btn episodeTable__btn_sort">行を年齢順に並び替え</button>
-                </li>
-                <li class="episodeTableMenuItem">
                     <button type="button" class="episodeTable__btn episodeTable__btn_delete">この行を削除</button>
                 </li>
                 <li class="episodeTableMenuItem">

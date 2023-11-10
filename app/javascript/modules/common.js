@@ -90,7 +90,7 @@ export const set_bottun_clickEvent = () => {
         }
     });
 
-    const episode_table = document.getElementById("episodeTable");
+    const episode_table = document.getElementById("episodeArea");
     episode_table.addEventListener('click', (event) => {
         // episodeTable__btn_sortクリック時は行全体を年齢順に並び替え
         if (event.target && event.target.classList.contains("episodeTable__btn_sort")) {
@@ -104,5 +104,11 @@ export const set_bottun_clickEvent = () => {
         if (event.target && event.target.classList.contains("episodeTable__btn_delete")) {
             delete_episode_new_row(event.target);
         }
+    });
+
+    // "モチベーションチャート"ナビクリック時に年齢順に並び替える
+    const chronologyNav = document.getElementById("chronologyLabel");
+    chronologyNav.addEventListener('click', (event) => {
+        sort_episode_table();
     });
 }

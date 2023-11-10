@@ -25,6 +25,7 @@
     <%# episodeTable ================================== %>
     <section    id="episodeArea" 
                 class="main__section">
+        <button type="button" class="episodeTable__ComBtn episodeTable__btn_sort">年齢順に並び替え</button>
         <div    id="episodeTable"
                 class="episodeTable main__sectionContent">
             <div class="episodeTable__header">
@@ -61,9 +62,6 @@
                             <input type="checkbox" id="episodeTableMenuBtn__rowNo<%= record[:row]%>" class="saguru__navInput" name="episodeTableMenuBtn">
                             <label id="episodeTableMenuLavel__rowNo<%= record[:row]%>" class="episodeTableMenuLavel" for="episodeTableMenuBtn__rowNo<%= record[:row]%>"></label>
                             <ul id="episodeTableMenu__rowNo<%= record[:row]%>">
-                                <li class="episodeTableMenuItem">
-                                    <button type="button" class="episodeTable__btn episodeTable__btn_sort">行を年齢順に並び替え</button>
-                                </li>
                                 <li class="episodeTableMenuItem">
                                     <button type="button" class="episodeTable__btn episodeTable__btn_delete">この行を削除</button>
                                 </li>

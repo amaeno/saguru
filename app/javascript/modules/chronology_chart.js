@@ -247,7 +247,7 @@ const draw_h_axis = (context, width, cell_height) => {
 
 
 // ************************************************
-//     @breief:  エピソードのテキストを更新する
+//     @breief:  モチベーションチャートのテキストを更新する
 //     @param[1]:  年齢配列
 //     @return: -
 // ************************************************
@@ -268,14 +268,82 @@ export const update_chronology_text = (age_array) => {
         const chronology_text_item_age = document.getElementById(episode_id_age).value;
         const chronology_text_item_episode = document.getElementById(episode_id_episode).value;
 
+        // 左右の列の年齢に応じて列をマージ
+        let chart_merge_class = merge_chronology_ages(age_array, row_num);
+
         // 追加する行要素
         const new_chronology_element = `
 <li class="chronologyEpisodeList__item">
-    <p class="chronologyEpisodeList__itemAge" id="chronology_g_0_r_${row_num}_c_age">${chronology_text_item_age}</p>
+    <p class="chronologyEpisodeList__itemAge ${chart_merge_class}" id="chronology_g_0_r_${row_num}_c_age">${chronology_text_item_age}</p>
     <p class="chronologyEpisodeList__itemText" id="chronology_g_0_r_${row_num}_c_episode">${chronology_text_item_episode}</p>
 </li>
 `
         // 取得したidの行要素直下に追加
         chronology_target_area.insertAdjacentHTML('beforeend', new_chronology_element);
     }
+}
+
+
+// ************************************************
+//     @breief:  モチベーションチャートで同じ年齢が並ぶ際はマージする
+//     @param[1]: エピソード記入欄の各行の年齢配列
+//     @param[2]: エピソード記入欄の行番号
+//     @return: チャート年齢欄に付与するクラス名
+// ************************************************
+const merge_chronology_ages = (episode_ages_array, row_num) => {
+    const len_episode_ages_array = episode_ages_array.length;
+    let result_class = "";
+
+    if(len_episode_ages_array){
+        switch (row_num){
+            // 最初の行
+            case 0:
+                // 右の行と同じ年齢の時、右の行とマージ
+                if (((row_num+1) < len_episode_ages_array) &&
+                    (episode_ages_array[row_num] === episode_ages_array[row_num+1])){
+                        result_class = "-mergeChartLeft";
+                }
+                // 右の行と異なる年齢の時、右の行とマージしない (クラスを付与しない)
+                else {
+                    result_class = "";
+                }
+                break;
+            // 最後の行
+            case (len_episode_ages_array - 1):
+                // 左の行と同じ年齢の時、左の行とマージ
+                if (episode_ages_array[row_num] === episode_ages_array[row_num-1]){
+                        result_class = "-mergeChartRight";
+                }
+                // 左の行と異なる年齢の時、左の行とマージしない (クラスを付与しない)
+                else {
+                    result_class = "";
+                }
+                break;
+            // その他の行
+            default:
+                // 左右の行と同じ年齢の時、左右の行とマージ
+                if( (episode_ages_array[row_num] === episode_ages_array[row_num-1]) &&
+                    (episode_ages_array[row_num] === episode_ages_array[row_num+1])){
+                        result_class = "-mergeChartCenter";
+                }
+                // 左右の行のうち左の行だけ同じ年齢の時、左の行とマージ
+                else if(episode_ages_array[row_num] === episode_ages_array[row_num-1]){
+                    result_class = "-mergeChartRight";
+                }
+                // 左右の行のうち右の行だけ同じ年齢の時、右の行とマージ
+                else if(episode_ages_array[row_num] === episode_ages_array[row_num+1]){
+                    result_class = "-mergeChartLeft";
+                }
+                else {
+                    // 左右の行と異なる年齢の時、マージしない (クラスを付与しない)
+                    result_class = "";
+                }
+                break;
+        }
+    }
+    else {
+        console.log("不正な配列");
+    }
+    
+    return result_class;
 }

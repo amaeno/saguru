@@ -236,7 +236,7 @@ $chartTextHeight: 300px;
 .saguru__form .main__section {
     position: absolute;
     width: 100%;
-    height: 800px;
+    height: 750px;
     padding-top: 0;
     // 固定ヘッダーと重ならないためのtop
     top: calc(com.$headerHeight + $mainMerginTop);
@@ -269,9 +269,26 @@ $chartTextHeight: 300px;
 // episode ============================================
 @include makeGridTable("episode", $episodeTableTempCol);
 
+.episodeTable__ComBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: com.$color_gray;
+    background-color: com.$color_lightGray;
+    border: 2px solid com.$color_gray;
+    border-radius: 10px;
+    content: "";
+    margin-left: auto;
+    padding: 0.3em 0.5em;
+    cursor:pointer;
+}
+
 .episodeTable {
     position: relative;
     height: 700px;
+    margin-top: 5px;
     overflow: scroll;
     overflow-x: hidden;
 }
@@ -550,6 +567,18 @@ $chartTextHeight: 300px;
     font-weight: bold;
     padding-bottom: 20px;
 
+    &::before {
+        position: absolute;
+        content: "";
+        width: 80%;
+        height: 5px;
+        border-radius: 10px;
+        background-color: com.$color_gray;
+        bottom: -5px;
+        left: 10%;
+        z-index: -1;
+    }
+
     &::after {
         position: absolute;
         content: "歳";
@@ -671,6 +700,58 @@ $chartTextHeight: 300px;
     }
 }
 
+// チャートの年齢をグループ化する
+.-mergeChartLeft {
+    position: relative;
 
+    &::before {
+        position: absolute;
+        content: "";
+        width: 80%;
+        height: 5px;
+        border-radius: 10px 0 0 10px;
+        background-color: com.$color_gray;
+        bottom: -5px;
+        left: auto;
+        right: 0;
+        z-index: -1;
+    }
+}
+
+.-mergeChartCenter {
+    color: transparent;
+    position: relative;
+
+    &::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 5px;
+        border-radius: 0;
+        background-color: com.$color_gray;
+        bottom: -5px;
+        left: auto;
+        right: 0;
+        z-index: -1;
+    }
+}
+
+.-mergeChartRight {
+    color: transparent;
+    position: relative;
+
+    &::before {
+        position: absolute;
+        content: "";
+        width: 80%;
+        height: 5px;
+        border-radius: 0 10px 10px 0;
+        background-color: com.$color_gray;
+        bottom: -5px;
+        left: 0;
+        right: auto;
+        z-index: -1;
+    }
+}
 
 
