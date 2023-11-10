@@ -634,17 +634,43 @@ $chartTextHeight: 300px;
 }
 
 // utility ============================================
+
+// テーブルの行を結合する
 .-mergeCellTop {
     border-bottom: none;
+    margin-bottom: 0;
+    border-radius: 10px 10px 0 0;
+
+    & .episodeTable__column:not(:first-of-type) {
+        border-bottom: 2px solid com.$color_lightGray;
+    }
 }
 
 .-mergeCellMiddle {
     border-top: none;
     border-bottom: none;
+    margin-bottom: 0;
+    border-radius: 0;
+
+    & .episodeTable__column:not(:first-of-type) {
+        border-bottom: 2px solid com.$color_lightGray;
+    }
+
+    & .-numItemAge {
+        color: com.$color_lightGray;
+    }
 }
 
 .-mergeCellBottom {
     border-top: none;
+    margin-top: 0;
+    border-radius: 0 0 10px 10px;
+
+    & .-numItemAge {
+        color: com.$color_lightGray;
+    }
 }
+
+
 
 
