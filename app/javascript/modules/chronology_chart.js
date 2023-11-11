@@ -247,7 +247,7 @@ const draw_h_axis = (context, width, cell_height) => {
 
 
 // ************************************************
-//     @breief:  エピソードのテキストを更新する
+//     @breief:  モチベーションチャートのテキストを更新する
 //     @param[1]:  年齢配列
 //     @return: -
 // ************************************************
@@ -261,21 +261,128 @@ export const update_chronology_text = (age_array) => {
     }
 
     for(let row_num=0; row_num < len_data_array; row_num++){
-        // エピソード記入欄と対応した年齢・エピソードを取得
+        // エピソード記入欄と対応したid・記入内容を取得
         const episode_id_age = `episode_g_0_r_${row_num}_c_age`;
         const episode_id_episode = `episode_g_0_r_${row_num}_c_episode`;
+        const episode_id_emotion = `episode_g_0_r_${row_num}_c_emotion`;
+        const episode_id_motivation = `episode_g_0_r_${row_num}_c_motivation`;
+        const episode_id_awareness = `episode_g_0_r_${row_num}_c_awareness`;
     
         const chronology_text_item_age = document.getElementById(episode_id_age).value;
         const chronology_text_item_episode = document.getElementById(episode_id_episode).value;
+        const chronology_text_item_emotion = document.getElementById(episode_id_emotion).value;
+        const chronology_text_item_motivation = document.getElementById(episode_id_motivation).value;
+        const chronology_text_item_awareness = document.getElementById(episode_id_awareness).value;
+
+        // 左右の列の年齢に応じて列をマージ
+        let chart_merge_class = merge_chronology_ages(age_array, row_num);
 
         // 追加する行要素
         const new_chronology_element = `
 <li class="chronologyEpisodeList__item">
-    <p class="chronologyEpisodeList__itemAge" id="chronology_g_0_r_${row_num}_c_age">${chronology_text_item_age}</p>
+    <p class="chronologyEpisodeList__itemAge ${chart_merge_class}" id="chronology_g_0_r_${row_num}_c_age">${chronology_text_item_age}</p>
     <p class="chronologyEpisodeList__itemText" id="chronology_g_0_r_${row_num}_c_episode">${chronology_text_item_episode}</p>
+    <div class="chronologyEpisodeList__itemBubble" id="chronology_g_0_r_${row_num}_c_bubble">
+        <input type="radio" id="chronologyBubble__rowNo${row_num}" class="saguru__navInput" name="chronologyBubble">
+        <label id="chronologyBubbleLabel__rowNo${row_num}" class="chronologyBubbleLabel" for="chronologyBubble__rowNo${row_num}"></label>
+        <dl id="chronologyBubbleDl__rowNo${row_num}">
+            <dt class="chronologyBubbleDl__term">エピソード：${chronology_text_item_age}歳</dt>
+            <dd class="chronologyBubbleDl__desc">${chronology_text_item_episode}</dd>
+            <dt class="chronologyBubbleDl__term">当時の感情・思考</dt>
+            <dd class="chronologyBubbleDl__desc">${chronology_text_item_emotion}</dd>
+            <dt class="chronologyBubbleDl__term">振り返って気づいたこと</dt>
+            <dd class="chronologyBubbleDl__desc">${chronology_text_item_awareness}</dd>
+        </dl>
+    </div>
 </li>
 `
         // 取得したidの行要素直下に追加
         chronology_target_area.insertAdjacentHTML('beforeend', new_chronology_element);
+
+        // ホバーの判定をするドットの高さを設定
+        set_chronology_label_height(row_num, chronology_text_item_motivation);
     }
+}
+
+
+// ************************************************
+//     @breief:  モチベーションチャートで同じ年齢が並ぶ際はマージする
+//     @param[1]: エピソード記入欄の各行の年齢配列
+//     @param[2]: エピソード記入欄の行番号
+//     @return: チャート年齢欄に付与するクラス名
+// ************************************************
+const merge_chronology_ages = (episode_ages_array, row_num) => {
+    const len_episode_ages_array = episode_ages_array.length;
+    let result_class = "";
+
+    if(len_episode_ages_array){
+        switch (row_num){
+            // 最初の行
+            case 0:
+                // 右の行と同じ年齢の時、右の行とマージ
+                if (((row_num+1) < len_episode_ages_array) &&
+                    (episode_ages_array[row_num] === episode_ages_array[row_num+1])){
+                        result_class = "-mergeChartLeft";
+                }
+                // 右の行と異なる年齢の時、右の行とマージしない (クラスを付与しない)
+                else {
+                    result_class = "";
+                }
+                break;
+            // 最後の行
+            case (len_episode_ages_array - 1):
+                // 左の行と同じ年齢の時、左の行とマージ
+                if (episode_ages_array[row_num] === episode_ages_array[row_num-1]){
+                        result_class = "-mergeChartRight";
+                }
+                // 左の行と異なる年齢の時、左の行とマージしない (クラスを付与しない)
+                else {
+                    result_class = "";
+                }
+                break;
+            // その他の行
+            default:
+                // 左右の行と同じ年齢の時、左右の行とマージ
+                if( (episode_ages_array[row_num] === episode_ages_array[row_num-1]) &&
+                    (episode_ages_array[row_num] === episode_ages_array[row_num+1])){
+                        result_class = "-mergeChartCenter";
+                }
+                // 左右の行のうち左の行だけ同じ年齢の時、左の行とマージ
+                else if(episode_ages_array[row_num] === episode_ages_array[row_num-1]){
+                    result_class = "-mergeChartRight";
+                }
+                // 左右の行のうち右の行だけ同じ年齢の時、右の行とマージ
+                else if(episode_ages_array[row_num] === episode_ages_array[row_num+1]){
+                    result_class = "-mergeChartLeft";
+                }
+                else {
+                    // 左右の行と異なる年齢の時、マージしない (クラスを付与しない)
+                    result_class = "";
+                }
+                break;
+        }
+    }
+    else {
+        console.log("不正な配列");
+    }
+    
+    return result_class;
+}
+
+
+// ************************************************
+//     @breief:  モチベーションチャートのドットに重なるlabelの位置を設定する
+//     @param[1]: エピソード記入欄の行番号
+//     @param[2]: モチベーションの点数
+//     @return: -
+// ************************************************
+const set_chronology_label_height = (row_num, motivation_val) => {
+    let gridgap = 10;
+    let canvas_height = 300;
+    let chart_dot = canvas_height / 100;
+    
+    const bubble_id = `chronology_g_0_r_${row_num}_c_bubble`;
+    const bubble_element = document.getElementById(bubble_id);
+
+    bubble_element.style.bottom = `calc(100% + ${canvas_mergin_y}px + ${gridgap}px + ${chart_dot * motivation_val}px)`;
 }

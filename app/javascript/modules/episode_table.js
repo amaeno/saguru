@@ -194,6 +194,8 @@ const set_episode_cell_datas = (episode_data) => {
         switch(cell_num % header_episode.length){
             case header_episode.age:
                 episode_cells[cell_num].value = episode_data[header_episode.age][row_num];
+                // 上下の行の年齢に応じて行をマージ
+                merge_episode_rows(episode_cells[cell_num], episode_data[header_episode.age], row_num);
                 break;
             case header_episode.episode:
                 episode_cells[cell_num].value = episode_data[header_episode.episode][row_num];
@@ -212,6 +214,75 @@ const set_episode_cell_datas = (episode_data) => {
                 break;
         }
     }
+}
+
+
+// ************************************************
+//     @breief:  エピソード記入欄の行の同じ年齢が並ぶ際はマージする
+//     @param[1]: エピソード記入欄のinput/textareaオブジェクト
+//     @param[2]: エピソード記入欄の各行の年齢配列
+//     @param[3]: エピソード記入欄の行番号
+//     @return: -
+// ************************************************
+const merge_episode_rows = (episodeTableCell_element, episode_ages_array, row_num) => {
+    const len_episode_ages_array = episode_ages_array.length;
+    const episodeTableRow_element = episodeTableCell_element.parentNode.parentNode; // .episodeTable__row
+
+    if(len_episode_ages_array){
+        switch (row_num){
+            // 最初の行
+            case 0:
+                // 直下の行と同じ年齢の時、下の行とマージ
+                if (((row_num+1) < len_episode_ages_array) &&
+                    (episode_ages_array[row_num] === episode_ages_array[row_num+1])){
+                        episodeTableRow_element.classList.add("-mergeCellTop");
+                }
+                // 直下の行と異なる年齢の時、下の行とマージしない (付与しているクラスを削除)
+                else {
+                    episodeTableRow_element.classList.remove("-mergeCellTop");
+                }
+                break;
+            // 最後の行
+            case (len_episode_ages_array - 1):
+                // 真上の行と同じ年齢の時、上の行とマージ
+                if (episode_ages_array[row_num] === episode_ages_array[row_num-1]){
+                        episodeTableRow_element.classList.add("-mergeCellBottom");
+                }
+                // 真上の行と異なる年齢の時、上の行とマージしない (付与しているクラスを削除)
+                else {
+                    episodeTableRow_element.classList.remove("-mergeCellBottom");
+                }
+                break;
+            // その他の行
+            default:
+                // 上下の行と同じ年齢の時、上下の行とマージ
+                if( (episode_ages_array[row_num] === episode_ages_array[row_num-1]) &&
+                    (episode_ages_array[row_num] === episode_ages_array[row_num+1])){
+                        episodeTableRow_element.classList.remove("-mergeCellBottom", "-mergeCellMiddle", "-mergeCellTop");
+                        episodeTableRow_element.classList.add("-mergeCellMiddle");
+                }
+                // 上下の行のうち真上の行だけ同じ年齢の時、上の行とマージ
+                else if(episode_ages_array[row_num] === episode_ages_array[row_num-1]){
+                    episodeTableRow_element.classList.remove("-mergeCellBottom", "-mergeCellMiddle", "-mergeCellTop");
+                    episodeTableRow_element.classList.add("-mergeCellBottom");
+                }
+                // 上下の行のうち直下の行だけ同じ年齢の時、下の行とマージ
+                else if(episode_ages_array[row_num] === episode_ages_array[row_num+1]){
+                    episodeTableRow_element.classList.remove("-mergeCellBottom", "-mergeCellMiddle", "-mergeCellTop");
+                    episodeTableRow_element.classList.add("-mergeCellTop");
+                }
+                else {
+                    // 上下の行と異なる年齢の時、マージしない (付与しているクラスを削除)
+                    episodeTableRow_element.classList.remove("-mergeCellBottom", "-mergeCellMiddle", "-mergeCellTop");
+                    break;
+                }
+                break;
+        }
+    }
+    else {
+        console.log("不正な配列");
+    }
+    
 }
 
 
@@ -318,9 +389,6 @@ export const add_episode_new_row = (clickedElement) => {
             <input type="checkbox" id="episodeTableMenuBtn__rowNo${target_rowNo+1}" class="saguru__navInput" name="episodeTableMenuBtn">
             <label id="episodeTableMenuLavel__rowNo${target_rowNo+1}" class="episodeTableMenuLavel" for="episodeTableMenuBtn__rowNo${target_rowNo+1}"></label>
             <ul id="episodeTableMenu__rowNo${target_rowNo+1}">
-                <li class="episodeTableMenuItem">
-                    <button type="button" class="episodeTable__btn episodeTable__btn_sort">行を年齢順に並び替え</button>
-                </li>
                 <li class="episodeTableMenuItem">
                     <button type="button" class="episodeTable__btn episodeTable__btn_delete">この行を削除</button>
                 </li>
