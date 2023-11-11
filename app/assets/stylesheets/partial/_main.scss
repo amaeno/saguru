@@ -519,9 +519,10 @@ $chartTextHeight: 300px;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: com.$color_black;
+        background-color: com.$color_white;
         border-radius: 7px;
-        color: com.$color_white;
+        border: 2px solid com.$color_gray;
+        color: com.$color_black;
         font-size: 1.6rem;
         font-weight: bold;
         top: 0;
@@ -537,8 +538,8 @@ $chartTextHeight: 300px;
     position: relative;
     grid-row: 2 / 3;
     grid-column: 2 / 3;
-    z-index: -1;
     width: $chartWidth;
+    margin-top: 3px;
 }
 
 .chronologyEpisodeList {
@@ -546,13 +547,13 @@ $chartTextHeight: 300px;
 }
 
 .chronologyEpisodeList__item {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: $chartTextWidth;
     max-width: $chartTextWidth;
     height: 100%;
-    margin-top: 5px;
 }
 
 .chronologyEpisodeList__itemAge {
@@ -560,6 +561,7 @@ $chartTextHeight: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: com.$color_white;
     width: $chartTextWidth;
     max-width: $chartTextWidth;
     height: 40px;
@@ -571,10 +573,10 @@ $chartTextHeight: 300px;
         position: absolute;
         content: "";
         width: 80%;
-        height: 5px;
+        height: 110%;
         border-radius: 10px;
         background-color: com.$color_gray;
-        bottom: -5px;
+        bottom: -5%;
         left: 10%;
         z-index: -1;
     }
@@ -608,6 +610,87 @@ $chartTextHeight: 300px;
     line-height: 1;
     // 改行文字で改行できるようにする
     white-space: pre-wrap;
+}
+
+.chronologyEpisodeList__itemBubble {
+    $grid_gap: 10px;
+    $canvas_ymergin: 10px;
+    $chartDot: calc(($chartHeight - 2*$canvas_ymergin) / 100);
+    bottom: calc(100% + $grid_gap + $canvas_ymergin + $chartDot*50);
+
+    position: absolute;
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background-color: transparent;
+    z-index: 1000;
+}
+
+.chronologyBubbleLabel {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 5px solid transparent;
+    cursor: pointer;
+}
+
+[id^="chronologyBubbleDl__rowNo"] {
+    position: absolute;
+    opacity: 0;
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr 2fr 1fr 2fr;
+    content: "";
+    width: 400px;
+    height: 350px;
+    font-size: 1.6rem;
+    top: 20px;
+    left: 20px;
+    padding: 1em;
+    background-color: com.$color_white;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px 0px com.$color_gray;
+    transition: all 0.2s 0s ease-in;
+}
+
+[id^="chronologyBubbleLabel__rowNo"] { 
+    opacity: 0;
+    transition: all 0.1s 0s linear;
+}
+
+// ホバー時表示されるドット
+[id^="chronologyBubble__rowNo"]:checked~[id^="chronologyBubbleLabel__rowNo"] { 
+    background-color: com.$color_white;
+    border: 5px solid com.$color_green;
+    opacity: 1;
+}
+
+// ドットにホバー時、感情・振り返りを表示
+[id^="chronologyBubble__rowNo"]:checked~[id^="chronologyBubbleDl__rowNo"] { 
+    opacity: 1;
+}
+
+.chronologyBubbleDl__term  {
+    font-weight: bold;
+
+    &::before {
+        content: "";
+        padding-right: 0.5em;
+        height: 100%;
+        background-color: com.$color_gray;
+        margin-right: 0.5em;
+    }
+}
+
+.chronologyBubbleDl__desc {
+    &:not(:last-of-type) {
+        border-bottom: 1px solid com.$color_gray;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
 }
 
 
@@ -707,11 +790,11 @@ $chartTextHeight: 300px;
     &::before {
         position: absolute;
         content: "";
-        width: 80%;
-        height: 5px;
+        width: 90%;
+        height: 110%;
         border-radius: 10px 0 0 10px;
         background-color: com.$color_gray;
-        bottom: -5px;
+        bottom: -5%;
         left: auto;
         right: 0;
         z-index: -1;
@@ -726,10 +809,10 @@ $chartTextHeight: 300px;
         position: absolute;
         content: "";
         width: 100%;
-        height: 5px;
+        height: 110%;
         border-radius: 0;
         background-color: com.$color_gray;
-        bottom: -5px;
+        bottom: -5%;
         left: auto;
         right: 0;
         z-index: -1;
@@ -743,11 +826,11 @@ $chartTextHeight: 300px;
     &::before {
         position: absolute;
         content: "";
-        width: 80%;
-        height: 5px;
+        width: 90%;
+        height: 110%;
         border-radius: 0 10px 10px 0;
         background-color: com.$color_gray;
-        bottom: -5px;
+        bottom: -5%;
         left: 0;
         right: auto;
         z-index: -1;

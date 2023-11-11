@@ -112,3 +112,27 @@ export const set_bottun_clickEvent = () => {
         sort_episode_table();
     });
 }
+
+
+// ************************************************
+//     @breief:  チャートのドットにhoberイベントを設定する
+//     @param[1]:  -
+//     @return: -
+// ************************************************
+export const set_babble_hoverEvent = () => {
+    const chronology_text = document.getElementById("chronologyText");
+    // ドットにhover時、inputタグをcheckedにする
+    chronology_text.addEventListener('mouseover', (event) => {
+        if (event.target && event.target.classList.contains("chronologyBubbleLabel")) {
+            event.target.previousElementSibling.checked = true;
+        }
+    });
+
+    // 画面クリック時、ホバーメッセージを閉じる
+    document.addEventListener('click', () => {
+        const chronologyBubble_element = document.querySelectorAll(`[id*="chronologyBubble__rowNo"]`);
+        chronologyBubble_element.forEach(element => {
+            element.checked = false; 
+        });
+    });
+}
