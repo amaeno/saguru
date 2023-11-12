@@ -18,17 +18,6 @@ module TopHelper
     $ATTR_COL = 3.freeze
 
 
-    # ************************************************
-    #   @breief:  param[1]にparam[2]のクラスを全て追加する
-    #   @param[1]: オリジナルのクラス
-    #   @param[2]: 追加したいクラスの配列
-    #   @return: 全てのクラスが結合された文字列
-    # ************************************************
-    def add_class(original_class, add_class_list)
-        add_class_list.sum(original_class){|add_class| " #{add_class}"}
-    end
-
-
 # episodeTable =======================================
     # 新規登録時に作成作成する年齢の範囲
     $START_AGE = 6
@@ -48,7 +37,7 @@ module TopHelper
     $len_episode_header = $episode_header.length
     
     # ************************************************
-    #   @breief:  エピソード記入欄の各属性値を取得する
+    #   @breief:  エピソード記入セルの各属性値を取得する
     #   @param[1]: エピソードモデルのレコード配列
     #   @param[2]: エピソードモデルのシンボル
     #   @param[3]: エピソードモデルのカラム情報
@@ -86,7 +75,7 @@ module TopHelper
 
         case column
             when "年齢"
-                cell_class = add_class(cell_class, [option_colAge])
+                cell_class = "#{cell_class} #{option_colAge}"
                 cell_type = "number"
                 cell_min = $INPUT_MIN_AGE
                 cell_max =  $INPUT_MAX_AGE
@@ -97,7 +86,7 @@ module TopHelper
                 $episodeTable_cell_is_input_tag = true
 
             when "モチベーション"
-                cell_class = add_class(cell_class, [option_colMotivation])
+                cell_class = "#{cell_class} #{option_colMotivation}"
                 cell_type = "number"
                 cell_min = $INPUT_MIN_MOTIVATION
                 cell_max =  $INPUT_MAX_MOTIVATION
@@ -125,7 +114,7 @@ module TopHelper
 
 
     # ************************************************
-    #   @breief:  エピソード記入欄がinputタグかを判定する
+    #   @breief:  エピソード記入セルがinputタグかを判定する
     #   @param[1]: -
     #   @return: true or false
     # ************************************************
@@ -135,23 +124,6 @@ module TopHelper
 
 
 # chronology =======================================
-
-    # ************************************************
-    #   @breief:  チャート欄のidを取得する
-    #   @param[1]: 行番号
-    #   @param[2]: セル属性("age" or "episode")
-    #   @return: セルのid
-    # ************************************************
-    def get_chronology_cell_id(row_num, cell_attr)
-        if cell_attr == "age"
-            cell_id = "chronology_g_0_r_#{row_num}_c_#{cell_attr}"
-        elsif cell_attr == "episode"
-            cell_id = "chronology_g_0_r_#{row_num}_c_#{cell_attr}"
-        else
-            p "不適切な属性"
-        end
-    end
-
 
 
 # analysisTable =======================================
@@ -195,7 +167,7 @@ module TopHelper
     $ANALYSIS_HEADER = 1.freeze
 
     # ************************************************
-    #   @breief:  分析記入欄のグループごとの値を取得する
+    #   @breief:  分析記入欄のグループごとの値を対象DBから取得する
     #   @param[1]: Question番号 (Q1 or Q2)
     #   @param[2]: グループ番号
     #   @return: グループごとの値を格納したハッシュ
@@ -212,7 +184,7 @@ module TopHelper
     end
 
     # ************************************************
-    #   @breief:  分析記入欄の各属性値を取得する
+    #   @breief:  分析記入セルの各属性値を取得する
     #   @param[1]: グループ番号
     #   @param[2]: Question番号
     #   @param[3]: 行番号
@@ -247,7 +219,7 @@ module TopHelper
                         }.freeze
 
     # ************************************************
-    #   @breief:  まとめ記入欄の各属性値を取得する
+    #   @breief:  まとめ記入セルの各属性値を取得する
     #   @param[1]: ヘッダーキー
     #   @return: 各属性値を含んだハッシュ
     # ************************************************

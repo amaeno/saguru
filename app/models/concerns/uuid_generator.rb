@@ -5,8 +5,8 @@ module UuidGenerator
 
     def generate_uuid
         self.id = loop do
-        uuid = SecureRandom.uuid
-        break uuid unless self.class.exists?(id: uuid)
-    end
+            uuid = SecureRandom.uuid
+            break uuid unless self.class.exists?(id: uuid)
+        end
     end
 end

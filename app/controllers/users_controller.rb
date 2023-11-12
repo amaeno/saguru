@@ -11,10 +11,11 @@ class UsersController < ApplicationController
                                         :authorize,
                                         ]}
 
-    # 新規登録
+    # 新規登録ページ表示 =======================================
     def signup
     end
 
+    # Userモデルへ新規登録 =======================================
     def create
         @user_info = User.new(
                         name: params[:new_user_name],
@@ -25,10 +26,10 @@ class UsersController < ApplicationController
             session[:user_id] = @user_info.id
 
             # 新規登録完了時に初期値エピソード・まとめ記入欄追加
-            if  Episode.make_new_episode_records?(session[:user_id], $START_AGE, $END_AGE) &&
-                AnalysisQ1.make_new_analysis_q1_records?(session[:user_id]) &&
-                AnalysisQ2.make_new_analysis_q2_records?(session[:user_id]) &&
-                Summary.make_new_summary_records?(session[:user_id]) 
+            if  Episode.made_new_episode_records?(session[:user_id], $START_AGE, $END_AGE) &&
+                AnalysisQ1.made_new_analysis_q1_records?(session[:user_id]) &&
+                AnalysisQ2.made_new_analysis_q2_records?(session[:user_id]) &&
+                Summary.made_new_summary_records?(session[:user_id]) 
                     flash[:notice] = "ユーザ登録が完了しました"
                     redirect_to("/saguru")
             else
@@ -44,10 +45,11 @@ class UsersController < ApplicationController
         end
     end
 
-    # アカウント照合
+    # ログインページ表示 =======================================
     def login
     end
 
+    # Userモデルへ既存アカウントか照合 =======================================
     def authorize
         @user_info = User.find_by(
                         name: params[:user_name],
@@ -67,12 +69,13 @@ class UsersController < ApplicationController
         end
     end
 
-    # アカウント編集
+    # アカウント編集ページ表示 =======================================
     def setting
         @user_info = User.find_by(id: session[:user_id])
         @update_user_name = @user_info.name
     end
 
+    # Userモデルの対象アカウントを更新 =======================================
     def update
         @user_info = User.find_by(id: session[:user_id])
 
@@ -92,17 +95,18 @@ class UsersController < ApplicationController
         end
     end
 
-    # ログアウト
+    # ログアウトする  =======================================
     def logout
         session[:user_id] = nil
         flash[:notice] = "ログアウトしました"
         redirect_to("/login")
     end
 
-    # 登録削除
+    # 登録削除ページ表示 =======================================
     def delete_account
     end
 
+    # Userモデルの対象アカウント削除 =======================================
     def delete
         User.find_by(id: session[:user_id]).destroy
         flash[:notice] = "ユーザ登録を削除しました"

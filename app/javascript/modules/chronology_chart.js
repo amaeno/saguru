@@ -130,7 +130,7 @@ const draw_dash_line = (context, x1, y1, x2, y2) => {
 
 
 // ************************************************
-//     @breief:  円を描画する
+//     @breief:  座標のドットを描画する
 //     @param[1]:  canvasのcontext
 //     @param[2]:  中心x座標
 //     @param[3]:  中心y座標
