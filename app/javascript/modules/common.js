@@ -1,11 +1,5 @@
 import {sort_episode_table, add_episode_new_row, delete_episode_new_row} from "./episode_table";
 
-// 判定確認用変数
-export const status = {
-    NG: false,
-    OK: true
-};
-
 // header列識別用辞書
 export const header_episode = {
     age: 0,
@@ -15,7 +9,6 @@ export const header_episode = {
     awareness: 4,
     length: 5
 };
-
 
 // textareaの最大行数
 const MAX_LINE_NUM = 2;
@@ -75,7 +68,7 @@ export const limit_input_range = (input_object) => {
 }
 
 // ************************************************
-//     @breief:  追加ボタンにclickイベントを設定する
+//     @breief:  ボタンのclickイベントを設定する
 //     @param[1]:  -
 //     @return: -
 // ************************************************
@@ -115,11 +108,11 @@ export const set_bottun_clickEvent = () => {
 
 
 // ************************************************
-//     @breief:  チャートのドットにhoberイベントを設定する
+//     @breief:  mouseoverイベントを設定する
 //     @param[1]:  -
 //     @return: -
 // ************************************************
-export const set_babble_hoverEvent = () => {
+export const set_bubble_hoverEvent = () => {
     const chronology_text = document.getElementById("chronologyText");
     // ドットにhover時、inputタグをcheckedにする
     chronology_text.addEventListener('mouseover', (event) => {

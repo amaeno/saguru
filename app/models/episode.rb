@@ -16,13 +16,13 @@ class Episode < ApplicationRecord
     # メソッド
 
     # ************************************************
-    #   @breief:  指定した年齢分の初期値エピソード記入欄をModelへ追加
+    #   @breief:  Episodeモデルへ指定した年齢分の初期値エピソードを追加
     #   @param[1]: ユーザID
     #   @param[2]: 開始年齢
     #   @param[3]: 終了年齢
     #   @return: OK or NG
     # ************************************************
-    def self.make_new_episode_records?(id, start_age, end_age)
+    def self.made_new_episode_records?(id, start_age, end_age)
         # 引数が正しい時処理を実行
         if(start_age.to_i < end_age.to_i)
             episode = []
@@ -59,7 +59,7 @@ class Episode < ApplicationRecord
 
 
     # ************************************************
-    #   @breief:  エピソード記入欄の変更をModelへ保存
+    #   @breief:  エピソード記入欄の変更をEpisodeモデルへ保存
     #   @param[1]: formから受け取ったparams
     #   @param[2]: ユーザID
     #   @return: OK or NG (import時のバリデーションチェック)
@@ -119,7 +119,7 @@ class Episode < ApplicationRecord
                                                     awareness:  row_data[:awareness]
                                                 )
                 elsif
-                    # 更新前後でidが共通のものない場合は追加
+                    # 更新前後でidが共通のものでない場合は追加
                     update_episode << Episode.new(
                                                     user_id:    user_id,
                                                     row:        row_data[:row],

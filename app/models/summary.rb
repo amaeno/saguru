@@ -6,11 +6,11 @@ class Summary < ApplicationRecord
     # メソッド
 
     # ************************************************
-    #   @breief:  指定したブロック分の初期値まとめ記入欄をModelへ追加
+    #   @breief:  Summaryモデルへ指定したブロック分の初期値まとめを追加
     #   @param[1]: ユーザID
     #   @return: OK or NG
     # ************************************************
-    def self.make_new_summary_records?(id)
+    def self.made_new_summary_records?(id)
         summary = []
 
         summary << Summary.new(
@@ -35,7 +35,7 @@ class Summary < ApplicationRecord
     end
 
     # ************************************************
-    #   @breief:  まとめ記入欄の変更をModelへ保存
+    #   @breief:  まとめ記入欄の変更をSummaryモデルへ保存
     #   @param[1]: formから受け取ったparams
     #   @param[2]: ユーザID
     #   @return: OK or NG (import時のバリデーションチェック)

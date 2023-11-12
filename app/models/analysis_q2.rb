@@ -9,11 +9,11 @@ class AnalysisQ2 < ApplicationRecord
     # メソッド
 
     # ************************************************
-    #   @breief:  指定したブロック分の初期値分析Q2記入欄をModelへ追加
+    #   @breief:  AnalysisQ2モデルへ指定したブロック分の初期値分析Q2を追加
     #   @param[1]: ユーザID
     #   @return: OK or NG
     # ************************************************
-    def self.make_new_analysis_q2_records?(id)
+    def self.made_new_analysis_q2_records?(id)
         analysis_q2 = []
 
         $GROUP_NUM.times do |group_cnt|
@@ -42,7 +42,7 @@ class AnalysisQ2 < ApplicationRecord
 
 
     # ************************************************
-    #   @breief:  分析Q2記入欄の変更をModelへ保存
+    #   @breief:  分析Q2記入欄の変更をAnalysisQ2モデルへ保存
     #   @param[1]: formから受け取ったparams
     #   @param[2]: ユーザID
     #   @return: OK or NG (import時のバリデーションチェック)
