@@ -1,87 +1,108 @@
-<%# episodeTable ================================== %>
-<section class="main__section">
-    <h2 class="main__sectionTtl">これまでの振り返り</h2>
-    <%# header列数 * エピソード行数　のテーブルを作成 %>
-    
-    <div    id="episodeTable"
-            class="episodeTable main__sectionContent">
-        <%= form_with url: "/update_episode" do |form| %>
-            <%= form.submit "保存", class: "episodeTable__formSendBtn" %>
-            <div class="episodeTable__cells">
-                <div class="episodeTable__header">
-                    <% $episode_header.each do |k_sym, v_header_info| %>
-                        <div class="episodeTable__column">
-                            <%= v_header_info %>
-                        </div>
-                    <% end %>
-                </div>
+<input id="episodeNav" class="saguru__navInput" name="saguru__navInput" type="radio" checked >
+<input id="chronologyNav" class="saguru__navInput" name="saguru__navInput" type="radio">
+<input id="analysisNav" class="saguru__navInput" name="saguru__navInput" type="radio">
+<input id="summaryNav" class="saguru__navInput" name="saguru__navInput" type="radio">
+
+<h2 class="main__sectionTtl">自己分析する</h2>
+<nav class="saguru__nav">
+    <ol class="saguru__navList">
+        <li class="saguru__navItem">
+            <label id="episodeLabel" class="saguru__navLabel" for="episodeNav">これまでの振り返り</label>
+        </li>
+        <li class="saguru__navItem">
+            <label id="chronologyLabel" class="saguru__navLabel" for="chronologyNav">モチベーションチャート</label>
+        </li>
+        <li class="saguru__navItem">
+            <label id="analysisLabel" class="saguru__navLabel" for="analysisNav">分析</label>
+        </li>
+        <li class="saguru__navItem">
+            <label id="summaryLabel" class="saguru__navLabel" for="summaryNav">まとめ</label>
+        </li>
+    </ol>
+</nav>
+<%= form_with url: "/saguru/update", class: "saguru__form" do |form| %>
+    <%= form.submit "保存", class: "saguru__formSendBtn" %>
+    <%# episodeTable ================================== %>
+    <section    id="episodeArea" 
+                class="main__section">
+        <button type="button" class="episodeTable__ComBtn episodeTable__btn_sort">年齢順に並び替え</button>
+        <div    id="episodeTable"
+                class="episodeTable main__sectionContent">
+            <div class="episodeTable__header">
+                <% $episode_header.each do |k_sym, v_header_info| %>
+                    <div class="episodeTable__column">
+                        <%= v_header_info %>
+                    </div>
+                <% end %>
+                <div class="episodeTable__column">操作</div>
+            </div>
             <% @episode_table_data.each do |record| %>
-                <div class="episodeTable__row">
-                    <% $episode_header.each do |k_sym, v_colomn| %>
-                        <% episodeTable_cell_attribute  = get_episodeTable_cell_attribute(record, k_sym, v_colomn) %>
-                        <div class="<%= episodeTable_cell_attribute[:attr_class] %>">
-                            <% if episodeTable_cell_is_input_tag? %>
-                                <%= form.number_field   episodeTable_cell_attribute[:attr_name].to_sym,
+                <div    id="episodeTable__rowNo<%= record[:row]%>"
+                        class="episodeTable__rowWrapper">
+                    <div class="episodeTable__row">
+                        <% $episode_header.each do |k_sym, v_colomn| %>
+                            <% episodeTable_cell_attribute  = get_episodeTable_cell_attribute(record, k_sym, v_colomn) %>
+                            <div class="<%= episodeTable_cell_attribute[:attr_class] %>">
+                                <% if episodeTable_cell_is_input_tag? %>
+                                    <%= form.number_field   episodeTable_cell_attribute[:attr_name].to_sym,
+                                                            value: record[k_sym],
+                                                            class: "episodeTable__input",
+                                                            type: episodeTable_cell_attribute[:attr_type],
+                                                            min: episodeTable_cell_attribute[:attr_min],
+                                                            max: episodeTable_cell_attribute[:attr_max] %>
+                                <% else %>
+                                    <%= form.text_area episodeTable_cell_attribute[:attr_name].to_sym,
                                                         value: record[k_sym],
-                                                        class: "episodeTable__input",
-                                                        type: episodeTable_cell_attribute[:attr_type],
-                                                        min: episodeTable_cell_attribute[:attr_min],
-                                                        max: episodeTable_cell_attribute[:attr_max],
-                                                        placeholder: episodeTable_cell_attribute[:attr_placeholder] %>
-                            <% else %>
-                                <%= form.text_area episodeTable_cell_attribute[:attr_name].to_sym,
-                                                    value: record[k_sym],
-                                                    class: "episodeTable__textarea",
-                                                    row: episodeTable_cell_attribute[:attr_row],
-                                                    placeholder: episodeTable_cell_attribute[:attr_placeholder] %>
-                            <% end %>
+                                                        class: "episodeTable__textarea",
+                                                        row: episodeTable_cell_attribute[:attr_row] %>
+                                <% end %>
+                            </div>
+                        <% end %>
+                        <div class="episodeTable__column episodeTable__btnWrapper">
+                            <input type="checkbox" id="episodeTableMenuBtn__rowNo<%= record[:row]%>" class="saguru__navInput" name="episodeTableMenuBtn">
+                            <label id="episodeTableMenuLavel__rowNo<%= record[:row]%>" class="episodeTableMenuLavel" for="episodeTableMenuBtn__rowNo<%= record[:row]%>"></label>
+                            <ul id="episodeTableMenu__rowNo<%= record[:row]%>">
+                                <li class="episodeTableMenuItem">
+                                    <button type="button" class="episodeTable__btn episodeTable__btn_delete">この行を削除</button>
+                                </li>
+                                <li class="episodeTableMenuItem">
+                                    <button type="button" class="episodeTable__btn episodeTable__btn_add">下に行を追加</button>
+                                </li>
+                            </ul>
                         </div>
-                    <% end %>
+                    </div>
+                    
                 </div>
             <% end %> 
-            </div>
-        <% end %>
-    </div>
-</section>
+        </div>
+    </section>
 
-<%# ===== chronology ===== %>
-<section class="main__section">
-    <h2 class="main__sectionTtl">自分史 / モチベーションチャート</h2>
-    <dl class="chronology main__sectionContent">
-        <dt class="chronology__axis">
-            <canvas id="chronologyChartVaxis"
-                    class="chronology__chartVaxis"></canvas>
-        </dt>
-        <dd class="chronology__chartBody">
-            <canvas id="chronologyChart"
-                    class="chronology__chart"></canvas>
-        </dd>
-        <dt class="chronology__textTtl"></dt>
-        <dd class="chronology__textList">
-            <ul id="chronologyText"
-                class="chronologyEpisodeList chronology__episode">
-                <% episodeTable_age_data = @episode_table_data.pluck(:age) %>
-                <% episodeTable_episode_data = @episode_table_data.pluck(:episode) %>
-                <% @len_episode_table_data.times do |item_num| %>
-                    <li class="chronologyEpisodeList__item">
-                        <p  class="chronologyEpisodeList__itemAge"
-                            id="<%= get_chronology_cell_id(item_num, "age") %>"><%= episodeTable_age_data[item_num] %></p>
-                        <p  class="chronologyEpisodeList__itemText"
-                            id="<%= get_chronology_cell_id(item_num, "episode") %>"><%= episodeTable_episode_data[item_num] %></p>
-                    </li>
-                <% end %>
-            </ul>
-        </dd>
-    </dl>
-</section>
+    <%# ===== chronology ===== %>
+    <section    id="chronologyArea"
+                class="main__section">
+        <dl class="chronology main__sectionContent">
+            <dt class="chronology__axis">
+                <canvas id="chronologyChartVaxis"
+                        class="chronology__chartVaxis"></canvas>
+            </dt>
+            <dd class="chronology__chartBody">
+                <canvas id="chronologyChart"
+                        class="chronology__chart"></canvas>
+            </dd>
+            <dt class="chronology__textTtl"></dt>
+            <dd class="chronology__textList">
+                <ul id="chronologyText"
+                    class="chronologyEpisodeList chronology__episode">
+                </ul>
+            </dd>
+        </dl>
+    </section>
 
-<%# ===== analysis ===== %>
-<section class="main__section">
-    <h2 class="main__sectionTtl">分析</h2>
-    <%= form_with url: "/update_analysis" do |form| %>
-            <%= form.submit "保存", class: "analysisTable__formSendBtn" %>
-    <ul id="analysisTableList"
-        class="analysisTableList main__sectionContent">
+    <%# ===== analysis ===== %>
+    <section    id="analysisArea"
+                class="main__section">
+        <ul id="analysisTableList"
+            class="analysisTableList main__sectionContent">
             <% $GROUP_NUM.times do |group_num| %>
                 <li class="analysisTableList__item">
                     <div class="analysisTableWrapper">
@@ -105,8 +126,7 @@
                                             <%= form.text_area analysisTable_cell_attribute[:attr_name].to_sym,
                                                                 value: record[k_sym],
                                                                 class: "analysisQ1Table__textarea",
-                                                                row: analysisTable_cell_attribute[:attr_row],
-                                                                placeholder: analysisTable_cell_attribute[:attr_placeholder] %>
+                                                                row: analysisTable_cell_attribute[:attr_row] %>
                                         </div>
                                     <% end %>
                                 </div>
@@ -134,8 +154,7 @@
                                             <%= form.text_area analysisTable_cell_attribute[:attr_name].to_sym,
                                                                 value: record[k_sym],
                                                                 class: "analysisQ2Table__textarea",
-                                                                row: analysisTable_cell_attribute[:attr_row],
-                                                                placeholder: analysisTable_cell_attribute[:attr_placeholder] %>
+                                                                row: analysisTable_cell_attribute[:attr_row]%>
                                         </div>
                                     <% end %>
                                 </div>
@@ -144,18 +163,14 @@
                     </div>
                 </li>
             <% end %>
-        
-    </ul>
-    <% end %>
-</section>
+        </ul>
+    </section>
 
-<%# ===== summary ===== %>
-<section class="main__section">
-    <h2 class="main__sectionTtl">まとめ</h2>
-    <ul id="summaryTableList"
-        class="summaryTableList main__sectionContent">
-        <%= form_with url: "/update_summary" do |form| %>
-            <%= form.submit "保存", class: "summaryTable__formSendBtn" %>
+    <%# ===== summary ===== %>
+    <section    id="summaryArea"
+                class="main__section">
+        <ul id="summaryTableList"
+            class="summaryTableList main__sectionContent">
             <% @summary_table_data.each do |record| %>
                 <% $summary_header.each do |k_sym, v_header_info| %>
                 <% summaryTable_cell_attribute  = get_summaryTable_cell_attribute(k_sym) %>
@@ -170,13 +185,12 @@
                                 <%= form.text_area summaryTable_cell_attribute[:attr_name].to_sym,
                                                         value: record[k_sym],
                                                         class: "summaryTable__textarea",
-                                                        row: summaryTable_cell_attribute[:attr_row],
-                                                        placeholder: summaryTable_cell_attribute[:attr_placeholder] %>
+                                                        row: summaryTable_cell_attribute[:attr_row] %>
                             </div>
                         </div>
                     </li>
                 <% end %>
             <% end %>
-        <% end %>
-    </ul>
-</section>
+        </ul>
+    </section>
+<% end %>

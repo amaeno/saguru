@@ -4,7 +4,7 @@
 // 入力フォーム ============================================
 .userInfo  {
     width: 60%;
-    margin: 30px auto;
+    margin: 0 auto;
 }
 
 .userInfo__ttl  {
@@ -25,7 +25,7 @@
     font-size: 2rem;
     padding: 0.5rem 1rem;
     color: com.$color_white;
-    background-color: com.$color_gray;
+    background-color: com.$color_green;
     border-radius: 7px;
     margin: 20px 0;
 
@@ -97,26 +97,24 @@
 }
 
 .deleteUserInfo__alertList {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     color: com.$color_red;
-    border: 4px solid com.$color_red;
-    border-radius: 10px;
-    background-color: com.$color_lightPink;
+    @include com.setBoxBorder(com.$color_red);
     margin-top: 30px;
-    padding: 10px 20px;
+    padding: 15px 0;
 }
 
 .deleteUserInfo__alertTtl {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 .deleteUserInfo__alertListItem  {
     position: relative;
-    margin-left: 1em;
+    margin: 0 1em;
     &:not(:last-of-type) {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
     &::before{
         position: absolute;
@@ -138,9 +136,7 @@
 .errorMessageBox {
     font-size: 1.4rem;
     color: com.$color_red;
-    border: 4px solid com.$color_red;
-    border-radius: 10px;
-    background-color: com.$color_lightPink;
+    @include com.setBoxBorder(com.$color_red);
 }
 
 .errorMessageBox__ttl {

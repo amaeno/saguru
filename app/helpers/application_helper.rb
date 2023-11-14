@@ -1,6 +1,6 @@
 module ApplicationHelper
     # ************************************************
-    #   @breief:  param[1]のURLに滞在する場合、指定したクラスを追記
+    #   @breief:  ヘッダーのnav__itemに付けるclass名を指定する
     #   @param[1]: クラス設定をしたいページのURL
     #   @param[2]: 追記したいクラス名
     #   @return: 追記したいクラス名 or 空文字列

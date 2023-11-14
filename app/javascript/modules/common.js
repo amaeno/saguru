@@ -1,8 +1,4 @@
-// 判定確認用変数
-export const status = {
-    NG: false,
-    OK: true
-};
+import {sort_episode_table, add_episode_new_row, delete_episode_new_row} from "./episode_table";
 
 // header列識別用辞書
 export const header_episode = {
@@ -12,21 +8,6 @@ export const header_episode = {
     motivation: 3,
     awareness: 4,
     length: 5
-};
-
-export const header_analysis = {
-    age: 0,
-    episode: 1,
-    emotion: 2,
-    motivation: 3,
-    reason: 4,
-    length: 5
-};
-
-//  セル位置判別用辞書
-export const cell_position = {
-    row: 0,
-    col: 1
 };
 
 // textareaの最大行数
@@ -84,4 +65,67 @@ export const limit_input_range = (input_object) => {
             input_object.value = MIN_INPUT_NUM;
         }
     }
+}
+
+// ************************************************
+//     @breief:  ボタンのclickイベントを設定する
+//     @param[1]:  -
+//     @return: -
+// ************************************************
+export const set_bottun_clickEvent = () => {
+    document.addEventListener('click', (event) => {
+        // 操作メニューボタン以外の箇所を押した時、開いていたメニューを閉じる
+        if (!(event.target.id && event.target.id.includes("episodeTableMenuBtn__rowNo"))){
+            const episodeTableMenuBtn_element = document.querySelectorAll(`[id*="episodeTableMenuBtn__rowNo"]`);
+            episodeTableMenuBtn_element.forEach(element => {
+                element.checked = false; 
+            });
+        }
+    });
+
+    const episode_table = document.getElementById("episodeArea");
+    episode_table.addEventListener('click', (event) => {
+        // episodeTable__btn_sortクリック時は行全体を年齢順に並び替え
+        if (event.target && event.target.classList.contains("episodeTable__btn_sort")) {
+            sort_episode_table();
+        }
+        // episodeTable__btn_addクリック時は行追加
+        if (event.target && event.target.classList.contains("episodeTable__btn_add")) {
+            add_episode_new_row(event.target);
+        }
+        // episodeTable__btn_deleteクリック時は行削除
+        if (event.target && event.target.classList.contains("episodeTable__btn_delete")) {
+            delete_episode_new_row(event.target);
+        }
+    });
+
+    // "モチベーションチャート"ナビクリック時に年齢順に並び替える
+    const chronologyNav = document.getElementById("chronologyLabel");
+    chronologyNav.addEventListener('click', (event) => {
+        sort_episode_table();
+    });
+}
+
+
+// ************************************************
+//     @breief:  mouseoverイベントを設定する
+//     @param[1]:  -
+//     @return: -
+// ************************************************
+export const set_bubble_hoverEvent = () => {
+    const chronology_text = document.getElementById("chronologyText");
+    // ドットにhover時、inputタグをcheckedにする
+    chronology_text.addEventListener('mouseover', (event) => {
+        if (event.target && event.target.classList.contains("chronologyBubbleLabel")) {
+            event.target.previousElementSibling.checked = true;
+        }
+    });
+
+    // 画面クリック時、ホバーメッセージを閉じる
+    document.addEventListener('click', () => {
+        const chronologyBubble_element = document.querySelectorAll(`[id*="chronologyBubble__rowNo"]`);
+        chronologyBubble_element.forEach(element => {
+            element.checked = false; 
+        });
+    });
 }

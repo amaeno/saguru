@@ -3,24 +3,39 @@
 // ============================================
 // 使用色一覧
 // ============================================
-$color_black: #000000;
-$color_gray: #84919E;
-$color_lightGray: #C8C8CB;
+$color_black: #212121;
+$color_gray: #494440;
+$color_lightGray: #E4E2E0;
 $color_white: #FFFFFF;
-$color_green: #03AF7A;
-$color_lightGreen: #77D9A8;
-$color_yellowGreen: #D8F255;
-$color_orange: #F6AA00;
-$color_red: #FF4B00;
-$color_lightPink: #FFCABF;
-$color_lightBlue: #BFE4FF;
+$color_green: #2E8540;
+$color_lightGreen: #B7EAB8;
+$color_red: #CD2026;
+$color_blue: #0071BC;
 
 
 // ============================================
 //  variable 
 // ============================================
-$maxWidth: 1000px;
+$maxWidth: 1100px;
 $headerHeight: 90px;
+
+
+// ============================================
+// mixin 
+// ============================================
+/************************************************
+    @breief:  ブロックの上下に線を設定する
+    @param[1]:  線の色
+    @return: -
+************************************************/
+@mixin setBoxBorder($borderColor){
+    border-top: 3px solid $borderColor;
+    border-bottom: 3px solid $borderColor;
+}
+
+// ============================================
+// style
+// ============================================
 
 * {
     box-sizing: border-box;
@@ -29,6 +44,7 @@ $headerHeight: 90px;
 html {
     font-family: YuGothic,'Yu Gothic',sans-serif;
     font-size: 62.5%;
+    color: $color_black;
     background-color: $color_white;
     // スクロールバー全ページで表示(スクロールバーの有無でレイアウトがズレるため)
     overflow-y: scroll;
@@ -40,27 +56,44 @@ html {
 }
 
 .body__main {
+    position: relative;
+    display: block;
+    margin: 0 auto;
     // 固定ヘッダーと重ならないためのpadding
     padding-top:  $headerHeight;
     padding-bottom: 30px;
 }
 
 .body__flashMessage {
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 50%;
     font-size: 2rem;
-    margin: 10px auto;
+    font-weight: bold;
     padding: 10px;
-    color: $color_white;
-    border-radius: 7px;
+    animation: message_fade 4s ease-out;
+    top: 0;
+    right: 10%;
+    opacity: 1;
 
     &_alert {
-        background-color: $color_orange;
+        color: $color_red;
+        @include setBoxBorder($color_red);
     }
 
     &_notice {
-        background-color: $color_lightBlue;
+        color: $color_blue;
+        @include setBoxBorder($color_blue);
     }
+}
+
+@keyframes message_fade {
+    0%  {top: 0;}
+    10% {top: calc($headerHeight + 15px);} 
+    90% {   top: calc($headerHeight + 15px);
+            opacity: 1;}
+    100% {  top: 0;
+            opacity: 0;} 
 }
