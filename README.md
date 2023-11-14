@@ -46,3 +46,4 @@ Saguruは4つのステップで自己分析を進めます。
 
 ## その他資料
 - [開発環境について](./doc/dev_environment.md)
+- [設計概要](./doc/design_overview.md)
