@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   post "/users/authorize" => "users#authorize"
   get "/delete_account" => "users#delete_account"
   post "/users/delete" => "users#delete"
+  # エラー確認(全パスの全メソッドで404に該当するか確認) =======================================
+  match "*path" => "application#error_404", via: :all
 end
