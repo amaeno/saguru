@@ -74,6 +74,20 @@
     border: 1px solid com.$color_gray;
 }
 
+#userInfoInputArea_passview {
+    display: inline-block;
+    margin: 5px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: com.$color_blue;
+    cursor: pointer;
+
+    &::before {
+        content: ">>";
+        margin-right: 0.5em;
+    }
+}
+
 .userInfoInputArea__noteList {
     font-size: 1.4rem;
     color: com.$color_gray;

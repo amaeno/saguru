@@ -108,6 +108,27 @@ export const set_bottun_clickEvent = () => {
 
 
 // ************************************************
+//     @breief:  ボタンのclickイベントを設定する
+//     @param[1]:  -
+//     @return: -
+// ************************************************
+export const set_bottun_clickEvent_user = () => {
+    // クリックでパスワードの表示・非表示を切り替える
+    const password_btn = document.getElementById("userInfoInputArea_passview");
+    password_btn.addEventListener("click", (event) => {
+        const password_form = password_btn.previousElementSibling; // user_password
+        if( password_form.type === "password" ) {
+            password_form.type = "text";
+            password_btn.textContent = "パスワードを非表示";
+        }
+        else {
+            password_form.type = "password";
+            password_btn.textContent = "パスワードを表示";
+        }
+    });
+}
+
+// ************************************************
 //     @breief:  mouseoverイベントを設定する
 //     @param[1]:  -
 //     @return: -
