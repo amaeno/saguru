@@ -2,7 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-import {set_bottun_clickEvent, set_bubble_hoverEvent, set_bottun_clickEvent_user} from "./modules/common";
+import {set_button_clickEvent, set_bubble_hoverEvent, toggle_password_view} from "./modules/common";
 import {init_episode_table} from "./modules/episode_table";
 import {draw_chronology_chart_and_text} from "./modules/chronology_chart";
 import {init_analysis_table} from "./modules/analysis_table";
@@ -19,7 +19,7 @@ document.addEventListener("turbo:load", () => {
             init_summary_table();
 
             // テーブルの各行の追加・削除・ソートボタン
-            set_bottun_clickEvent();
+            set_button_clickEvent();
             // チャートのドット上にホバーメッセージを出す
             set_bubble_hoverEvent();
 
@@ -28,7 +28,8 @@ document.addEventListener("turbo:load", () => {
         case "/login":
         case "/signup":
         case "/setting":
-            set_bottun_clickEvent_user();
+            toggle_password_view();
+            
             break;
         // その他の画面
         default:

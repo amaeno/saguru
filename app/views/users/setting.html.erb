@@ -31,7 +31,10 @@
                                     value: @update_user_password,
                                     class: "userInfoInputArea__form",
                                     autocomplete: "on" %>
-            <button type="button" id="userInfoInputArea_passview">パスワードを表示</button>
+            <div id="userInfoInputArea_pass">
+                <span id="userInfoInputArea_passIcon" class="-pass_view"></span>
+                <button type="button" id="userInfoInputArea_passview">パスワードを表示</button>
+            </div>
             <dl class="userInfoInputArea__noteList">
                 <dd class="userInfoInputArea__noteDesc">パスワードは以下の条件を満たすよう設定してください</dd>
                 <dt class="userInfoInputArea__noteTerm">半角英数字記号全てを含んだ組み合わせ</dt>
