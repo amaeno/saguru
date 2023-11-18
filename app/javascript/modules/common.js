@@ -72,7 +72,7 @@ export const limit_input_range = (input_object) => {
 //     @param[1]:  -
 //     @return: -
 // ************************************************
-export const set_bottun_clickEvent = () => {
+export const set_button_clickEvent = () => {
     document.addEventListener('click', (event) => {
         // 操作メニューボタン以外の箇所を押した時、開いていたメニューを閉じる
         if (!(event.target.id && event.target.id.includes("episodeTableMenuBtn__rowNo"))){
@@ -108,22 +108,29 @@ export const set_bottun_clickEvent = () => {
 
 
 // ************************************************
-//     @breief:  ボタンのclickイベントを設定する
+//     @breief:  クリックでパスワードの表示・非表示を切り替える
 //     @param[1]:  -
 //     @return: -
 // ************************************************
-export const set_bottun_clickEvent_user = () => {
-    // クリックでパスワードの表示・非表示を切り替える
+export const toggle_password_view = () => {
     const password_btn = document.getElementById("userInfoInputArea_passview");
-    password_btn.addEventListener("click", (event) => {
-        const password_form = password_btn.previousElementSibling; // user_password
+    const password_area = document.getElementById("userInfoInputArea_pass");
+    const password_icon = document.getElementById("userInfoInputArea_passIcon");
+    password_btn.addEventListener("click", () => {
+        const password_form = password_area.previousElementSibling; // user_password
         if( password_form.type === "password" ) {
             password_form.type = "text";
             password_btn.textContent = "パスワードを非表示";
+            // アイコン切り替え
+            password_icon.classList.remove("-pass_view");
+            password_icon.classList.add("-pass_hidden");
         }
         else {
             password_form.type = "password";
             password_btn.textContent = "パスワードを表示";
+            // アイコン切り替え
+            password_icon.classList.remove("-pass_hidden");
+            password_icon.classList.add("-pass_view");
         }
     });
 }
