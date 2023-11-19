@@ -135,6 +135,23 @@ export const toggle_password_view = () => {
     });
 }
 
+
+// ************************************************
+//     @breief:  Enter押してもFormをSubmitしないようにする
+//     @param[1]:  -
+//     @return: -
+// ************************************************
+export const disable_send_form_press_enter = () => {
+    document.addEventListener("keypress", (event) => {
+        if( event.code === "Enter" ) {
+            // Formの送信・伝搬をキャンセル
+            event.stopPropagation();
+            event.preventDefault();
+        }
+    });
+}
+
+
 // ************************************************
 //     @breief:  mouseoverイベントを設定する
 //     @param[1]:  -

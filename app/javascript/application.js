@@ -2,7 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-import {set_button_clickEvent, set_bubble_hoverEvent, toggle_password_view} from "./modules/common";
+import {set_button_clickEvent, set_bubble_hoverEvent, toggle_password_view, disable_send_form_press_enter} from "./modules/common";
 import {init_episode_table} from "./modules/episode_table";
 import {draw_chronology_chart_and_text} from "./modules/chronology_chart";
 import {init_analysis_table} from "./modules/analysis_table";
@@ -23,13 +23,15 @@ document.addEventListener("turbo:load", () => {
             // チャートのドット上にホバーメッセージを出す
             set_bubble_hoverEvent();
 
+            disable_send_form_press_enter();
+
             break;
         // パスワード入力ありの画面
         case "/login":
         case "/signup":
         case "/setting":
             toggle_password_view();
-            
+
             break;
         // その他の画面
         default:
