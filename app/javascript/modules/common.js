@@ -137,17 +137,20 @@ export const toggle_password_view = () => {
 
 
 // ************************************************
-//     @breief:  Enter押してもFormをSubmitしないようにする
+//     @breief: inputでEnter押してもFormをSubmitしないようにする
 //     @param[1]:  -
 //     @return: -
 // ************************************************
 export const disable_send_form_press_enter = () => {
-    document.addEventListener("keypress", (event) => {
-        if( event.code === "Enter" ) {
-            // Formの送信・伝搬をキャンセル
-            event.stopPropagation();
-            event.preventDefault();
-        }
+    const focused_element = document.querySelectorAll(`[class*="Table__input"]`);
+    focused_element.forEach(element => {
+        element.addEventListener("keypress", (event) => {
+            if( event.code === "Enter" ) {
+                // Formの送信・伝搬をキャンセル
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
     });
 }
 
