@@ -1,4 +1,4 @@
-import {header_episode, limit_textarea_lines, limit_input_range} from "./common";
+import {header_episode, limit_input_range, update_textarea_height} from "./common";
 import {draw_chronology_chart_and_text} from "./chronology_chart";
 
 
@@ -26,8 +26,8 @@ export const init_episode_table = () => {
     episode_table.addEventListener('input', (event) => {
         if (event.target && 
             (event.target.classList.contains("episodeTable__input") || event.target.classList.contains("episodeTable__textarea"))) {
-            // テキストの入力可能行数を制限
-            limit_textarea_lines(event.target);
+            // テキストのセルの高さを更新
+            update_textarea_height(event.target);
             limit_input_range(event.target);
 
             let row_num = Number(event.target.id.match(/r_\d+/)[0].split("_")[1]);

@@ -54,6 +54,7 @@ $chartTextHeight: 300px;
         border: 1px solid com.$color_gray;
         border-radius: 10px;
         margin-bottom: 5px;
+        overflow: visible;
 
         // // 隔行に色づけ
         // &:nth-of-type(odd) {
@@ -71,7 +72,7 @@ $chartTextHeight: 300px;
                 position: absolute;
                 content: "";
                 width: 2px;
-                height: 70%;
+                height: calc(100% - 10px);
                 top: 50%;
                 right: -1px;
                 transform: translate(0, -50%);
@@ -367,8 +368,8 @@ $chartTextHeight: 300px;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 50%;
-        height: 50%;
+        width: 35px;
+        height: 35px;
         content: "…";
         background-color: com.$color_lightGray;
         border-radius: 50%;
