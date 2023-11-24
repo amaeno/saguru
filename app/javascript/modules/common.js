@@ -62,6 +62,23 @@ export const set_button_clickEvent = () => {
                 element.checked = false; 
             });
         }
+
+        if (event.target.className.match(/Table__textarea$|Table__input$/g)){
+            // クリック毎に全てのinput/textareのfocus時スタイルを解除
+            const forms = document.querySelectorAll(`[class*="Table__textarea"]`,`[class*="Table__input"]`);
+            forms.forEach(element => {
+                element.parentNode.style.outline = "none";
+            });
+
+            // input/textareクリック時にfocus時スタイルを適用
+            if(event.target === document.activeElement){
+                const column_element = event.target.parentNode;
+                column_element.style.outline = "3px solid #2E8540";
+                column_element.style.outlineOffset = "-4px";
+                column_element.style.borderRadius = "10px";
+            }
+
+        }
     });
 
     const episode_table = document.getElementById("episodeArea");
