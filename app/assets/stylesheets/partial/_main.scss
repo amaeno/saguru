@@ -54,7 +54,6 @@ $chartTextHeight: 300px;
         border: 1px solid com.$color_gray;
         border-radius: 10px;
         margin-bottom: 5px;
-        overflow: visible;
 
         // // 隔行に色づけ
         // &:nth-of-type(odd) {
@@ -84,23 +83,10 @@ $chartTextHeight: 300px;
     .#{$tableName}Table__input,
     .#{$tableName}Table__textarea {
         position: relative;
+        display: block;
         width: 100%;
         height: 100%;
-
-        &:focus {
-            outline: 3px solid com.$color_green;
-            outline-offset: -3px;
-            border-radius: 10px;
-        }
-
-        &::placeholder {
-            color: com.$color_lightGray;
-        }
-
-        // フォーカス時にplaceholder非表示
-        &:focus::placeholder {
-            color: transparent;
-        }
+        overflow-y: hidden;
     }
 
     .#{$tableName}Table__textarea {
