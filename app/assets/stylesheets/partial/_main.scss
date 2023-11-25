@@ -517,7 +517,6 @@ $chartTextHeight: 300px;
 
         // 縦書き設定
         writing-mode: vertical-rl;
-        text-orientation: upright;
     }
 }
 
@@ -593,7 +592,6 @@ $chartTextHeight: 300px;
 
     // 縦書き設定
     writing-mode: vertical-rl;
-    text-orientation: upright;
     line-height: 1;
     // 改行文字で改行できるようにする
     white-space: pre-wrap;
