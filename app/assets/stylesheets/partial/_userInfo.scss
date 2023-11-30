@@ -74,6 +74,40 @@
     border: 1px solid com.$color_gray;
 }
 
+#userInfoInputArea_pass {
+    display: flex;
+    align-items: center;
+}
+
+#userInfoInputArea_passIcon {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin-right: 0.5em;
+}
+
+.-pass_view {
+    background: url("pass_view.svg") no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
+
+.-pass_hidden {
+    background: url("pass_hidden.svg") no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
+
+#userInfoInputArea_passview {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: com.$color_blue;
+    cursor: pointer;
+}
+
 .userInfoInputArea__noteList {
     font-size: 1.4rem;
     color: com.$color_gray;

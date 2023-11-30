@@ -10,38 +10,19 @@ export const header_episode = {
     length: 5
 };
 
-// textareaの最大行数
-const MAX_LINE_NUM = 2;
-
 
 // ************************************************
-//     @breief:  textareaの入力可能行数を制限する
+//     @breief:  textareaの高さを再設定する
 //     @param[1]:  textareaのオブジェクト
 //     @return: -
 // ************************************************
-export const limit_textarea_lines = (textarea_object) => {
+export const update_textarea_height = (textarea_object) => {
     if(textarea_object.tagName === "TEXTAREA"){
-        let output_text = "";
-
-        // 入力テキストを列ごとに配列に格納
-        let lines = textarea_object.value.split("\n");
-
-        // 指定行数を超えた入力部分はテキストを削除
-        if(lines.length > MAX_LINE_NUM ){
-            for (let i = 0; i < MAX_LINE_NUM; i++) {
-                // 制限行到達時は改行しない
-                if(i === (MAX_LINE_NUM - 1)){
-                    output_text += lines[i];
-                }
-                else  {
-                    output_text += lines[i] + "\n";
-                }
-            }
-            textarea_object.value = output_text;
-        }
+        textarea_object.setAttribute("style", `height: ${textarea_object.scrollHeight}px;`);
+        textarea_object.style.height = "auto";
+        textarea_object.style.height = `${textarea_object.scrollHeight}px`;
     }
 }
-
 
 
 // ************************************************
@@ -72,7 +53,7 @@ export const limit_input_range = (input_object) => {
 //     @param[1]:  -
 //     @return: -
 // ************************************************
-export const set_bottun_clickEvent = () => {
+export const set_button_clickEvent = () => {
     document.addEventListener('click', (event) => {
         // 操作メニューボタン以外の箇所を押した時、開いていたメニューを閉じる
         if (!(event.target.id && event.target.id.includes("episodeTableMenuBtn__rowNo"))){
@@ -80,6 +61,23 @@ export const set_bottun_clickEvent = () => {
             episodeTableMenuBtn_element.forEach(element => {
                 element.checked = false; 
             });
+        }
+
+        if (event.target.className.match(/Table__textarea$|Table__input$/g)){
+            // クリック毎に全てのinput/textareのfocus時スタイルを解除
+            const forms = document.querySelectorAll(`[class*="Table__textarea"]`,`[class*="Table__input"]`);
+            forms.forEach(element => {
+                element.parentNode.style.outline = "none";
+            });
+
+            // input/textareクリック時にfocus時スタイルを適用
+            if(event.target === document.activeElement){
+                const column_element = event.target.parentNode;
+                column_element.style.outline = "3px solid #2E8540";
+                column_element.style.outlineOffset = "-4px";
+                column_element.style.borderRadius = "10px";
+            }
+
         }
     });
 
@@ -103,6 +101,54 @@ export const set_bottun_clickEvent = () => {
     const chronologyNav = document.getElementById("chronologyLabel");
     chronologyNav.addEventListener('click', (event) => {
         sort_episode_table();
+    });
+}
+
+
+// ************************************************
+//     @breief:  クリックでパスワードの表示・非表示を切り替える
+//     @param[1]:  -
+//     @return: -
+// ************************************************
+export const toggle_password_view = () => {
+    const password_btn = document.getElementById("userInfoInputArea_passview");
+    const password_area = document.getElementById("userInfoInputArea_pass");
+    const password_icon = document.getElementById("userInfoInputArea_passIcon");
+    password_btn.addEventListener("click", () => {
+        const password_form = password_area.previousElementSibling; // user_password
+        if( password_form.type === "password" ) {
+            password_form.type = "text";
+            password_btn.textContent = "パスワードを非表示";
+            // アイコン切り替え
+            password_icon.classList.remove("-pass_view");
+            password_icon.classList.add("-pass_hidden");
+        }
+        else {
+            password_form.type = "password";
+            password_btn.textContent = "パスワードを表示";
+            // アイコン切り替え
+            password_icon.classList.remove("-pass_hidden");
+            password_icon.classList.add("-pass_view");
+        }
+    });
+}
+
+
+// ************************************************
+//     @breief: inputでEnter押してもFormをSubmitしないようにする
+//     @param[1]:  -
+//     @return: -
+// ************************************************
+export const disable_send_form_press_enter = () => {
+    const focused_element = document.querySelectorAll(`[class*="Table__input"]`);
+    focused_element.forEach(element => {
+        element.addEventListener("keypress", (event) => {
+            if( event.code === "Enter" ) {
+                // Formの送信・伝搬をキャンセル
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
     });
 }
 
