@@ -65,7 +65,7 @@ export const set_button_clickEvent = () => {
 
         if (event.target.className.match(/Table__textarea$|Table__input$/g)){
             // クリック毎に全てのinput/textareのfocus時スタイルを解除
-            const forms = document.querySelectorAll(`[class*="Table__textarea"]`,`[class*="Table__input"]`);
+            const forms = document.querySelectorAll('[class*="Table__textarea"], [class*="Table__input"]');
             forms.forEach(element => {
                 element.parentNode.style.outline = "none";
             });
