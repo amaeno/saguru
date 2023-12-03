@@ -67,7 +67,7 @@ export const set_button_clickEvent = () => {
             // クリック毎に全てのinput/textareのfocus時スタイルを解除
             const forms = document.querySelectorAll('[class*="Table__textarea"], [class*="Table__input"]');
             forms.forEach(element => {
-                element.parentNode.style.outline = "none";
+                element.parentNode.style = null;
             });
 
             // input/textareクリック時にfocus時スタイルを適用
